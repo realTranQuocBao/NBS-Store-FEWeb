@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import { useSelector, useDispatch } from 'react-redux';
-import { userLoginActions } from './../Redux/Actions/userActions';
-import Message from './../components/LoadingError/Error';
-import Loading from './../components/LoadingError/Loading';
+import { userLoginAction } from './../Redux/Actions/userActions';
+import Message from './../components/base/LoadingError/Error';
+import Loading from './../components/base/LoadingError/Loading';
 
 const Login = ({ location, history }) => {
   window.scrollTo(0, 0);
@@ -26,7 +26,7 @@ const Login = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(userLoginActions(email, password));
+    dispatch(userLoginAction(email, password));
   }
   return (
     <>
