@@ -11,7 +11,8 @@
 - Done add to cart
 - Done cart screen
 - Done remove from cart
-  continue...https://youtu.be/1NWBO8L81J8?t=9491
+- Done login redux
+-
 
 # Done feature in NBS-Admin
 - processing
@@ -31,3 +32,5 @@
 - src/components/admin
 - src/components/base
 - src/PrivateRouter.js
+
+- processing

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "./../../components/base/LoadingError/Loading";
 import Toast from "./../../components/base/LoadingError/Toast";
-import { login } from "./../../Redux/Actions/userActions";
+import { adminLoginAction } from "./../../Redux/Actions/userActions";
 import Message from "./../../components/base/LoadingError/Error";
 
 const Login = ({ history }) => {
@@ -23,7 +23,7 @@ const Login = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    dispatch(adminLoginAction(email, password));
   };
   return (
     <>
