@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import Rating from "./Rating";
 import Pagination from "./pagination";
 import { useDispatch, useSelector } from 'react-redux';
-import { listProduct } from '../../Redux/Actions/ProductActions';
-import Loading from '../LoadingError/Loading';
-import Message from '../LoadingError/Error';
+import { listProducts } from '../../Redux/Actions/productActions';
+import Loading from './../base/LoadingError/Loading';
+import Message from './../base/LoadingError/Error';
 
 const ShopSection = () => {
   const dispatch = useDispatch()
@@ -14,7 +14,7 @@ const ShopSection = () => {
 
   // handle get all products
   useEffect(() => {
-    dispatch(listProduct());
+    dispatch(listProducts());
   }, [dispatch]);
   console.log(">>>All data products: ", products);
   return (

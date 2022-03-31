@@ -3,9 +3,9 @@ import Header from "../components/Header";
 import Rating from "../components/homeComponents/Rating";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { detailsProduct } from "../Redux/Actions/ProductActions";
-import Loading from './../components/LoadingError/Loading';
-import Message from './../components/LoadingError/Error';
+import { detailsProduct } from "../Redux/Actions/productActions";
+import Loading from './../components/base/LoadingError/Loading';
+import Message from './../components/base/LoadingError/Error';
 
 
 const SingleProduct = ({ history, match }) => {
