@@ -13,15 +13,20 @@
 - Done remove from cart
 - Done login redux
 - Done login screen
+- Done logout screen
+  https://www.youtube.com/watch?v=1NWBO8L81J8&t=13041s
 
 # Done feature in NBS-Admin
+
 - processing
 
 # difference
+
 - admin: jquery
 - client: react-paypal-button-v2 react-router
 
 # Merge Admin&Client modoule task
+
 - src/Redux/Constants
 - src/Redux/Reducers
 - src/Redux/Action
