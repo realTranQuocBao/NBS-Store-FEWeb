@@ -19,7 +19,7 @@ import "./App.css";
 import "./responsive.css";
 import "react-toastify/dist/ReactToastify.css";
 import HomeScreenAdmin from "./screens/admin/HomeScreen";
-import ProductScreenAdmin from "./screens/admin/productScreen";
+import ProductScreenAdmin from "./screens/admin/ProductScreen";
 import CategoriesScreenAdmin from "./screens/admin/CategoriesScreen";
 import OrderScreenAdmin from "./screens/admin/OrderScreen";
 import OrderDetailScreenAdmin from "./screens/admin/OrderDetailScreen";
