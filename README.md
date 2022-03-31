@@ -12,7 +12,7 @@
 - Done cart screen
 - Done remove from cart
 - Done login redux
--
+- Done login screen
 
 # Done feature in NBS-Admin
 
