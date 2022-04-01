@@ -14,7 +14,7 @@
 - Done login redux
 - Done login screen
 - Done logout screen
-  https://www.youtube.com/watch?v=1NWBO8L81J8&t=13041s
+- Done register user
 
 # Done feature in NBS-Admin
 

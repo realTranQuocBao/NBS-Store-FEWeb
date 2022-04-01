@@ -2,8 +2,13 @@ import React from "react";
 import Header from "../components/Header";
 import ProfileTabs from "../components/profileComponents/ProfileTabs";
 import Orders from "../components/profileComponents/Orders";
+import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 const ProfileScreen = () => {
+  const userLogin = useSelector(state => state.userLogin);
+  const { userInfo } = userLogin;
+
   window.scrollTo(0, 0);
   return (
     <>
@@ -19,10 +24,10 @@ const ProfileScreen = () => {
                 </div>
                 <div className="author-card-details col-md-7">
                   <h5 className="author-card-name mb-2">
-                    <strong>Admin Doe</strong>
+                    <strong>{userInfo.name}</strong>
                   </h5>
                   <span className="author-card-position">
-                    <>Joined Dec 12 2021</>
+                    <>{moment(userInfo.createdAt).format('LLL')}</>
                   </span>
                 </div>
               </div>
