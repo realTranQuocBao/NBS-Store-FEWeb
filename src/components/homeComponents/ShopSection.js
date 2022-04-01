@@ -16,7 +16,7 @@ const ShopSection = () => {
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch]);
-  console.log(">>>All data products: ", products);
+  // console.log(">>>All data products: ", products);
   return (
     <>
       <div className="container">
@@ -58,6 +58,7 @@ const ShopSection = () => {
                                   value={product.rating}
                                   text={`${product.numReviews} reviews`}
                                 />
+                                {console.log("???rating: ", product.rating)}
                                 <h3>${product.price}</h3>
                               </div>
                             </div>
