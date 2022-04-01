@@ -15,6 +15,7 @@
 - Done login screen
 - Done logout screen
 - Done register user
+- Done update profile user
 
 # Done feature in NBS-Admin
 
