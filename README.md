@@ -13,15 +13,21 @@
 - Done remove from cart
 - Done login redux
 - Done login screen
+- Done logout screen
+- Done register user
+- Done update profile user
 
 # Done feature in NBS-Admin
+
 - processing
 
 # difference
+
 - admin: jquery
 - client: react-paypal-button-v2 react-router
 
 # Merge Admin&Client modoule task
+
 - src/Redux/Constants
 - src/Redux/Reducers
 - src/Redux/Action
