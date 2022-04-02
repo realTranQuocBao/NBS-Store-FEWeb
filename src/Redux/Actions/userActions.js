@@ -29,7 +29,7 @@ export const adminLoginAction = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `/api/users/login`,
+      `/api/v1/user/login`,
       { email, password },
       config
     );
@@ -107,7 +107,7 @@ export const listUser = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/users`, config);
+    const { data } = await axios.get(`/api/v1/user`, config);
 
     dispatch({ type: USER_LIST_SUCCESS, payload: data });
   } catch (error) {
