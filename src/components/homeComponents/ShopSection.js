@@ -58,7 +58,7 @@ const ShopSection = () => {
                                   value={product.rating}
                                   text={`${product.numReviews} reviews`}
                                 />
-                                {console.log("???rating: ", product.rating)}
+                                {/* {console.log("???rating: ", product.rating)} */}
                                 <h3>${product.price}</h3>
                               </div>
                             </div>
