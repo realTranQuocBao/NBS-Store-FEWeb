@@ -68,6 +68,8 @@ export const adminLoginAction = (email, password) => async (dispatch) => {
     });
   }
 };
+
+// USER LOGIN
 export const userLoginAction = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
