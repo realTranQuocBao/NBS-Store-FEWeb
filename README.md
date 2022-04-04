@@ -16,6 +16,8 @@
 - Done logout screen
 - Done register user
 - Done update profile user
+- Done PAYPAL
+
 
 # Done feature in NBS-Admin
 
