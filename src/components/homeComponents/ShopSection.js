@@ -7,15 +7,18 @@ import { listProducts } from '../../Redux/Actions/productActions';
 import Loading from './../base/LoadingError/Loading';
 import Message from './../base/LoadingError/Error';
 
-const ShopSection = () => {
-  const dispatch = useDispatch()
+const ShopSection = (props) => {
+  const { keyword, pageNumber } = props;
+  // console.log("===> Log keyword shop section: ", keyword);
+  const dispatch = useDispatch();
+
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading, error, products, page, pages } = productList;
 
   // handle get all products
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(keyword, pageNumber));
+  }, [dispatch, keyword, pageNumber]);
   // console.log(">>>All data products: ", products);
   return (
     <>
@@ -66,7 +69,11 @@ const ShopSection = () => {
                         ))
                       )}
                 {/* Pagination */}
-                <Pagination />
+                <Pagination
+                  page={page}
+                  pages={pages}
+                  keyword={keyword ? keyword : ""}
+                />
               </div>
             </div>
           </div>

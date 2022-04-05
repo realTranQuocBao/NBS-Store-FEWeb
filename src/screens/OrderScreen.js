@@ -56,15 +56,15 @@ const OrderScreen = ({ match }) => {
   }, [dispatch, orderId, successPay, order]);
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(">>>Log payment screen: ",paymentResult);
+    // console.log(">>>Log payment screen: ",paymentResult);
     dispatch(payOrder(orderId, paymentResult));
   };
 
   return (
     <>
-      {
+      {/* {
         console.log("??? check show order screen: ====>")
-      }
+      } */}
       <Header />
       <div className="container">
         {loading ? (

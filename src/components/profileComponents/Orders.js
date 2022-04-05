@@ -39,9 +39,7 @@ const Orders = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                {
-                  console.log(">>>Order list view: ", orders[0])
-                }
+
                   {orders && orders.map((order) => (
                     <tr
                       className={`${

@@ -17,7 +17,9 @@
 - Done register user
 - Done update profile user
 - Done PAYPAL
-
+- Done review
+- Done search
+- Done pagenumber
 
 # Done feature in NBS-Admin
 

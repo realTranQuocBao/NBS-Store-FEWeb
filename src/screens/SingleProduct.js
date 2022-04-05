@@ -171,7 +171,7 @@ const SingleProduct = ({ history, match }) => {
                         onChange={(e) => setRating(e.target.value)}
                         className="col-12 bg-light p-3 mt-2 border-0 rounded"
                       >
-                        <option value="">Select...</option>
+                              <option value="">Select...</option>
                         <option value="1">1 - Poor</option>
                         <option value="2">2 - Fair</option>
                         <option value="3">3 - Good</option>
