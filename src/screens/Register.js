@@ -16,7 +16,7 @@ const Register = ({ location, history }) => {
 
   const dispatch = useDispatch();
   const userRegister = useSelector(state => state.userRegister);
-  console.log(">>>Register: ", userRegister);
+  // console.log(">>>Register: ", userRegister);
   const { loading, error, userInfo } = userRegister;
 
   useEffect(() => {

@@ -3,22 +3,44 @@ import Header from "../components/Header";
 import Rating from "../components/homeComponents/Rating";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { detailsProduct } from "../Redux/Actions/productActions";
+import { createProductReview, detailsProduct } from "../Redux/Actions/productActions";
 import Loading from './../components/base/LoadingError/Loading';
 import Message from './../components/base/LoadingError/Error';
-
+import moment from "moment";
+import { PRODUCT_CREATE_REVIEW_RESET } from "../Redux/Constants/productConstants";
 
 const SingleProduct = ({ history, match }) => {
   // console.log(">>>View match: ", match);
   const [qty, setQty] = useState(1);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+
   const productId = match.params.id
   const dispatch = useDispatch();
+
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  const productReviewCreate = useSelector((state) => state.productReviewCreate);
+  const {
+    loading: loadingCreateReview,
+    error: errorCreateReview,
+    success: successCreateReview,
+  } = productReviewCreate;
+
   // handle get single products
   useEffect(() => {
+    if (successCreateReview) {
+      alert("Review Submitted");
+      setRating(0);
+      setComment("");
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+    }
+
     dispatch(detailsProduct(productId))
-  }, [dispatch, productId]);
+  }, [dispatch, productId, successCreateReview]);
   // console.log(">>>Single data product: ", product);
 
   const handleAddToCart = (e) => {
@@ -26,6 +48,15 @@ const SingleProduct = ({ history, match }) => {
     history.push(`/cart/${productId}?qty=${qty}`);
   }
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      createProductReview(productId, {
+        rating,
+        comment,
+      })
+    );
+  };
   return (
     <>
       <Header />
@@ -99,28 +130,48 @@ const SingleProduct = ({ history, match }) => {
               <div className="row my-5">
                 <div className="col-md-6">
                   <h6 className="mb-3">REVIEWS</h6>
-                  <Message variant={"alert-info mt-3"}>No Reviews</Message>
-                  <div className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded">
-                    <strong>Admin Doe</strong>
-                    <Rating />
-                    <span>Jan 12 2021</span>
-                    <div className="alert alert-info mt-3">
-                      Lorem Ipsum is simply dummy text of the printing and typesetting
-                      industry. Lorem Ipsum has been the industry's standard dummy
-                      text ever since the 1500s, when an unknown printer took a galley
-                      of type and scrambled it to make a type specimen book
-                    </div>
-                  </div>
+                  {
+                    product.reviews.length === 0 && 
+                    (<Message variant={"alert-info mt-3"}>No Reviews</Message>)
+                  }
+                  {
+                    product.reviews && product.reviews.map(
+                      (review) => (
+                      <div 
+                        key={review._id}
+                        className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded">
+                        <strong>{review.name}</strong>
+                        <Rating value={review.rating}/>
+                        <span>{moment(review.createdAt).calendar()}</span>
+                        <div className="alert alert-info mt-3">
+                          {review.comment}
+                        </div>
+                      </div>
+                      )
+                    )
+                    }
                 </div>
                 <div className="col-md-6">
                   <h6>WRITE A CUSTOMER REVIEW</h6>
-                  <div className="my-4"></div>
+                  <div className="my-4">
+                  {loadingCreateReview && <Loading />}
+                  {errorCreateReview && (
+                    <Message variant="alert-danger">
+                      {errorCreateReview}
+                    </Message>
+                  )}
+                  </div>
 
-                  <form>
+                  {userInfo ? (
+                  <form onSubmit={submitHandler}>
                     <div className="my-4">
                       <strong>Rating</strong>
-                      <select className="col-12 bg-light p-3 mt-2 border-0 rounded">
-                        <option value="">Select...</option>
+                      <select
+                        value={rating}
+                        onChange={(e) => setRating(e.target.value)}
+                        className="col-12 bg-light p-3 mt-2 border-0 rounded"
+                      >
+                              <option value="">Select...</option>
                         <option value="1">1 - Poor</option>
                         <option value="2">2 - Fair</option>
                         <option value="3">3 - Good</option>
@@ -132,15 +183,21 @@ const SingleProduct = ({ history, match }) => {
                       <strong>Comment</strong>
                       <textarea
                         row="3"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
                         className="col-12 bg-light p-3 mt-2 border-0 rounded"
                       ></textarea>
                     </div>
                     <div className="my-3">
-                      <button className="col-12 bg-black border-0 p-3 rounded text-white">
+                      <button
+                        disabled={loadingCreateReview}
+                        className="col-12 bg-black border-0 p-3 rounded text-white"
+                      >
                         SUBMIT
                       </button>
                     </div>
                   </form>
+                ) : (
                   <div className="my-3">
                     <Message variant={"alert-warning"}>
                       Please{" "}
@@ -150,10 +207,11 @@ const SingleProduct = ({ history, match }) => {
                       to write a review{" "}
                     </Message>
                   </div>
-                </div>
+                )}
               </div>
-            </>)
-        }
+            </div>
+          </>
+        )}
       </div>
     </>
   );

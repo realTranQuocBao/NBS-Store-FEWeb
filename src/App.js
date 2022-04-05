@@ -28,7 +28,7 @@ import LoginAdmin from "./screens/admin/LoginScreen";
 import UsersScreenAdmin from "./screens/admin/UsersScreen";
 import ProductEditScreenAdmin from "./screens/admin/ProductEditScreen";
 import NotFoundAdmin from "./screens/admin/NotFound";
-import PrivateRouter from "./PrivateRouter";
+import {PrivateRouter,AdminPrivateRouter} from "./PrivateRouter";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductsAdmin } from "./Redux/Actions/productActions";
 import { listOrders } from "./Redux/Actions/orderActions";
@@ -48,27 +48,34 @@ const App = () => {
     <Router>
       <Switch>
         <Route path="/" component={HomeScreen} exact />
+        <Route path="/search/:keyword" component={HomeScreen} exact />
+        <Route path="/page/:pagenumber" component={HomeScreen} exact />
+        <Route
+          path="/search/:keyword/page/:pageNumber"
+          component={HomeScreen}
+          exact
+        />
         <Route path="/products/:id" component={SingleProduct} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/profile" component={ProfileScreen} />
+        <PrivateRouter path="/profile" component={ProfileScreen} />
         <Route path="/cart/:id?" component={CartScreen} />
-        <Route path="/shipping" component={ShippingScreen} />
-        <Route path="/payment" component={PaymentScreen} />
-        <Route path="/placeorder" component={PlaceOrderScreen} />
-        <Route path="/order/:id" component={OrderScreen} />
-        <PrivateRouter path="/admin" component={HomeScreenAdmin} exact />
+        <PrivateRouter path="/shipping" component={ShippingScreen} />
+        <PrivateRouter path="/payment" component={PaymentScreen} />
+        <PrivateRouter path="/placeorder" component={PlaceOrderScreen} />
+        <PrivateRouter path="/order/:id" component={OrderScreen} />
+        <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
         <Route path="*" component={NotFound} />
         {/* ADMIN */}
-        <PrivateRouter path="/admin/products" component={ProductScreenAdmin} />
-        <PrivateRouter path="/admin/category" component={CategoriesScreenAdmin} />
-        <PrivateRouter path="/admin/orders" component={OrderScreenAdmin} />
-        <PrivateRouter path="/admin/order/:id" component={OrderDetailScreenAdmin} />
-        <PrivateRouter path="/admin/addproduct" component={AddProductAdmin} />
-        <PrivateRouter path="/admin/users" component={UsersScreenAdmin} />
-        <PrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} />
+        <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} />
+        <AdminPrivateRouter path="/admin/category" component={CategoriesScreenAdmin} />
+        <AdminPrivateRouter path="/admin/orders" component={OrderScreenAdmin} />
+        <AdminPrivateRouter path="/admin/order/:id" component={OrderDetailScreenAdmin} />
+        <AdminPrivateRouter path="/admin/addproduct" component={AddProductAdmin} />
+        <AdminPrivateRouter path="/admin/users" component={UsersScreenAdmin} />
+        <AdminPrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} />
         <Route path="/admin/login" component={LoginAdmin} />
-        <PrivateRouter path="*" component={NotFoundAdmin} />
+        <AdminPrivateRouter path="*" component={NotFoundAdmin} />
       </Switch>
     </Router>
   );

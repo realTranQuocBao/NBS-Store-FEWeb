@@ -21,15 +21,21 @@ import {
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
 } from "../Constants/productConstants";
 import { logout } from "./userActions";
+import { PRODUCT_CREATE_REVIEW_REQUEST } from './../Constants/productConstants';
 
-// action list product
-export const listProducts = () => async (dispatch) => {
+// product list action
+export const listProducts =
+  (keyword = " ", pageNumber = " ") =>
+    async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
-    const { data } = await axios.get("/api/v1/product");
-    console.log(">>>log data: ", data);
+    const { data } = await axios.get(
+      `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}`);
+    // console.log(">>>log data: ", data);
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -58,8 +64,45 @@ export const detailsProduct = (id) => async (dispatch) => {
     });
   }
 };
+// action create review product
+export const createProductReview = 
+(productId, review) => async (dispatch, getState) => {
+  try {
+    dispatch({type: PRODUCT_CREATE_REVIEW_REQUEST});
+    const {
+      userLogin : { userInfo }
+    } = getState();
 
-// admin
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      }
+    }
+
+    await axios.post(`/api/v1/product/${productId}/review`, review, config);
+    dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
+
+  } catch (error) {
+    const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      if (message === "Not authorized, token failed") {
+        dispatch(logout());
+      }
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_FAIL,
+        payload: message,
+      });
+    }
+  }
+
+
+
+/**
+ * ADMIN
+*/ 
 export const listProductsAdmin = () => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
