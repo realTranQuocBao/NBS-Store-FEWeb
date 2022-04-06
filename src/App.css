@@ -1,6 +1,7 @@
+@import url(https://fonts.googleapis.com/css?family=Quicksand:300,regular,500,600,700);
 body {
   margin: 0;
-  font-family: "Josefin Sans", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   /* font-family: 'Open Sans', sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -40,7 +41,7 @@ textarea:focus {
   padding: 0;
 }
 .Announcement {
-  background-color: #1cb803;
+  background-color: #014c8f;
   padding: 10px 0px 6px 0px;
 }
 .Announcement .col-md-6 p {
@@ -61,17 +62,23 @@ textarea:focus {
   width: 60%;
 }
 .input-group {
-  height: 50px;
+  height: 40px;
   width: 90%;
 }
 .search-button {
   width: 20%;
-  background-color: black;
+  background-color: #014c8f;
   color: white;
   border: 0;
   text-transform: uppercase;
   font-size: 12px;
+  border-radius: 5px;
 }
+.search-button:hover{
+  font-weight: 800;
+  transition: .2s ease-in-out;
+}
+
 .Login-Register a {
   text-transform: uppercase;
   font-size: 15px;
@@ -109,7 +116,7 @@ textarea:focus {
   margin: 0 !important;
 }
 .dropdown-menu a:hover {
-  background-color: #1cb803 !important;
+  background-color: #014c8f !important;
   color: #ffffff !important;
 }
 .mobile-header {
@@ -232,7 +239,7 @@ textarea:focus {
   width: 460px;
 }
 .form-section input[type="submit"] {
-  background: #1cb803;
+  background: #014c8f;
   border: 0 none;
   border-radius: 25px;
   color: #fff;
@@ -263,10 +270,10 @@ textarea:focus {
 .info-image {
   width: 50px;
   height: 50px;
-  border: 2px solid #1cb803;
+  border: 2px solid #014c8f;
   border-radius: 100px;
   font-size: 20px;
-  color: #1cb803;
+  color: #014c8f;
 }
 .box-info h5 {
   font-weight: bold;
@@ -351,7 +358,7 @@ textarea:focus {
 }
 .round-black-btn:hover,
 .round-black-btn:focus {
-  background: #1cb803;
+  background: #014c8f;
 }
 
 /* LOGIN */
@@ -384,7 +391,7 @@ textarea:focus {
   margin-top: 20px;
   padding: 20px 0;
   border: 0;
-  background-color: #1cb803;
+  background-color: #014c8f;
   border-radius: 5px;
   text-transform: uppercase;
   color: white;
@@ -469,7 +476,7 @@ textarea:focus {
   margin-top: 20px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: #1cb803;
+  background-color: #014c8f;
   color: #ffffff;
 }
 /* orders */
@@ -562,7 +569,7 @@ textarea:focus {
   border: 0px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: #1cb803;
+  background-color: #014c8f;
   color: #ffffff;
 }
 .cart-buttons a:nth-child(1) button {
@@ -639,7 +646,7 @@ textarea:focus {
   border: 0px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: #1cb803;
+  background-color: #014c8f;
   color: #ffffff;
 }
 

@@ -1,0 +1,22 @@
+/* == Slider == */
+.slider {
+    position: relative;
+    z-index: -1;
+    margin-top: var(--height-header);
+    padding-top: 40%;
+    background: url('./../images/slide-img1.jpg') top / contain no-repeat;
+    animation: slider ease-in infinite 10s alternate;
+}
+
+@keyframes slider {
+    0% {
+        background: url('./../images/slide-img2.jpg') top / contain no-repeat;
+    }
+    
+    50% {
+        background: url('./../images/slide-img1.jpg') top / contain no-repeat;
+    }
+    100% {
+        background: url('./../images/slide-img3.jpg') top / contain no-repeat;
+    }
+}
