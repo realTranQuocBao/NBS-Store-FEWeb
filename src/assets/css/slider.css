@@ -4,7 +4,7 @@
     z-index: -1;
     margin-top: var(--height-header);
     padding-top: 40%;
-    background: url('./../images/slide-img1.jpg') top / contain no-repeat;
+    background: url('./../images/slide-img3.jpg') top / contain no-repeat;
     animation: slider ease-in infinite 10s alternate;
 }
 

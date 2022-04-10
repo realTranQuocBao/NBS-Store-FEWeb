@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import "../assets/css/slider.css";
 
 const Slider = () => {
@@ -7,4 +7,4 @@ const Slider = () => {
     )
 }
 
-export default Slider
+export default Slider;

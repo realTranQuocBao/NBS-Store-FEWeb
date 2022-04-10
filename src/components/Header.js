@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { logout } from './../Redux/Actions/userActions';
+import Sidebar from "./sidebar/Sidebar";
+
 
 const Header = () => {
   const [keyword, setKeyword] = useState();
@@ -25,6 +27,12 @@ const Header = () => {
     } else {
       history.push("/");
     }
+  }
+
+  const [isOpen, setIsOpen] = useState({});
+  // toggle menu
+  const handleToggleSidebar = () => {
+    setIsOpen(!isOpen);
   }
 
 
@@ -61,6 +69,16 @@ const Header = () => {
       {/* Header */}
       <div className="header">
         <div className="container">
+          {/* Toggle menu */}
+          <div
+            onClick={handleToggleSidebar}
+            className="sidebar-icon-menu">
+            <i className=" fas fa-bars"></i>
+          </div>
+          <Sidebar
+            isOpen={isOpen}
+            handleToggleSidebar={handleToggleSidebar} />
+
           {/* MOBILE HEADER */}
           <div className="mobile-header">
             <div className="container ">
@@ -147,6 +165,7 @@ const Header = () => {
           {/* PC HEADER */}
           <div className="pc-header">
             <div className="row">
+
               <div className="col-md-3 col-4 d-flex align-items-center">
                 <Link className="navbar-brand" to="/">
                   <img alt="logo" src="/images/logo.png" />
