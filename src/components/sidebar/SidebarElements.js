@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FaRegTimesCircle } from "react-icons/fa";
+import { FaRegTimesCircle, FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export const SidebarContent = styled.aside`
@@ -17,6 +17,21 @@ export const SidebarContent = styled.aside`
         width: 100%;
     }
 `;
+export const OpenIconStyle = styled.div`
+    z-index: 999;
+    position: fixed;
+    left: 0;
+    line-height: 45px;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Quicksand', sans-serif;
+    color: #014c8f;
+    background: #fff;
+    padding: 0 15px 0 15px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+`;
 export const Icon = styled.div`
     position: absolute;
     top: 1.2rem;
@@ -28,6 +43,9 @@ export const Icon = styled.div`
     outline: none;
 `;
 export const CloseIcon = styled(FaRegTimesCircle)`
+    color: #014c8f;
+`;
+export const OpenIcon = styled(FaBars)`
     color: #014c8f;
 `;
 export const SidebarMenu = styled.div`

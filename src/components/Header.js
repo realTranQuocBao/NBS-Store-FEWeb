@@ -29,11 +29,6 @@ const Header = () => {
     }
   }
 
-  const [isOpen, setIsOpen] = useState({});
-  // toggle menu
-  const handleToggleSidebar = () => {
-    setIsOpen(!isOpen);
-  }
 
 
   return (
@@ -69,15 +64,9 @@ const Header = () => {
       {/* Header */}
       <div className="header">
         <div className="container">
+
           {/* Toggle menu */}
-          <div
-            onClick={handleToggleSidebar}
-            className="sidebar-icon-menu">
-            <i className=" fas fa-bars"></i>
-          </div>
-          <Sidebar
-            isOpen={isOpen}
-            handleToggleSidebar={handleToggleSidebar} />
+          <Sidebar />
 
           {/* MOBILE HEADER */}
           <div className="mobile-header">
