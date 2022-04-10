@@ -20,6 +20,7 @@ const Header = () => {
     dispatch(logout())
   }
 
+  // search handler
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {

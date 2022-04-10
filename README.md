@@ -20,6 +20,8 @@
 - Done review
 - Done search
 - Done pagenumber
+- Done slide UI
+- Done sidebar UI
 
 # Done feature in NBS-Admin
 

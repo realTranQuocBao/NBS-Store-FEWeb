@@ -4,17 +4,17 @@ import ShopSection from "../components/homeComponents/ShopSection";
 import ContactInfo from "../components/homeComponents/ContactInfo";
 import CalltoActionSection from "../components/homeComponents/CalltoActionSection";
 import Footer from "../components/Footer";
-import Slider from "../components/Slider";
+import Slideshow from '../components/Slideshow';
 
 const HomeScreen = ({ match }) => {
   window.scrollTo(0, 0);
-  console.log("======>This is a match:", match);
+  // console.log("======>This is a match:", match);
   const keyword = match.params.keyword;
   const pageNumber = match.params.pagenumber;
   return (
     <div>
       <Header />
-      <Slider />
+      <Slideshow />
       <ShopSection keyword={keyword} pageNumber={pageNumber} />
       <CalltoActionSection />
       <ContactInfo />

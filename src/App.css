@@ -9,6 +9,10 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
 a {
   text-decoration: none;
   color: black;
@@ -659,3 +663,10 @@ textarea:focus {
   background-color: black;
   border: 1px solid black;
 }
+
+/* slideshow */
+@import "react-slideshow-image/dist/styles.css";
+
+.each-slide > img {
+    width: 100%;
+  }
