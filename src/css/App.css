@@ -179,7 +179,8 @@ textarea:focus {
 .border-product {
   padding: 15px;
   border: 1px solid #f3f3f3;
-  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  border-radius: 10px;
 }
 .shopBack {
   height: 250px;
@@ -220,7 +221,7 @@ textarea:focus {
 /* NEWSLATTER */
 .subscribe-section {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
-    url("https://sasshoes-com.s3.us-west-2.amazonaws.com/img/banner-uplift-21.jpg")
+    url("https://img.upanh.tv/2022/04/11/imagefb49b3813c61d18b.png")
       no-repeat scroll center / cover;
   padding: 100px 0 100px;
 }
@@ -725,4 +726,62 @@ textarea:focus {
   font-size: 24px;
   color: var(--primary-color);
 
+}
+
+/* popular categories */
+.popu-cate {
+  margin-top: 24px;
+}
+
+.popu-cate__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popu-cate__item {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;  
+}
+a.popu-cate__item{
+  margin-bottom: 20px;
+}
+
+.popu-cate__item:hover .popu-cate__desc {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.popu-cate__item:hover .popu-cate__img {
+  transform: scale(1.1);
+}
+
+.popu-cate__img {
+  transition: 1s;
+}
+
+.popu-cate__desc {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: var(--white-color);
+  border-radius: 10px;
+  z-index: 3;
+  transition: 1s;
+}
+
+.popu-cate__desc-title {
+  font-size: 25px;
+  text-transform: uppercase;
+  font-weight: 1000;
+}
+
+.popu-cate__des--quantity {
+  font-size: 15px;
+  text-align: center;
+  font-weight: 300;
 }

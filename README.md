@@ -23,7 +23,7 @@
 - Done slide UI
 - Done sidebar UI
 - Done policy UI
-
+- Done popular categories UI
 # Done feature in NBS-Admin
 
 - processing

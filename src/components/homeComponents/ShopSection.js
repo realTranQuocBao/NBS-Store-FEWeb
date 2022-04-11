@@ -27,6 +27,9 @@ const ShopSection = (props) => {
           <div className="row">
             <div className="col-lg-12 col-md-12 article">
               <div className="shopcontainer row">
+                <div class="title-section">
+                  <h2 class="heading-section main-effect">all product</h2>
+                </div>
                 {
                   loading ? (
                     <div className="mb-5 mt-5">
@@ -42,18 +45,18 @@ const ShopSection = (props) => {
                             className="shop col-lg-4 col-md-6 col-sm-6"
                             key={product._id}
                           >
-                            {/* {console.log(">>> _id: ", product._id)} */}
                             <div className="border-product">
                               <Link to={`/products/${product._id}`}>
-                                <div className="shopBack">
-                                  <img src={product.image} alt={product.name} />
+                                <div className="shopBack main-effect">
+                                  <img className="main-scale" src={product.image} alt={product.name} />
                                 </div>
                               </Link>
 
                               <div className="shoptext">
                                 <p>
                                   <Link to={`/products/${product._id}`}>
-                                    {product.name}
+                                    {`${product.name.length} >= 35` ? `  
+                                    ${product.name.slice(-35)}...` : ` ${product.name}}`}
                                   </Link>
                                 </p>
 
@@ -61,7 +64,6 @@ const ShopSection = (props) => {
                                   value={product.rating}
                                   text={`${product.numReviews} reviews`}
                                 />
-                                {/* {console.log("???rating: ", product.rating)} */}
                                 <h3>${product.price}</h3>
                               </div>
                             </div>

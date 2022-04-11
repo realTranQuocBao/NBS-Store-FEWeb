@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-import "./App.css";
-import "./responsive.css";
+import "../src/css/App.css";
+import "../src/css/responsive.css";
+import "./css/grid.css";
+import "./css/base.css";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
@@ -15,8 +17,6 @@ import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 import NotFound from "./screens/NotFound";
 //admin
-import "./App.css";
-import "./responsive.css";
 import "react-toastify/dist/ReactToastify.css";
 import HomeScreenAdmin from "./screens/admin/HomeScreen";
 import ProductScreenAdmin from "./screens/admin/ProductScreen";
