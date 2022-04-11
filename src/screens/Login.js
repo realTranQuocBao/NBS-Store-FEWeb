@@ -22,7 +22,7 @@ const Login = ({ location, history }) => {
     if (userInfo) {
       history.push(redirect);
     }
-  }, [history, location, userInfo]);
+  }, [history, location, userInfo, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();

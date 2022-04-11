@@ -25,7 +25,7 @@ const Slideshow = () => {
           <div className="each-slide" key={index}>
             {/* <div style={{ 'backgroundImage': `url(${slideImage.url})` }}>
             </div> */}
-            <img src={slideImage.url} />
+            <img src={slideImage.url} alt={slideImage.caption} />
           </div>
         ))}
       </Fade>

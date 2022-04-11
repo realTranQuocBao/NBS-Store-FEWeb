@@ -22,6 +22,7 @@
 - Done pagenumber
 - Done slide UI
 - Done sidebar UI
+- Done policy UI
 
 # Done feature in NBS-Admin
 
