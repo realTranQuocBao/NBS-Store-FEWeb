@@ -265,3 +265,25 @@ html {
 .no-border {
     border: unset;
 }
+.frame-error{
+    /* padding: 5px 0; */
+    text-align: left;
+}
+.alert.alert-danger,
+.error-message{
+    font-size: 15px;
+    color: red;
+}
+.form-title{
+    text-transform: uppercase;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.alert.alert-danger {
+    padding: unset;
+    bottom: unset;
+    margin: unset;
+    background: none;
+    border: none;
+}
