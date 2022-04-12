@@ -27,8 +27,8 @@ const ShopSection = (props) => {
           <div className="row">
             <div className="col-lg-12 col-md-12 article">
               <div className="shopcontainer row">
-                <div class="title-section">
-                  <h2 class="heading-section main-effect">all product</h2>
+                <div className="title-section">
+                  <h2 className="heading-section main-effect">all product</h2>
                 </div>
                 {
                   loading ? (

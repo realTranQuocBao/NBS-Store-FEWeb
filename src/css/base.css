@@ -42,7 +42,7 @@ html {
 .btn {
     display:inline-block;
     border: none;
-    background-color: transparent;
+    /* background-color: transparent; */
     outline: none;
     text-decoration: none;
     color: var(--white-color);

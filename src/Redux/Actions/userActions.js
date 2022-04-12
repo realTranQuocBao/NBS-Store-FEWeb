@@ -20,7 +20,7 @@ import {
 import axios from "axios";
 import { toast } from "react-toastify";
 
-// LOGIN
+// ADMIN LOGIN
 export const adminLoginAction = (email, password) => async (dispatch) => {
   const ToastObjects = {
     pauseOnFocusLoss: false,
@@ -103,6 +103,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_DETAILS_RESET });
   // dispatch({ type: USER_LIST_RESET });
   document.location.href = "/login";
+  localStorage.setItem("cartItems", JSON.stringify([]));
 };
 
 // REGISTER

@@ -8,7 +8,7 @@ import {
     SidebarLink,
     OpenIcon
 } from './SidebarElements';
-
+import Draggable from 'react-draggable';
 
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState({});
@@ -18,11 +18,13 @@ const Sidebar = () => {
     }
     return (
         <>
+            <Draggable axis="y">
             <OpenIconStyle
                 onClick={handleToggleSidebar}
                 className="sidebar-icon-menu">
                 <OpenIcon />
             </OpenIconStyle>
+            </Draggable>
             <SidebarContent isOpen={isOpen} >
                 <Icon onClick={handleToggleSidebar}>
                     <CloseIcon />
