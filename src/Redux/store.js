@@ -15,11 +15,12 @@ import {
   //client
   productDetailsReducer,
   //admin
-  productCreateReducer,
   productDeleteReducer,
-  productEditReducer,
   productUpdateReducer,
   productCreateReviewReducer,
+  productListReducerAdmin,
+  productCreateReducerAdmin,
+  productEditReducerAdmin,
 } from "./Reducers/productReducers";
 import {
   orderCreateReducer,
@@ -45,9 +46,10 @@ const reducer = combineReducers({
   listMyOrders: orderListMyReducer,
   //admin
   userList: userListReducer,
+  productListAdmin: productListReducerAdmin,
   productDelete: productDeleteReducer,
-  productCreate: productCreateReducer,
-  productEdit: productEditReducer,
+  productCreateAdmin: productCreateReducerAdmin,
+  productEditAdmin: productEditReducerAdmin,
   productUpdate: productUpdateReducer,
   orderList: orderListReducer,
   orderDeliver: orderDeliveredReducer,

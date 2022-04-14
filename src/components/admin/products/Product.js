@@ -5,6 +5,7 @@ import { deleteProduct } from "../../../Redux/Actions/productActions";
 
 const Product = (props) => {
   const { product } = props;
+  // console.log(product);
   const dispatch = useDispatch();
 
   const deletehandler = (id) => {
@@ -27,15 +28,15 @@ const Product = (props) => {
             <div className="price mb-2">${product.price}</div>
             <div className="row">
               <Link
-                to={`/product/${product._id}/edit`}
-                className="btn btn-sm btn-outline-success p-2 pb-3 col-md-6"
+                to={`/admin/product/${product._id}/edit`}
+                className="btn btn-sm btn-outline-success p-2 pb-3 col-md-6 btn-item-product"
               >
                 <i className="fas fa-pen"></i>
               </Link>
               <Link
                 to="#"
                 onClick={() => deletehandler(product._id)}
-                className="btn btn-sm btn-outline-danger p-2 pb-3 col-md-6"
+                className="btn btn-sm btn-outline-danger p-2 pb-3 col-md-6 btn-item-product"
               >
                 <i className="fas fa-trash-alt"></i>
               </Link>

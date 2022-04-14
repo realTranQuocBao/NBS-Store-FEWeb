@@ -27,13 +27,15 @@ import {
   PRODUCT_CREATE_REVIEW_RESET,
 } from "../Constants/productConstants";
 
+/**
+ * CLIENT ONLY
+ */
 // PRODUCT LIST
 export const productListReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
       return { loading: true, products: [] };
     case PRODUCT_LIST_SUCCESS:
-      // console.log(">>>check success");
       return {
         loading: false,
         page: action.payload.page,
@@ -47,9 +49,6 @@ export const productListReducer = (state = { products: [] }, action) => {
   }
 };
 
-/**
- * CLIENT ONLY
- */
 // SINGLE PRODUCT
 export const productDetailsReducer = (
   state = { product: { reviews: [] } },
@@ -87,7 +86,20 @@ export const productCreateReviewReducer = (state = {}, action) => {
 /**
  * ADMIN ONLY
  */
-
+// ALL PRODUCTS
+export const productListReducerAdmin = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_LIST_REQUEST:
+      return { loading: true, products: [] };
+    case PRODUCT_LIST_SUCCESS:
+      // console.log("check success>>>");
+      return { loading: false, products: action.payload.products };
+    case PRODUCT_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 // DELETE PRODUCT
 export const productDeleteReducer = (state = {}, action) => {
   switch (action.type) {
@@ -102,8 +114,8 @@ export const productDeleteReducer = (state = {}, action) => {
   }
 };
 
-// DELETE PRODUCT
-export const productCreateReducer = (state = {}, action) => {
+// CREATE PRODUCT
+export const productCreateReducerAdmin = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_CREATE_REQUEST:
       return { loading: true };
@@ -119,7 +131,7 @@ export const productCreateReducer = (state = {}, action) => {
 };
 
 // EDIT PRODUCT
-export const productEditReducer = (
+export const productEditReducerAdmin = (
   state = { product: { reviews: [] } },
   action
 ) => {

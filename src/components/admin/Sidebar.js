@@ -6,7 +6,7 @@ const Sidebar = () => {
     <div>
       <aside className="navbar-aside" id="offcanvas_aside">
         <div className="aside-top">
-          <Link to="/" className="brand-wrap">
+          <Link to="/admin/" className="brand-wrap">
             <img
               src="/images/logo.png"
               style={{ height: "46" }}
@@ -27,7 +27,7 @@ const Sidebar = () => {
               <NavLink
                 activeClassName="active"
                 className="menu-link"
-                to="/"
+                to="/admin"
                 exact={true}
               >
                 <i className="icon fas fa-home"></i>
@@ -38,7 +38,7 @@ const Sidebar = () => {
               <NavLink
                 activeClassName="active"
                 className="menu-link"
-                to="/products"
+                to="/admin/products"
               >
                 <i className="icon fas fa-shopping-bag"></i>
                 <span className="text">Products</span>
@@ -48,7 +48,7 @@ const Sidebar = () => {
               <NavLink
                 activeClassName="active"
                 className="menu-link"
-                to="/addproduct"
+                to="/admin/addproduct"
               >
                 <i className="icon fas fa-cart-plus"></i>
                 <span className="text">Add product</span>
@@ -58,7 +58,7 @@ const Sidebar = () => {
               <NavLink
                 activeClassName="active"
                 className="menu-link"
-                to="/category"
+                to="/admin/category"
               >
                 <i className="icon fas fa-list"></i>
                 <span className="text">Categories</span>
@@ -68,7 +68,7 @@ const Sidebar = () => {
               <NavLink
                 activeClassName="active"
                 className="menu-link"
-                to="/orders"
+                to="/admin/orders"
               >
                 <i className="icon fas fa-bags-shopping"></i>
                 <span className="text">Orders</span>
@@ -78,7 +78,7 @@ const Sidebar = () => {
               <NavLink
                 activeClassName="active"
                 className="menu-link"
-                to="/users"
+                to="/admin/users"
               >
                 <i className="icon fas fa-user"></i>
                 <span className="text">Users</span>
@@ -88,7 +88,7 @@ const Sidebar = () => {
               <NavLink
                 activeClassName="active"
                 className="menu-link disabled"
-                to="/sellers"
+                to="/admin/sellers"
               >
                 <i className="icon fas fa-store-alt"></i>
                 <span className="text">Sellers</span>
@@ -99,7 +99,7 @@ const Sidebar = () => {
               <NavLink
                 activeClassName="active"
                 className="menu-link disabled"
-                to="/transaction"
+                to="/admin/transaction"
               >
                 <i className="icon fas fa-usd-circle"></i>
                 <span className="text">Transactions</span>

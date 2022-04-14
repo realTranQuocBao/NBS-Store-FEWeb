@@ -19,7 +19,7 @@ const UserComponent = () => {
       <div className="content-header">
         <h2 className="content-title">Customers</h2>
         <div>
-          <Link to="#" className="btn btn-primary">
+          <Link to="#" className="btn btn-primary btn-size">
             <i className="material-icons md-plus"></i> Create new
           </Link>
         </div>

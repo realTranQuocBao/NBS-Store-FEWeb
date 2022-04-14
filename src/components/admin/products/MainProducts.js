@@ -9,8 +9,9 @@ import Message from "./../../base/LoadingError/Error";
 const MainProducts = () => {
   const dispatch = useDispatch();
 
-  const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const productListAdmin = useSelector((state) => state.productListAdmin);
+  const { loading, error, products } = productListAdmin;
+  console.log("View all products>>>", products);
 
   const productDelete = useSelector((state) => state.productDelete);
   const { error: errorDelete, success: successDelete } = productDelete;
@@ -24,7 +25,7 @@ const MainProducts = () => {
       <div className="content-header">
         <h2 className="content-title">Products</h2>
         <div>
-          <Link to="/addproduct" className="btn btn-primary">
+          <Link to="/admin/addproduct" className="btn btn-primary btn-size">
             Create new
           </Link>
         </div>
@@ -69,7 +70,7 @@ const MainProducts = () => {
           ) : (
             <div className="row">
               {/* Products */}
-              {products.map((product) => (
+                  {products && products.map((product) => (
                 <Product product={product} key={product._id} />
               ))}
             </div>

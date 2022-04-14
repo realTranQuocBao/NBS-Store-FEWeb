@@ -287,3 +287,11 @@ html {
     background: none;
     border: none;
 }
+.btn-size{
+ font-size: 14px; 
+}
+.btn-item-product{
+    border: 1px solid #ccc;
+    font-size: 10px;
+    color: red;
+}

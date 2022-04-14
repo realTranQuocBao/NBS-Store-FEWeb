@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { PRODUCT_CREATE_RESET } from "./../../../Redux/Constants/productConstants";
-import { createProduct } from "./../../../Redux/Actions/productActions";
+import { createProductAdmin } from "./../../../Redux/Actions/productActions";
 import Toast from "./../../base/LoadingError/Toast";
 import Message from "./../../base/LoadingError/Error";
 import Loading from "./../../base/LoadingError/Loading";
@@ -23,8 +23,8 @@ const AddProductMain = () => {
 
   const dispatch = useDispatch();
 
-  const productCreate = useSelector((state) => state.productCreate);
-  const { loading, error, product } = productCreate;
+  const productCreateAdmin = useSelector((state) => state.productCreateAdmin);
+  const { loading, error, product } = productCreateAdmin;
 
   useEffect(() => {
     if (product) {
@@ -40,7 +40,7 @@ const AddProductMain = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createProduct(name, price, description, image, countInStock));
+    dispatch(createProductAdmin(name, price, description, image, countInStock));
   };
 
   return (
@@ -49,12 +49,12 @@ const AddProductMain = () => {
       <section className="content-main" style={{ maxWidth: "1200px" }}>
         <form onSubmit={submitHandler}>
           <div className="content-header">
-            <Link to="/products" className="btn btn-danger text-white">
+            <Link to="/admin/products" className="btn btn-danger text-white btn-size">
               Go to products
             </Link>
             <h2 className="content-title">Add product</h2>
             <div>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary btn-size">
                 Publish now
               </button>
             </div>

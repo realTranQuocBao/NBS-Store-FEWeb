@@ -27,6 +27,9 @@ import {
 import { logout } from "./userActions";
 import { PRODUCT_CREATE_REVIEW_REQUEST } from './../Constants/productConstants';
 
+/**
+ * CLIENT
+ */
 // product list action
 export const listProducts =
   (keyword = " ", pageNumber = " ") =>
@@ -103,6 +106,7 @@ export const createProductReview =
 /**
  * ADMIN
 */ 
+//  ALL PRODUCT
 export const listProductsAdmin = () => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
@@ -117,7 +121,7 @@ export const listProductsAdmin = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/products/all`, config);
+    const { data } = await axios.get(`/api/v1/product`, config);
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -169,7 +173,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
 };
 
 // CREATE PRODUCT
-export const createProduct =
+export const createProductAdmin =
   (name, price, description, image, countInStock) =>
     async (dispatch, getState) => {
       try {
@@ -186,7 +190,7 @@ export const createProduct =
         };
 
         const { data } = await axios.post(
-          `/api/products/`,
+          `/api/v1/product/`,
           { name, price, description, image, countInStock },
           config
         );
@@ -208,10 +212,10 @@ export const createProduct =
     };
 
 // EDIT PRODUCT
-export const editProduct = (id) => async (dispatch) => {
+export const editProductAdmin = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_EDIT_REQUEST });
-    const { data } = await axios.get(`/api/products/${id}`);
+    const { data } = await axios.get(`/api/v1/product/${id}`);
     dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
   } catch (error) {
     const message =
@@ -229,7 +233,7 @@ export const editProduct = (id) => async (dispatch) => {
 };
 
 // UPDATE PRODUCT
-export const updateProduct = (product) => async (dispatch, getState) => {
+export const updateProductAdmin = (product) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_UPDATE_REQUEST });
 
@@ -245,7 +249,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `/api/products/${product._id}`,
+      `/api/v1/product/${product._id}`,
       product,
       config
     );
