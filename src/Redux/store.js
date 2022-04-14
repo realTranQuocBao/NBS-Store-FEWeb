@@ -53,7 +53,6 @@ const reducer = combineReducers({
   productUpdate: productUpdateReducer,
   orderList: orderListReducer,
   orderDeliver: orderDeliveredReducer,
-  // orderListMy: orderListMyReducerAdmin,
 });
 
 //get cart from localstorage

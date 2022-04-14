@@ -3,6 +3,15 @@
 /* ========================
 INCLUDE STYLES AND COMPONENTS
 ===================== */
+:root {
+  --white-color: #fff;
+  --black-color: #000;
+  --primary-color: #014c8f;
+  --text-color: #4c4c4c;
+  --red-color: #d50000;
+  --border-color: #ccc;
+  --height-header: 61px;
+}
 /* ================== HELPERS =================== */
 .table thead th {
   color: #adb5bd;
@@ -25,11 +34,11 @@ a.disabled {
   pointer-events: none;
 }
 .btn-primary {
-  background-color: #4fa607 !important;
-  border: 1px solid #4fa607 !important;
+  background-color: var(--primary-color) !important;
+  border: 1px solid var(--primary-color) !important;
 }
 .Header-green {
-  background-color: #4fa607;
+  background-color: var(--primary-color);
 }
 /* .screen-overlay {
   width: 0%;
@@ -216,7 +225,7 @@ body.offcanvas-active {
 }
 .main-header .nav-link:hover {
   background-color: #e9ecef;
-  color: #4fa607;
+  color: var(--primary-color);
 }
 .main-header .col-search {
   flex-grow: 0.5;
@@ -230,7 +239,7 @@ body.offcanvas-active {
   border: 2px solid #eee;
 }
 .nav-item img.rounded-circle:hover {
-  border-color: #4fa607;
+  border-color: var(--primary-color);
 }
 
 .content-header {
@@ -242,7 +251,11 @@ body.offcanvas-active {
 .content-header .content-title {
   margin-bottom: 0;
 }
-
+.content-title{
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 24px;
+}
 .inner {
   padding: 1rem;
 }
@@ -317,7 +330,7 @@ body.aside-mini .menu-aside .menu-item.has-submenu .menu-link:after {
   font-size: 18px;
 }
 .menu-aside .active .icon {
-  color: #4fa607;
+  color: var(--primary-color);
 }
 .menu-aside .active {
   background-color: #ebf0fd;
@@ -414,7 +427,7 @@ a[class*="card"] {
   color: initial;
 }
 a[class*="card"]:hover .title {
-  color: #4fa607;
+  color: var(--primary-color);
 }
 
 /* ITEM LIST */
@@ -452,7 +465,7 @@ a[class*="card"]:hover .title {
   margin-bottom: 5px;
 }
 .itemside a.title:hover {
-  color: #4fa607;
+  color: var(--primary-color);
 }
 
 a.itemside {
@@ -502,7 +515,7 @@ a.itemside:hover .title {
   text-decoration: none;
 }
 .card-product-grid a.title:hover {
-  color: #4fa607;
+  color: var(--primary-color);
 }
 .card-product-grid:hover {
   border-color: #adb5bd;
@@ -628,7 +641,7 @@ ul.row-sm {
   width: 7px;
   border-radius: 100%;
   height: 7px;
-  background: #4fa607;
+  background: var(--primary-color);
 }
 
 .list-check {
@@ -661,7 +674,7 @@ ul.row-sm {
 }
 .list-normal li:before {
   content: "•";
-  color: #4fa607;
+  color: var(--primary-color);
   display: inline-block;
   width: 1em;
   margin-left: -1em;
@@ -679,7 +692,7 @@ ul.row-sm {
   color: #141432;
 }
 .list-menu a:hover {
-  color: #4fa607;
+  color: var(--primary-color);
 }
 
 .cols-two {
@@ -830,7 +843,7 @@ ul.row-sm {
 
 .form-control:hover,
 .form-select:hover {
-  border-color: #4fa607;
+  border-color: var(--primary-color);
 }
 
 .btn-facebook {
@@ -908,11 +921,19 @@ ul.row-sm {
   line-height: 0.7;
   vertical-align: bottom;
 }
-.input-group{
-  height: auto;
-  width: auto;
+
+.search-wrap-admin{
+  
 }
-.input-group .btn{
-  position: unset;
+.input-search-admin,
+.btn-search-admin{
+  height: 40px;
+  display: flex;
+
+}
+.btn-search-admin{
+  border: 1px solid #ccc;
+}
+.icon-search-admin{
   z-index: unset;
 }

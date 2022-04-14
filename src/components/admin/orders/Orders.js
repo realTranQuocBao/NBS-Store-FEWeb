@@ -20,7 +20,7 @@ const Orders = (props) => {
         </tr>
       </thead>
       <tbody>
-        {orders.map((order) => (
+        {orders && orders.map((order) => (
           <tr key={order._id}>
             <td>
               <b>{order.user.name}</b>

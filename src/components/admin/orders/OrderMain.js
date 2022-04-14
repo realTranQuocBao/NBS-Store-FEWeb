@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 const OrderMain = () => {
   const orderList = useSelector((state) => state.orderList);
   const { loading, error, orders } = orderList;
+  console.log("List orders>>>", orders);
 
   return (
     <section className="content-main">

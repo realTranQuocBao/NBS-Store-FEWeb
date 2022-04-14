@@ -95,6 +95,7 @@ export const orderListMyReducer = (state = { orders: [] }, action) => {
 /**
  * Admin front-end
  */
+// LIST ORDER
 export const orderListReducer = (state = { orders: [] }, action) => {
   switch (action.type) {
     case ORDER_LIST_REQUEST:
