@@ -12,7 +12,7 @@ export const SidebarContent = styled.aside`
     top: 0;
     display: grid;
     align-items: center;
-    right: ${({ isOpen }) => (!isOpen ? '0px' : '-1000px')};
+    left: ${({ isOpen }) => (!isOpen ? '0px' : '-1000px')};
     @media screen and (max-width: 400px) {
         width: 100%;
     }
@@ -20,14 +20,14 @@ export const SidebarContent = styled.aside`
 export const OpenIconStyle = styled.div`
     z-index: 999;
     position: fixed;
-    right: 0;
+    left: 0;
     line-height: 45px;
     cursor: pointer;
     font-size: 24px;
     color: #014c8f;
     background: #fff;
     padding: 0 15px 0 15px;
-    border-radius: 5px 0 0 5px;
+    border-radius: 0 5px  5px 0 ;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, 
     rgba(0, 0, 0, 0.23) 0px 3px 6px;
 `;

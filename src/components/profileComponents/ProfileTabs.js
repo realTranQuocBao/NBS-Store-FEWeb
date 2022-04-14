@@ -42,7 +42,10 @@ const ProfileTabs = () => {
     e.preventDefault();
 
     // check password match
-    if ((password !== confirmPassword) || (password === "")) {
+    if ((password !== confirmPassword) ||
+      (password === "") ||
+      (password.length < 6) ||
+      (password.length > 16)) {
       if (!toast.isActive(toastId.current)) {
         toastId.current = toast.error("Password does not match", toastObjects);
       }

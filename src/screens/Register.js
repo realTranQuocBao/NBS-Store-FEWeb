@@ -22,7 +22,7 @@ const Register = ({ location, history }) => {
         if (userInfo) {
             history.push(redirect);
         }
-    }, [history, location, userInfo]);
+    }, [history, location, userInfo, redirect]);
 
     const formik = useFormik({
         initialValues: {
@@ -34,14 +34,13 @@ const Register = ({ location, history }) => {
         validationSchema: Yup.object({
 
             name: Yup.string().required("Value required").min(1, "Name must be at least 1 characters").max(250, "Name must be less than 250 characters"),
-            email: Yup.string().required("Value required").matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Please enter a valid email address"),
-            password: Yup.string().required("Value required").matches(/^(\S)(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])[a-zA-Z0-9~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]{6,16}$/, "Password must be least 6 to 16 characters long and contain only letters, numbers, a special character"),
+            email: Yup.string().required("Value required").matches(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, "Please enter a valid email address"),
+            password: Yup.string().required("Value required").matches(/^(\S)(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[~`!@#$%^&*()--+={}[\]|\\:;"'<>,.?/_₹])[a-zA-Z0-9~`!@#$%^&*()--+={}[\]|\\:;"'<>,.?/_₹]{6,16}$/, "Password must be least 6 to 16 characters long and contain only letters, numbers, a special character"),
             confirmedPassword: Yup.string().required("Value required").oneOf([Yup.ref("password"), null], "Password must match"),
 
         }),
         onSubmit: (value) => {
-            // window.alert("Register account success!");
-            console.log(value);
+            // console.log(value);
             dispatch(userRegisterAction(value.name, value.email, value.password));
         }
     })

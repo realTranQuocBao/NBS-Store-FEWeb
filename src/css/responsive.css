@@ -46,6 +46,10 @@
   .single-product {
     margin-top: 20px;
   }
+  .Login,
+  .Login2{
+    width: 100%;
+}
 }
 @media (max-width: 768px) {
   .pc-header {

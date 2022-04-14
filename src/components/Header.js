@@ -184,7 +184,7 @@ const Header = () => {
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      Hi, {userInfo.name}
+                      Hi, {`${userInfo.name.length} >= 10` ? `  ${userInfo.name.slice(-10)}...` : `  ${userInfo.name}`}
                     </button>
                     <div className="dropdown-menu">
                       <Link className="dropdown-item" to="/profile">
