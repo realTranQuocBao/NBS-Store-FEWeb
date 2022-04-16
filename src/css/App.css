@@ -104,9 +104,9 @@ textarea:focus {
   margin-right: 0rem;
 }
 .badge {
-  background-color: red;
-  position: absolute;
-  top: -20px;
+  /* background-color: red; */
+  /* position: absolute; */
+  /* top: -20px; */
   border-radius: 100px;
   padding: 5px 7px;
   font-size: 12px;

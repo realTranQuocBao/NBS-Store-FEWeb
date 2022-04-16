@@ -6,8 +6,8 @@ import ProductsStatistics from "./ProductsStatistics";
 import { useSelector } from "react-redux";
 
 const Main = () => {
-  const orderList = useSelector((state) => state.orderList);
-  const { loading, error, orders } = orderList;
+  const orderListAdmin = useSelector((state) => state.orderListAdmin);
+  const { loading, error, orders } = orderListAdmin;
   const productList = useSelector((state) => state.productList);
   const { products } = productList;
   return (

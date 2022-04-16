@@ -107,7 +107,7 @@ export const createProductReview =
  * ADMIN
 */ 
 //  ALL PRODUCT
-export const listProductsAdmin = () => async (dispatch, getState) => {
+export const listProductsAdmin = (keyword = " ", pageNumber = " ") => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
 
@@ -140,7 +140,7 @@ export const listProductsAdmin = () => async (dispatch, getState) => {
 };
 
 // DELETE PRODUCT
-export const deleteProduct = (id) => async (dispatch, getState) => {
+export const deleteProductAdmin = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_DELETE_REQUEST });
 
@@ -154,7 +154,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`/api/products/${id}`, config);
+    await axios.delete(`/api/v1/product/${id}`, config);
 
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
   } catch (error) {

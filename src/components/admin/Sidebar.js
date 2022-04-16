@@ -6,7 +6,7 @@ const Sidebar = () => {
     <div>
       <aside className="navbar-aside" id="offcanvas_aside">
         <div className="aside-top">
-          <Link to="/admin/" className="brand-wrap">
+          <Link to="/" className="brand-wrap">
             <img
               src="/images/logo.png"
               style={{ height: "46" }}
@@ -16,7 +16,7 @@ const Sidebar = () => {
           </Link>
           <div>
             <button className="btn btn-icon btn-aside-minimize">
-              <i className="text-muted fas fa-stream"></i>
+              <i className="text-muted fas fa-bars"></i>
             </button>
           </div>
         </div>

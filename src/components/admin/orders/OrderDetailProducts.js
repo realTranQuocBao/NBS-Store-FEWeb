@@ -36,7 +36,7 @@ const OrderDetailProducts = (props) => {
                   <img
                     src={item.image}
                     alt={item.name}
-                    style={{ width: "40px", height: "40px" }}
+                    style={{  width: "100px", height: "auto" }}
                     className="img-xs"
                   />
                 </div>

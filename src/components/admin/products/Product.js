@@ -1,22 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { deleteProduct } from "../../../Redux/Actions/productActions";
+import { deleteProductAdmin } from "../../../Redux/Actions/productActions";
 
 const Product = (props) => {
   const { product } = props;
-  // console.log(product);
+  // console.log("Product>>>", product);
   const dispatch = useDispatch();
 
   const deletehandler = (id) => {
     if (window.confirm("Are you sure??")) {
-      dispatch(deleteProduct(id));
+      dispatch(deleteProductAdmin(id));
     }
   };
 
   return (
     <>
-      <div className="col-md-6 col-sm-6 col-lg-3 mb-5">
+      <div className="col-md-6 col-sm-6 col-lg-3 mb-3">
         <div className="card card-product-grid shadow-sm">
           <Link to="#" className="img-wrap">
             <img src={product.image} alt="Product" />

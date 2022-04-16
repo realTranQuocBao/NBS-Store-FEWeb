@@ -500,11 +500,12 @@ a.itemside:hover .title {
 
 /* GRID STYLE PRODUCT ITEM */
 .card-product-grid {
-  margin-bottom: 20px;
+  /* margin-bottom: 10px; */
 }
 .card-product-grid .img-wrap {
   border-radius: 0.2rem 0.2rem 0 0;
-  height: 220px;
+  height: 100px;
+  padding-top: 5px;
 }
 .card-product-grid .info-wrap {
   padding: 1rem;

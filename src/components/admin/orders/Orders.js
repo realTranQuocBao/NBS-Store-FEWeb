@@ -4,6 +4,8 @@ import moment from "moment";
 
 const Orders = (props) => {
   const { orders } = props;
+  console.log("List orders>>>", orders);
+
   return (
     <table className="table">
       <thead>
@@ -23,7 +25,7 @@ const Orders = (props) => {
         {orders && orders.map((order) => (
           <tr key={order._id}>
             <td>
-              <b>{order.user.name}</b>
+              <b>{`${order.user.name.lenght} >=10`?`${order.user.name.slice(-10)}...`:`${order.user.name}`}</b>
             </td>
             <td>{order.user.email}</td>
             <td>${order.totalPrice}</td>
@@ -47,7 +49,7 @@ const Orders = (props) => {
               )}
             </td>
             <td className="d-flex justify-content-end align-item-center">
-              <Link to={`/order/${order._id}`} className="text-success">
+              <Link to={`/admin/order/${order._id}`} className="text-success">
                 <i className="fas fa-eye"></i>
               </Link>
             </td>
