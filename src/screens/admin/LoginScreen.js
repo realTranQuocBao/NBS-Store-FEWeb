@@ -17,7 +17,7 @@ const Login = ({ history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push("/");
+      history.push("/admin");
     }
   }, [userInfo, history]);
 

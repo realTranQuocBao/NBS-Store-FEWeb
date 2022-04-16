@@ -20,7 +20,7 @@ const LatestOrder = (props) => {
               {orders.slice(0, 5).map((order) => (
                 <tr key={order._id}>
                   <td>
-                    <b>{`${order.user.name.lenght} >= 15` ? `${order.user.name.slice(-10)}...` : `${order.user.name}`}</b>
+                    <b>{`${order.user.name.lenght} >= 15` ? `${order.user.name.slice(0, 10)}...` : `${order.user.name}`}</b>
                   </td>
                   <td>{order.user.email}</td>
                   <td>${order.totalPrice}</td>

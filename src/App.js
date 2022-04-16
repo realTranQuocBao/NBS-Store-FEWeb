@@ -15,7 +15,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
-import NotFound from "./screens/NotFound";
+// import NotFound from "./screens/NotFound";
 //admin
 import "../src/css/AdminApp.css";
 import "../src/css/AdminResponsive.css";

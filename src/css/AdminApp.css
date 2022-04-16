@@ -545,7 +545,7 @@ a.itemside:hover .title {
 .card-user .card-header {
   position: relative;
   height: 100px;
-  background-color: #c3f19d !important;
+  background-color: var(--primary-color) !important;
   text-align: center;
 }
 .card-user .img-avatar {
