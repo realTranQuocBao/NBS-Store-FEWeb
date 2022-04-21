@@ -32,7 +32,7 @@ const OrderDetailmain = (props) => {
   return (
     <section className="content-main">
       <div className="content-header">
-        <Link to="/orders" className="btn btn-dark text-white">
+        <Link to="/admin/orders" className="btn btn-dark text-white btn-size">
           Back To Orders
         </Link>
       </div>
@@ -97,7 +97,7 @@ const OrderDetailmain = (props) => {
                       {loadingDelivered && <Loading />}
                       <button
                         onClick={deliverHandler}
-                        className="btn btn-dark col-12"
+                              className="btn btn-dark col-12 btn-size"
                       >
                         MARK AS DELIVERED
                       </button>

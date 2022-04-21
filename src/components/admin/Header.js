@@ -33,15 +33,15 @@ const Header = () => {
     <header className="main-header navbar">
       <div className="col-search">
         <form className="searchform">
-          <div className="input-group">
+          <div className="input-group search-wrap-admin">
             <input
               list="search_terms"
               type="text"
-              className="form-control"
+              className="form-control input-search-admin"
               placeholder="Search term"
             />
-            <button className="btn btn-light bg" type="button">
-              <i className="far fa-search"></i>
+            <button className="btn btn-light bg btn-search-admin" type="button">
+              <i className="far fa-search icon-search-admin"></i>
             </button>
           </div>
           <datalist id="search_terms">
@@ -79,12 +79,12 @@ const Header = () => {
             <Link className="dropdown-toggle" data-bs-toggle="dropdown" to="#">
               <img
                 className="img-xs rounded-circle"
-                src="/images/favicon.png"
+                src="https://codefly.vn/wp-content/uploads/code/2020/12/11934/projecthtml/Source%20Code/uploadImage/Profile/blank_avatar.png"
                 alt="User"
               />
             </Link>
             <div className="dropdown-menu dropdown-menu-end">
-              <Link className="dropdown-item" to="/">
+              <Link className="dropdown-item" to="/profile">
                 My profile
               </Link>
               <Link className="dropdown-item" to="#">

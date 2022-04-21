@@ -95,7 +95,8 @@ export const orderListMyReducer = (state = { orders: [] }, action) => {
 /**
  * Admin front-end
  */
-export const orderListReducer = (state = { orders: [] }, action) => {
+// LIST ORDER
+export const orderListReducerAdmin = (state = { orders: [] }, action) => {
   switch (action.type) {
     case ORDER_LIST_REQUEST:
       return { loading: true };

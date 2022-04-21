@@ -27,6 +27,9 @@ import {
 import { logout } from "./userActions";
 import { PRODUCT_CREATE_REVIEW_REQUEST } from './../Constants/productConstants';
 
+/**
+ * CLIENT
+ */
 // product list action
 export const listProducts =
   (keyword = " ", pageNumber = " ") =>
@@ -103,7 +106,8 @@ export const createProductReview =
 /**
  * ADMIN
 */ 
-export const listProductsAdmin = () => async (dispatch, getState) => {
+//  ALL PRODUCT
+export const listProductsAdmin = (keyword = " ", pageNumber = " ") => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
 
@@ -117,7 +121,39 @@ export const listProductsAdmin = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/products/all`, config);
+    const { data } = await axios.get(`/api/v1/product`, config);
+
+    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: PRODUCT_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
+// GET ALL PRODUCTS WITHOUT PAGINATION
+export const listProductsAdminAll = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_LIST_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/v1/product/all`, config);
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -136,7 +172,7 @@ export const listProductsAdmin = () => async (dispatch, getState) => {
 };
 
 // DELETE PRODUCT
-export const deleteProduct = (id) => async (dispatch, getState) => {
+export const deleteProductAdmin = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_DELETE_REQUEST });
 
@@ -150,7 +186,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`/api/products/${id}`, config);
+    await axios.delete(`/api/v1/product/${id}`, config);
 
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
   } catch (error) {
@@ -169,7 +205,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
 };
 
 // CREATE PRODUCT
-export const createProduct =
+export const createProductAdmin =
   (name, price, description, image, countInStock) =>
     async (dispatch, getState) => {
       try {
@@ -186,7 +222,7 @@ export const createProduct =
         };
 
         const { data } = await axios.post(
-          `/api/products/`,
+          `/api/v1/product/`,
           { name, price, description, image, countInStock },
           config
         );
@@ -208,10 +244,10 @@ export const createProduct =
     };
 
 // EDIT PRODUCT
-export const editProduct = (id) => async (dispatch) => {
+export const editProductAdmin = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_EDIT_REQUEST });
-    const { data } = await axios.get(`/api/products/${id}`);
+    const { data } = await axios.get(`/api/v1/product/${id}`);
     dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
   } catch (error) {
     const message =
@@ -229,7 +265,7 @@ export const editProduct = (id) => async (dispatch) => {
 };
 
 // UPDATE PRODUCT
-export const updateProduct = (product) => async (dispatch, getState) => {
+export const updateProductAdmin = (product) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_UPDATE_REQUEST });
 
@@ -245,7 +281,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `/api/products/${product._id}`,
+      `/api/v1/product/${product._id}`,
       product,
       config
     );

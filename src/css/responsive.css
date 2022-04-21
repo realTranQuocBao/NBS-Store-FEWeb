@@ -46,6 +46,10 @@
   .single-product {
     margin-top: 20px;
   }
+  .Login,
+  .Login2 {
+    width: 100%;
+  }
 }
 @media (max-width: 768px) {
   .pc-header {
@@ -113,6 +117,10 @@
   .order-detail {
     margin-top: 20px;
   }
+  .content-header .content-title {
+    margin-bottom: 1rem;
+    margin-top: 40px;
+  }
 }
 @media (max-width: 575.98px) {
   .subscribe-head .form-section input[type="email"] {
@@ -159,5 +167,143 @@
   .single-image,
   .single-image img {
     height: 200px;
+  }
+}
+
+/* tablet */
+@media (min-width: 740px) and (max-width: 1023px) {
+  /* evaluate  */
+  .evaluate {
+    margin-top: 100px;
+  }
+
+  /* tradermark */
+  .tradermark__item {
+    flex-basis: 30%;
+  }
+
+  /* footer */
+  .footer__btn {
+    margin-top: 0;
+    padding: 8px 24px;
+  }
+
+  .footer__title--heading {
+    line-height: 1.3;
+  }
+}
+
+/* Tablet & Mobile */
+@media (max-width: 1023px) {
+  .s-m-mt-16 {
+    margin-top: 16px;
+  }
+
+  /* Collection */
+  .collection__content {
+    display: block;
+    padding: 12px;
+  }
+
+  .collection__item-info {
+    padding: 0;
+    margin-top: 24px;
+  }
+
+  .collection__suggestions {
+    overflow-x: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .collection__suggestions-container {
+    flex-shrink: 0;
+    width: 320px;
+    display: flex;
+    align-items: center;
+  }
+
+  .collection-shoes img {
+    width: 100%;
+  }
+
+  .collection__app {
+    border: 1px solid #eee;
+    margin-top: 8px;
+  }
+
+  /* box__contact */
+  .box__contact {
+    position: relative;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border-top-left-radius: unset;
+  }
+
+  .box__contact::before {
+    display: none;
+  }
+
+  .box__seclecter {
+    flex-basis: 6%;
+  }
+
+  .active-top {
+    bottom: 60px;
+    right: 0;
+  }
+}
+
+/* Mobile */
+@media (max-width: 739px) {
+  .s-hidden {
+    display: none;
+  }
+
+  .s-mt-16 {
+    margin-top: 16px;
+  }
+
+  .nav {
+    justify-content: space-around;
+  }
+
+  .navbar {
+    overflow-y: auto;
+  }
+
+  .policy__item {
+    width: 240px;
+  }
+
+  .brands-five__item {
+    display: block;
+    margin: 8px;
+  }
+
+  .brands__five--link {
+    display: block;
+  }
+
+  .brands__five--link::before {
+    left: 0;
+  }
+
+  .tradermark__item {
+    flex-basis: 40%;
+  }
+
+  .footer__information {
+    padding: 0 16px;
+  }
+
+  .box__seclecter {
+    flex-basis: 10%;
+  }
+
+  .active-top {
+    bottom: 45px;
+    right: 5px;
   }
 }

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { logout } from './../Redux/Actions/userActions';
+import Sidebar from "./sidebar/Sidebar";
+
 
 const Header = () => {
   const [keyword, setKeyword] = useState();
@@ -18,6 +20,7 @@ const Header = () => {
     dispatch(logout())
   }
 
+  // search handler
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
@@ -26,6 +29,7 @@ const Header = () => {
       history.push("/");
     }
   }
+
 
 
   return (
@@ -61,6 +65,10 @@ const Header = () => {
       {/* Header */}
       <div className="header">
         <div className="container">
+
+          {/* Toggle menu */}
+          <Sidebar />
+
           {/* MOBILE HEADER */}
           <div className="mobile-header">
             <div className="container ">
@@ -147,6 +155,7 @@ const Header = () => {
           {/* PC HEADER */}
           <div className="pc-header">
             <div className="row">
+
               <div className="col-md-3 col-4 d-flex align-items-center">
                 <Link className="navbar-brand" to="/">
                   <img alt="logo" src="/images/logo.png" />
@@ -175,7 +184,7 @@ const Header = () => {
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      Hi, {userInfo.name}
+                      Hi, {`${userInfo.name.length} >= 10` ? `  ${userInfo.name.slice(0, 10)}...` : `  ${userInfo.name}`}
                     </button>
                     <div className="dropdown-menu">
                       <Link className="dropdown-item" to="/profile">

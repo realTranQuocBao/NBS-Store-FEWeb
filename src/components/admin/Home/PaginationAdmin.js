@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Pagination = (props) => {
+const PaginationAdmin = (props) => {
   const { page, pages, keyword = "" } = props;
-  // console.log("Log pages", pages);
+  console.log("Log pages>>>", pages);
   return (
     pages > 1 && (
       <nav>
@@ -17,8 +17,8 @@ const Pagination = (props) => {
                 className="page-link"
                 to={
                   keyword
-                    ? `/search/${keyword}/page/${x + 1}`
-                    : `/page/${x + 1}`
+                    ? `/admin/search/${keyword}/page/${x + 1}`
+                    : `/admin/products/page/${x + 1}`
                 }
               >
                 {x + 1}
@@ -31,4 +31,4 @@ const Pagination = (props) => {
   );
 };
 
-export default Pagination;
+export default PaginationAdmin;

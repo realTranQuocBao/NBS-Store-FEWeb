@@ -2,29 +2,35 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Product from "./Product";
 import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "./../../../Redux/Actions/productActions";
+import { listProductsAdmin } from "./../../../Redux/Actions/productActions";
 import Loading from "./../../base/LoadingError/Loading";
 import Message from "./../../base/LoadingError/Error";
+import PaginationAdmin from "../Home/PaginationAdmin";
 
-const MainProducts = () => {
+const MainProducts = (props) => {
+  const { keyword, pageNumber } = props;
+  // console.log("Log pageNumber>>>: ", pageNumber);
   const dispatch = useDispatch();
 
-  const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const productListAdmin = useSelector((state) => state.productListAdmin.products);
+  const { loading, error, products, page, pages } = productListAdmin;
+  // const newProducts = products.products;
+  // console.log("View all newproducts>>>", newProducts);
+  console.log("productListAdmin>>>", productListAdmin);
 
-  const productDelete = useSelector((state) => state.productDelete);
-  const { error: errorDelete, success: successDelete } = productDelete;
+  const productDeleteAdmin = useSelector((state) => state.productDeleteAdmin);
+  const { error: errorDelete, success: successDelete } = productDeleteAdmin;
 
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch, successDelete]);
+    dispatch(listProductsAdmin(keyword, pageNumber));
+  }, [dispatch, successDelete, keyword, pageNumber]);
 
   return (
     <section className="content-main">
       <div className="content-header">
         <h2 className="content-title">Products</h2>
         <div>
-          <Link to="/addproduct" className="btn btn-primary">
+          <Link to="/admin/addproduct" className="btn btn-primary btn-size">
             Create new
           </Link>
         </div>
@@ -69,13 +75,18 @@ const MainProducts = () => {
           ) : (
             <div className="row">
               {/* Products */}
-              {products.map((product) => (
+                  {products && products.map((product) => (
                 <Product product={product} key={product._id} />
               ))}
             </div>
           )}
-
-          <nav className="float-end mt-4" aria-label="Page navigation">
+          {/* PaginationAdmin */}
+          <PaginationAdmin
+            page={page}
+            pages={pages}
+            keyword={keyword ? keyword : ""}
+          />
+          {/* <nav className="float-end mt-4" aria-label="Page navigation">
             <ul className="pagination">
               <li className="page-item disabled">
                 <Link className="page-link" to="#">
@@ -103,7 +114,8 @@ const MainProducts = () => {
                 </Link>
               </li>
             </ul>
-          </nav>
+
+          </nav> */}
         </div>
       </div>
     </section>

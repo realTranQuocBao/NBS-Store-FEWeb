@@ -15,18 +15,19 @@ import {
   //client
   productDetailsReducer,
   //admin
-  productCreateReducer,
-  productDeleteReducer,
-  productEditReducer,
   productUpdateReducer,
   productCreateReviewReducer,
+  productListReducerAdmin,
+  productCreateReducerAdmin,
+  productEditReducerAdmin,
+  productDeleteReducerAdmin,
 } from "./Reducers/productReducers";
 import {
   orderCreateReducer,
   orderDeliveredReducer,
   orderDetailsReducer,
   orderListMyReducer,
-  orderListReducer,
+  orderListReducerAdmin,
   orderPayReducer,
 } from "./Reducers/orderReducres";
 
@@ -45,13 +46,13 @@ const reducer = combineReducers({
   listMyOrders: orderListMyReducer,
   //admin
   userList: userListReducer,
-  productDelete: productDeleteReducer,
-  productCreate: productCreateReducer,
-  productEdit: productEditReducer,
+  productListAdmin: productListReducerAdmin,
+  productDeleteAdmin: productDeleteReducerAdmin,
+  productCreateAdmin: productCreateReducerAdmin,
+  productEditAdmin: productEditReducerAdmin,
   productUpdate: productUpdateReducer,
-  orderList: orderListReducer,
+  orderListAdmin: orderListReducerAdmin,
   orderDeliver: orderDeliveredReducer,
-  // orderListMy: orderListMyReducerAdmin,
 });
 
 //get cart from localstorage

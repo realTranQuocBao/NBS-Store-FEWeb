@@ -3,8 +3,8 @@ import Toast from "../../base/LoadingError/Toast";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  editProduct,
-  updateProduct,
+  editProductAdmin,
+  updateProductAdmin,
 } from "./../../../Redux/Actions/productActions";
 import { PRODUCT_UPDATE_RESET } from "../../../Redux/Constants/productConstants";
 import { toast } from "react-toastify";
@@ -29,8 +29,8 @@ const EditProductMain = (props) => {
 
   const dispatch = useDispatch();
 
-  const productEdit = useSelector((state) => state.productEdit);
-  const { loading, error, product } = productEdit;
+  const productEditAdmin = useSelector((state) => state.productEditAdmin);
+  const { loading, error, product } = productEditAdmin;
 
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
@@ -45,7 +45,7 @@ const EditProductMain = (props) => {
       toast.success("Product Updated", ToastObjects);
     } else {
       if (!product.name || product._id !== productId) {
-        dispatch(editProduct(productId));
+        dispatch(editProductAdmin(productId));
       } else {
         setName(product.name);
         setDescription(product.description);
@@ -59,7 +59,7 @@ const EditProductMain = (props) => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
-      updateProduct({
+      updateProductAdmin({
         _id: productId,
         name,
         price,
@@ -76,12 +76,12 @@ const EditProductMain = (props) => {
       <section className="content-main" style={{ maxWidth: "1200px" }}>
         <form onSubmit={submitHandler}>
           <div className="content-header">
-            <Link to="/products" className="btn btn-danger text-white">
+            <Link to="/admin/products" className="btn btn-danger text-white btn-size">
               Go to products
             </Link>
             <h2 className="content-title">Update Product</h2>
             <div>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary btn-size">
                 Publish now
               </button>
             </div>

@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-import "./App.css";
-import "./responsive.css";
+import "../src/css/App.css";
+import "../src/css/responsive.css";
+import "./css/grid.css";
+import "./css/base.css";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
@@ -13,10 +15,10 @@ import ProfileScreen from "./screens/ProfileScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
-import NotFound from "./screens/NotFound";
+// import NotFound from "./screens/NotFound";
 //admin
-import "./App.css";
-import "./responsive.css";
+import "../src/css/AdminApp.css";
+import "../src/css/AdminResponsive.css";
 import "react-toastify/dist/ReactToastify.css";
 import HomeScreenAdmin from "./screens/admin/HomeScreen";
 import ProductScreenAdmin from "./screens/admin/ProductScreen";
@@ -64,9 +66,9 @@ const App = () => {
         <PrivateRouter path="/payment" component={PaymentScreen} />
         <PrivateRouter path="/placeorder" component={PlaceOrderScreen} />
         <PrivateRouter path="/order/:id" component={OrderScreen} />
-        <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
-        <Route path="*" component={NotFound} />
+        {/* <Route path="*" component={NotFound} /> */}
         {/* ADMIN */}
+        <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
         <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} />
         <AdminPrivateRouter path="/admin/category" component={CategoriesScreenAdmin} />
         <AdminPrivateRouter path="/admin/orders" component={OrderScreenAdmin} />

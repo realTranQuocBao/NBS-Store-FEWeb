@@ -1,12 +1,28 @@
+@import url(https://fonts.googleapis.com/css?family=Quicksand:300,regular,500,600,700);
+
+:root {
+  --white-color: #fff;
+  --black-color: #000;
+  --primary-color: #014c8f;
+  --text-color: #4c4c4c;
+  --red-color: #d50000;
+  --border-color: #ccc;
+  --height-header: 61px;
+}
+
 body {
   margin: 0;
-  font-family: "Josefin Sans", sans-serif;
+  font-family: "Quicksand", sans-serif;
   /* font-family: 'Open Sans', sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 17px;
   padding: 0;
   box-sizing: border-box;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 a {
   text-decoration: none;
@@ -40,7 +56,7 @@ textarea:focus {
   padding: 0;
 }
 .Announcement {
-  background-color: #1cb803;
+  background-color: var(--primary-color);
   padding: 10px 0px 6px 0px;
 }
 .Announcement .col-md-6 p {
@@ -61,17 +77,23 @@ textarea:focus {
   width: 60%;
 }
 .input-group {
-  height: 50px;
+  height: 40px;
   width: 90%;
 }
 .search-button {
   width: 20%;
-  background-color: black;
+  background-color: var(--primary-color);
   color: white;
   border: 0;
   text-transform: uppercase;
   font-size: 12px;
+  border-radius: 5px;
 }
+.search-button:hover {
+  font-weight: 800;
+  transition: 0.2s ease-in-out;
+}
+
 .Login-Register a {
   text-transform: uppercase;
   font-size: 15px;
@@ -82,9 +104,9 @@ textarea:focus {
   margin-right: 0rem;
 }
 .badge {
-  background-color: red;
-  position: absolute;
-  top: -20px;
+  /* background-color: red; */
+  /* position: absolute; */
+  /* top: -20px; */
   border-radius: 100px;
   padding: 5px 7px;
   font-size: 12px;
@@ -109,7 +131,7 @@ textarea:focus {
   margin: 0 !important;
 }
 .dropdown-menu a:hover {
-  background-color: #1cb803 !important;
+  background-color: var(--primary-color) !important;
   color: #ffffff !important;
 }
 .mobile-header {
@@ -158,7 +180,9 @@ textarea:focus {
 .border-product {
   padding: 15px;
   border: 1px solid #f3f3f3;
-  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  border-radius: 10px;
 }
 .shopBack {
   height: 250px;
@@ -199,8 +223,8 @@ textarea:focus {
 /* NEWSLATTER */
 .subscribe-section {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
-    url("https://sasshoes-com.s3.us-west-2.amazonaws.com/img/banner-uplift-21.jpg")
-      no-repeat scroll center / cover;
+    url("https://img.upanh.tv/2022/04/11/imagefb49b3813c61d18b.png") no-repeat
+      scroll center / cover;
   padding: 100px 0 100px;
 }
 .subscribe-head h2 {
@@ -222,26 +246,25 @@ textarea:focus {
 }
 .form-section input[type="email"] {
   border: 0 none;
-  border-radius: 25px;
+  border-radius: 25px 0 0 25px;
   color: #9b9b9b;
-  font-size: 16px;
+  /* font-size: 16px; */
   font-style: normal;
-  height: 51px;
+  height: 50px;
   letter-spacing: 0;
   text-align: center;
   width: 460px;
 }
 .form-section input[type="submit"] {
-  background: #1cb803;
+  background: var(--primary-color);
   border: 0 none;
-  border-radius: 25px;
+  border-radius: 0 25px 25px 0;
   color: #fff;
-  height: 52px;
+  height: 50px;
   letter-spacing: 0;
-  margin-left: -60px;
   padding: 0 58px;
   text-transform: uppercase;
-  font-size: 12px;
+  /* font-size: 12px; */
 }
 /* CONTACT */
 .contactInfo {
@@ -263,10 +286,10 @@ textarea:focus {
 .info-image {
   width: 50px;
   height: 50px;
-  border: 2px solid #1cb803;
+  border: 2px solid var(--primary-color);
   border-radius: 100px;
   font-size: 20px;
-  color: #1cb803;
+  color: var(--primary-color);
 }
 .box-info h5 {
   font-weight: bold;
@@ -351,27 +374,28 @@ textarea:focus {
 }
 .round-black-btn:hover,
 .round-black-btn:focus {
-  background: #1cb803;
+  background: var(--primary-color);
 }
 
-/* LOGIN */
+/* REGISTER */
 .login-center {
-  padding: 50px 0;
+  padding: 30px 0;
 }
 .Login,
 .Login2 {
+  width: 50%;
   background: #fff;
   border-radius: 5px;
   position: relative;
   padding: 35px 30px 30px;
-  box-shadow: 0 1px 11px rgba(168, 168, 168, 0.27);
+  box-shadow: 0 1px 11px rgba(81, 81, 81, 0.27);
   text-align: center;
 }
 .Login input {
   width: 100%;
-  padding: 20px 20px;
+  padding: 10px 20px;
   margin-top: 20px;
-  border: 1px solid #e4e4e4;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   color: #8a8a8a;
 }
@@ -382,9 +406,9 @@ textarea:focus {
 .Login2 button {
   width: 100%;
   margin-top: 20px;
-  padding: 20px 0;
+  padding: 10px 0;
   border: 0;
-  background-color: #1cb803;
+  background-color: var(--primary-color);
   border-radius: 5px;
   text-transform: uppercase;
   color: white;
@@ -400,6 +424,7 @@ textarea:focus {
 .Login p a {
   color: #7a7a7a;
 }
+
 /* PROFILE */
 .author-card {
   position: relative;
@@ -469,7 +494,7 @@ textarea:focus {
   margin-top: 20px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: #1cb803;
+  background-color: var(--primary-color);
   color: #ffffff;
 }
 /* orders */
@@ -562,7 +587,7 @@ textarea:focus {
   border: 0px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: #1cb803;
+  background-color: var(--primary-color);
   color: #ffffff;
 }
 .cart-buttons a:nth-child(1) button {
@@ -639,7 +664,7 @@ textarea:focus {
   border: 0px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: #1cb803;
+  background-color: var(--primary-color);
   color: #ffffff;
 }
 
@@ -651,4 +676,114 @@ textarea:focus {
 .page-item.active .page-link {
   background-color: black;
   border: 1px solid black;
+}
+
+/* slideshow */
+@import "react-slideshow-image/dist/styles.css";
+
+.each-slide > img {
+  width: 100%;
+}
+
+/* Policy */
+.policy__list {
+  margin-top: 24px;
+  display: flex;
+  list-style: none;
+  padding: 24px 0;
+  border: 1px solid rgb(229, 233, 236);
+  justify-content: space-between;
+  align-items: center;
+  overflow-x: auto;
+}
+
+.policy__list::-webkit-scrollbar {
+  display: block;
+}
+
+.policy__item {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 270px;
+  border-right: 1px solid #eee;
+}
+
+.policy__title {
+  color: var(--primary-color);
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.policy__sub-title {
+  line-height: 1.4;
+  font-size: 13px;
+  font-weight: 400;
+}
+.policy__icon {
+  margin-right: 10px;
+}
+.policy__icon > i {
+  font-size: 24px;
+  color: var(--primary-color);
+}
+
+/* popular categories */
+.popu-cate {
+  margin-top: 24px;
+}
+
+.popu-cate__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popu-cate__item {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+a.popu-cate__item {
+  margin-bottom: 20px;
+}
+
+.popu-cate__item:hover .popu-cate__desc {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.popu-cate__item:hover .popu-cate__img {
+  transform: scale(1.1);
+}
+
+.popu-cate__img {
+  transition: 1s;
+}
+
+.popu-cate__desc {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: var(--white-color);
+  border-radius: 10px;
+  z-index: 3;
+  transition: 1s;
+}
+
+.popu-cate__desc-title {
+  font-size: 25px;
+  text-transform: uppercase;
+  font-weight: 1000;
+}
+
+.popu-cate__des--quantity {
+  font-size: 15px;
+  text-align: center;
+  font-weight: 300;
 }
