@@ -9,14 +9,14 @@ import PaginationAdmin from "../Home/PaginationAdmin";
 
 const MainProducts = (props) => {
   const { keyword, pageNumber } = props;
-  console.log("Log pageNumber>>>: ", pageNumber);
+  // console.log("Log pageNumber>>>: ", pageNumber);
   const dispatch = useDispatch();
 
   const productListAdmin = useSelector((state) => state.productListAdmin.products);
   const { loading, error, products, page, pages } = productListAdmin;
   // const newProducts = products.products;
   // console.log("View all newproducts>>>", newProducts);
-  console.log("productListAdmin>>>", productListAdmin.products);
+  console.log("productListAdmin>>>", productListAdmin);
 
   const productDeleteAdmin = useSelector((state) => state.productDeleteAdmin);
   const { error: errorDelete, success: successDelete } = productDeleteAdmin;

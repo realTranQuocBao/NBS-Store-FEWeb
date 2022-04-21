@@ -12,7 +12,7 @@
 
 body {
   margin: 0;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   /* font-family: 'Open Sans', sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -89,9 +89,9 @@ textarea:focus {
   font-size: 12px;
   border-radius: 5px;
 }
-.search-button:hover{
+.search-button:hover {
   font-weight: 800;
-  transition: .2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
 .Login-Register a {
@@ -180,7 +180,8 @@ textarea:focus {
 .border-product {
   padding: 15px;
   border: 1px solid #f3f3f3;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   border-radius: 10px;
 }
 .shopBack {
@@ -222,8 +223,8 @@ textarea:focus {
 /* NEWSLATTER */
 .subscribe-section {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
-    url("https://img.upanh.tv/2022/04/11/imagefb49b3813c61d18b.png")
-      no-repeat scroll center / cover;
+    url("https://img.upanh.tv/2022/04/11/imagefb49b3813c61d18b.png") no-repeat
+      scroll center / cover;
   padding: 100px 0 100px;
 }
 .subscribe-head h2 {
@@ -681,8 +682,8 @@ textarea:focus {
 @import "react-slideshow-image/dist/styles.css";
 
 .each-slide > img {
-    width: 100%;
-  }
+  width: 100%;
+}
 
 /* Policy */
 .policy__list {
@@ -724,10 +725,9 @@ textarea:focus {
 .policy__icon {
   margin-right: 10px;
 }
-.policy__icon > i{
+.policy__icon > i {
   font-size: 24px;
   color: var(--primary-color);
-
 }
 
 /* popular categories */
@@ -745,9 +745,9 @@ textarea:focus {
   display: block;
   position: relative;
   overflow: hidden;
-  border-radius: 10px;  
+  border-radius: 10px;
 }
-a.popu-cate__item{
+a.popu-cate__item {
   margin-bottom: 20px;
 }
 

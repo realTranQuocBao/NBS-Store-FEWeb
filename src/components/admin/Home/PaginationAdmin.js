@@ -17,7 +17,7 @@ const PaginationAdmin = (props) => {
                 className="page-link"
                 to={
                   keyword
-                    ? `/admin/search/${keyword}/admin/products/page/${x + 1}`
+                    ? `/admin/search/${keyword}/page/${x + 1}`
                     : `/admin/products/page/${x + 1}`
                 }
               >

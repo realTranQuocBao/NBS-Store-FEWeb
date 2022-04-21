@@ -10,6 +10,7 @@ const Main = () => {
   const { loading, error, orders } = orderListAdmin;
   const productList = useSelector((state) => state.productList);
   const { products } = productList;
+  // console.log("ProductList>>>", productList);
   return (
     <>
       <section className="content-main">
@@ -17,7 +18,7 @@ const Main = () => {
           <h2 className="content-title"> Dashboard </h2>
         </div>
         {/* Top Total */}
-        <TopTotal orders={orders} products={products} />
+        <TopTotal orders={orders} products={products} productList={productList} />
 
         <div className="row">
           {/* STATICS */}

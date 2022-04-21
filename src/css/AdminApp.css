@@ -204,7 +204,7 @@ body.offcanvas-active {
   width: auto;
   max-width: 200px;
 }
-.logo{
+.logo {
   height: 20px !important;
 }
 .main-header {
@@ -251,7 +251,7 @@ body.offcanvas-active {
 .content-header .content-title {
   margin-bottom: 0;
 }
-.content-title{
+.content-title {
   text-transform: uppercase;
   font-weight: 600;
   font-size: 24px;
@@ -923,18 +923,16 @@ ul.row-sm {
   vertical-align: bottom;
 }
 
-.search-wrap-admin{
-  
+.search-wrap-admin {
 }
 .input-search-admin,
-.btn-search-admin{
+.btn-search-admin {
   height: 40px;
   display: flex;
-
 }
-.btn-search-admin{
+.btn-search-admin {
   border: 1px solid #ccc;
 }
-.icon-search-admin{
+.icon-search-admin {
   z-index: unset;
 }

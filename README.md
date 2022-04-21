@@ -1,6 +1,6 @@
 # Done feature in NBS-Client
 
-- CLIENT
+### CLIENT
 - Get and show all products
 - Get and show single product
 - Create redux
@@ -24,6 +24,10 @@
 - Done sidebar UI
 - Done policy UI
 - Done popular categories UI
+
+### Admin
+- Done default UI
+- Done fix get all products toptotal
 # Done feature in NBS-Admin
 
 - processing

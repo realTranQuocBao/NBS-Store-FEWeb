@@ -138,6 +138,38 @@ export const listProductsAdmin = (keyword = " ", pageNumber = " ") => async (dis
     });
   }
 };
+// GET ALL PRODUCTS WITHOUT PAGINATION
+export const listProductsAdminAll = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_LIST_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/v1/product/all`, config);
+
+    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: PRODUCT_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
 
 // DELETE PRODUCT
 export const deleteProductAdmin = (id) => async (dispatch, getState) => {

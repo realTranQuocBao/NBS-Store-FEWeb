@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { listProductsAdminAll } from "../../../Redux/Actions/productActions";
 
 const TopTotal = (props) => {
-  const { orders, products } = props;
+  const dispatch = useDispatch();
+  const productListAdmin = useSelector(state => state.productListAdmin);
+  const { products } = productListAdmin;
+  // console.log("All products admin>>>", productListAdmin);
+
+  useEffect(() => {
+    dispatch(listProductsAdminAll())
+  }, [dispatch])
+
+  const { orders } = props;
+  // console.log("props>>>", props);
   let totalSale = 0;
   if (orders) {
     orders.map((order) =>
