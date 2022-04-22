@@ -21,6 +21,9 @@ const ProfileTabs = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState();
+  const [picMessage, setPicMessage] = useState();
+
   const toastId = React.useRef(null);
 
   const dispatch = useDispatch();
@@ -35,8 +38,34 @@ const ProfileTabs = () => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
+      setAvatarUrl(user.avatarUrl);
     }
   }, [dispatch, user])
+
+  // post avatar
+  const postDetails = (pics) => {
+    setPicMessage(null);
+    if (pics.type === "image/jpeg" || pics.type === "image/png" || pics.type === "file") {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "notezipper");
+      data.append("cloud_name", "piyushproj");
+      fetch("api/v1/user/CreateOrUpdateAvatar/", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setAvatarUrl(data.url.toString());
+          console.log(">>>view avatarUrl", avatarUrl);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      return setPicMessage("Please Select an Image");
+    }
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -106,6 +135,22 @@ const ProfileTabs = () => {
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+        </div>
+        {picMessage && (
+          <Message variant="danger">{picMessage}</Message>
+        )}
+        <div className="col-md-12">
+          <div className="form">
+            <label htmlFor="account-confirm-pass">Change Profile Picture</label>
+            <input
+              className="form-control"
+              type="file"
+              accept="image/*"
+              label="Upload Profile Picture"
+              custom
+              onChange={(e) => postDetails(e.target.files[0])}
             />
           </div>
         </div>
