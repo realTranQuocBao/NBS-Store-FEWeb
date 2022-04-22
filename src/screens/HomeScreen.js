@@ -10,7 +10,7 @@ import PopularCategories from "./PopularCategories";
 
 const HomeScreen = ({ match }) => {
   window.scrollTo(0, 0);
-  // console.log("======>This is a match:", match);
+  console.log("======>This is a match:", match);
   const keyword = match.params.keyword;
   const pageNumber = match.params.pagenumber;
   return (

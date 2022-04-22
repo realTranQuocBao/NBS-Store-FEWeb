@@ -20,7 +20,7 @@ import OrderScreen from "./screens/OrderScreen";
 import "../src/css/AdminApp.css";
 import "../src/css/AdminResponsive.css";
 import "react-toastify/dist/ReactToastify.css";
-import HomeScreenAdmin from "./screens/admin/HomeScreen";
+import HomeScreenAdmin from "./screens/admin/HomeScreenAdmin";
 import ProductScreenAdmin from "./screens/admin/ProductScreen";
 import CategoriesScreenAdmin from "./screens/admin/CategoriesScreen";
 import OrderScreenAdmin from "./screens/admin/OrderScreen";
@@ -67,9 +67,19 @@ const App = () => {
         <PrivateRouter path="/placeorder" component={PlaceOrderScreen} />
         <PrivateRouter path="/order/:id" component={OrderScreen} />
         {/* <Route path="*" component={NotFound} /> */}
+
         {/* ADMIN */}
         <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
         <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} />
+        <Route path="/admin/search/:keyword"
+          component={HomeScreenAdmin} exact />
+        <Route path="/admin/products/page/:pagenumber"
+          component={HomeScreenAdmin} exact />
+        <Route
+          path="/admin/search/:keyword/page/:pageNumber"
+          component={HomeScreenAdmin}
+          exact
+        />
         <AdminPrivateRouter path="/admin/category" component={CategoriesScreenAdmin} />
         <AdminPrivateRouter path="/admin/orders" component={OrderScreenAdmin} />
         <AdminPrivateRouter path="/admin/order/:id" component={OrderDetailScreenAdmin} />
