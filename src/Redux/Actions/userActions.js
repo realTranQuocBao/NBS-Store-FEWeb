@@ -13,6 +13,9 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_UPDATE_AVATAR_FAIL,
+  USER_UPDATE_AVATAR_REQUEST,
+  USER_UPDATE_AVATAR_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
@@ -200,6 +203,47 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     });
   }
 };
+
+// UPDATE AVATAR USER
+export const updateUserAvatar =
+  ({ user, formData }) =>
+    async (dispatch, getState) => {
+      try {
+        dispatch({ type: USER_UPDATE_AVATAR_REQUEST });
+
+        const {
+          userLogin: { userInfo },
+        } = getState();
+
+        const config = {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        };
+
+        const { data } =
+          await axios.post(`/api/v1/user/CreateOrUpdateAvatar/${user._id}`,
+            formData, config);
+        dispatch({ type: USER_UPDATE_AVATAR_SUCCESS, payload: data });
+        dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+
+        localStorage.setItem("userInfo", JSON.stringify(data));
+      } catch (error) {
+        const message =
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message;
+        if (message === "Not authorized, token failed") {
+          dispatch(logout());
+        }
+        dispatch({
+          type: USER_UPDATE_AVATAR_FAIL,
+          payload: message,
+        });
+      }
+    };
 
 // ALL USER
 export const listUser = () => async (dispatch, getState) => {

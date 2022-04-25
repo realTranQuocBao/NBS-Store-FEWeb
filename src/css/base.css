@@ -297,3 +297,9 @@ html {
 .btn-mobile {
   color: #212529;
 }
+.btn-bg-main{
+  background: var(--primary-color);
+}
+.btn-bg-main:hover{
+  color: var(--white-color);
+}

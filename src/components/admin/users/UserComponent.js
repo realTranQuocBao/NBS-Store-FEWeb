@@ -67,12 +67,12 @@ const UserComponent = () => {
                     <div className="card-header">
                       <img
                         className="img-md img-avatar"
-                        src="https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png"
+                        src={user.avatarUrl}
                         alt="User pic"
                       />
                     </div>
                     <div className="card-body">
-                      <h5 className="card-title mt-5">
+                      <h5 className="card-title mt-5" title={user.name}>
                         {`${user.name.length} >= 15` ? `${user.name.slice(0, 15)}...` : `${user.name}`}
                       </h5>
                       <div className="card-text text-muted">
@@ -83,7 +83,10 @@ const UserComponent = () => {
                         )}
 
                         <p>
-                          <a href={`mailto:${user.email}`}>{user.email}</a>
+                          <a
+                            href={`mailto:${user.email}`}
+                            title={user.email}
+                          >{`${user.email.length} >= 15` ? `${user.email.slice(0, 20)}...` : `${user.email}`}</a>
                         </p>
                       </div>
                     </div>

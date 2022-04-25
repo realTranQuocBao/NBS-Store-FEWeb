@@ -18,7 +18,7 @@ const Orders = (props) => {
             <div className="col-12 alert alert-info text-center mt-3">
               No Orders
               <Link
-                className="btn btn-success mx-2 px-3 py-2"
+                    className="btn btn-bg-main mx-2 px-3 py-2"
                 to="/"
                 style={{
                   fontSize: "12px",

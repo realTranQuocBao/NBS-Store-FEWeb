@@ -5,6 +5,7 @@ import Loading from './../base/LoadingError/Loading';
 import Message from './../base/LoadingError/Error';
 import { toast } from "react-toastify";
 import { updateUserProfile } from "../../Redux/Actions/userActions";
+import Avatar from "./Avatar";
 
 const ProfileTabs = () => {
   const toastObjects = {
@@ -21,8 +22,6 @@ const ProfileTabs = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState();
-  const [picMessage, setPicMessage] = useState();
 
   const toastId = React.useRef(null);
 
@@ -30,46 +29,22 @@ const ProfileTabs = () => {
 
   const userDetails = useSelector(state => state.userDetails);
   const { user, loading, error } = userDetails;
+  console.log(">>>User", user);
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { loading: updateLoading } = userUpdateProfile;
+  // console.log(">>>UserUpdateProfile", userUpdateProfile);
+
 
   useEffect(() => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
-      setAvatarUrl(user.avatarUrl);
     }
   }, [dispatch, user])
 
-  // post avatar
-  const postDetails = (pics) => {
-    setPicMessage(null);
-    if (pics.type === "image/jpeg" || pics.type === "image/png" || pics.type === "file") {
-      const data = new FormData();
-      data.append("file", pics);
-      data.append("upload_preset", "notezipper");
-      data.append("cloud_name", "piyushproj");
-      fetch("api/v1/user/CreateOrUpdateAvatar/", {
-        method: "post",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setAvatarUrl(data.url.toString());
-          console.log(">>>view avatarUrl", avatarUrl);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      return setPicMessage("Please Select an Image");
-    }
-  };
-
   const submitHandler = (e) => {
     e.preventDefault();
-
     // check password match
     if ((password !== confirmPassword) ||
       (password === "") ||
@@ -79,7 +54,10 @@ const ProfileTabs = () => {
         toastId.current = toast.error("Password does not match", toastObjects);
       }
     } else {
-      dispatch(updateUserProfile({ id: user._id, name, email, password }));
+      dispatch(updateUserProfile(
+        { id: user._id, name, email, avatarUrl: user.avatarUrl, password }
+      ));
+
       if (!toast.isActive(toastId.current)) {
         toastId.current = toast.success("Profile Updated", toastObjects);
       }
@@ -92,7 +70,10 @@ const ProfileTabs = () => {
       {error && <Message variant="alert-danger">{error}</Message>}
       {loading && <Loading />}
       {updateLoading && <Loading />}
-      <form className="row  form-container" onSubmit={submitHandler}>
+      <form
+        className="row  form-container"
+        onSubmit={submitHandler}
+        encType='multipart/form-data'>
         <div className="col-md-6">
           <div className="form">
             <label htmlFor="account-fn">UserName</label>
@@ -138,22 +119,7 @@ const ProfileTabs = () => {
             />
           </div>
         </div>
-        {picMessage && (
-          <Message variant="danger">{picMessage}</Message>
-        )}
-        <div className="col-md-12">
-          <div className="form">
-            <label htmlFor="account-confirm-pass">Change Profile Picture</label>
-            <input
-              className="form-control"
-              type="file"
-              accept="image/*"
-              label="Upload Profile Picture"
-              custom
-              onChange={(e) => postDetails(e.target.files[0])}
-            />
-          </div>
-        </div>
+        <Avatar />
         <button type="submit">Update Profile</button>
       </form>
     </>
