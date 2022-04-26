@@ -217,8 +217,8 @@ export const updateUserAvatar =
 
         const config = {
           headers: {
-            "Content-Type": "multipart/form-data",
-            // "Content-Type": "application/json",
+            // "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${userInfo.token}`,
           },
         };

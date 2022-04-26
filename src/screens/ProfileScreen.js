@@ -6,6 +6,7 @@ import { getUserDetails } from "../Redux/Actions/userActions";
 import Orders from "./../components/profileComponents/Orders";
 import moment from "moment";
 import { listMyOrders } from "../Redux/Actions/orderActions";
+import Avatar from "../components/profileComponents/Avatar";
 
 const ProfileScreen = () => {
   window.scrollTo(0, 0);
@@ -30,11 +31,7 @@ const ProfileScreen = () => {
         <div className="row align-items-start">
           <div className="col-lg-4 p-0 shadow ">
             <div className="author-card pb-0 pb-md-3">
-              <div className="author-card-cover"></div>
-              <div className="author-card-profile row">
-                <div className="author-card-avatar col-md-5">
-                  <img src={userInfo.avatarUrl} alt="userprofileimage" />
-                </div>
+              <div className="author-card-cover">
                 <div className="author-card-details col-md-7">
                   <h5 className="author-card-name mb-2">
                     <strong>{userInfo.name}</strong>
@@ -43,6 +40,13 @@ const ProfileScreen = () => {
                     <>Joined {moment(userInfo.createdAt).format("LLL")}</>
                   </span>
                 </div>
+              </div>
+              <div className="author-card-profile row">
+                <div className="author-card-avatar col-md-5">
+                  <img src={userInfo.avatarUrl} alt="userprofileimage" />
+                </div>
+                <Avatar />
+
               </div>
             </div>
             <div className="wizard pt-3 ">

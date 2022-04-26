@@ -5,7 +5,6 @@ import Loading from './../base/LoadingError/Loading';
 import Message from './../base/LoadingError/Error';
 import { toast } from "react-toastify";
 import { updateUserProfile } from "../../Redux/Actions/userActions";
-import Avatar from "./Avatar";
 
 const ProfileTabs = () => {
   const toastObjects = {
@@ -119,7 +118,6 @@ const ProfileTabs = () => {
             />
           </div>
         </div>
-        <Avatar />
         <button type="submit">Update Profile</button>
       </form>
     </>

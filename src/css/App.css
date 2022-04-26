@@ -435,6 +435,25 @@ textarea:focus {
   background-size: cover;
   background: var(--primary-color);
 }
+.author-card-details{
+  width: 100%;
+}
+.author-card-position,
+.author-card-name{
+  color: var(--white-color);
+  padding: 10px 10px 0 0;
+}
+.author-card-name{
+  text-align: right;
+  align-items: flex-end;
+
+}
+.author-card-position{
+  position: absolute;
+  text-align: right;
+  right: 0;
+  color: var(--white-color);
+}
 .author-card-profile {
   padding: 20px 10px;
 }
@@ -451,12 +470,52 @@ textarea:focus {
   margin-top: -60%;
   box-shadow: 0px 0px 27px 0px rgba(0, 0, 0, 0.377);
 }
-.author-change-avt{
-  
-}
-.author-change-avt i {
+/* .author-change-avt {
+} */
+/* .author-change-avt i {
   margin: 0 auto;
+} */
+/* form upload avatar */
+.form-upload-img {
+  height: 100px;
 }
+
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: "Upload avatar";
+  color: var(--white-color);
+  display: inline-block;
+  background: var(--primary-color);
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 10pt;
+}
+.custom-file-input:active {
+  outline: 0;
+}
+
+.btn-submit-change-avt {
+  position: absolute;
+  padding: 3px 10px !important;
+  font-size: 16px !important;
+  background: var(--primary-color);
+  color: #ccc;
+  z-index: 10;
+  right: 0;
+  bottom: 0;
+}
+.btn-submit-change-avt:hover {
+  color: var(--white-color);
+}
+.custom-file-input {
+  color: transparent;
+}
+/* end input chage avatar */
 .wizard .nav button {
   padding: 15px 20px;
   font-size: 13px;
