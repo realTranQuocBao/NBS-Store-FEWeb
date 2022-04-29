@@ -61,8 +61,9 @@ const Avatar = () => {
             )
           }
           <button
-            className="btn btn-submit-change-avt"
-            onClick={onSubmitAvt}>Submit</button>
+            className={`${inputImg}` ? `enable` : "btn-submit-change-avt"}
+            onClick={onSubmitAvt}
+          >Submit</button>
         </div>
       </div>
     </>
