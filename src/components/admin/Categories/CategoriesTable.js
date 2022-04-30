@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
 
 const CategoriesTable = () => {
+  const dispatch = useDispatch();
+  const categoryListAdmin = useSelector(state => state.categoryListAdmin);
+  const { category } = categoryListAdmin;
+  console.log("This is category>>>", category);
+  useEffect(() => {
+    dispatch(listCategoryAdmin())
+  }, [dispatch])
   return (
     <div className="col-md-12 col-lg-8">
       <table className="table">

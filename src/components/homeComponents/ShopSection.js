@@ -55,8 +55,8 @@ const ShopSection = (props) => {
                               <div className="shoptext">
                                 <p>
                                   <Link to={`/products/${product._id}`}>
-                                    {`${product.name.length} >= 35` ? `  
-                                    ${product.name.slice(0, 35)}...` : ` ${product.name}}`}
+                                    {`${product.name.length} >= 30` ? `  
+                                    ${product.name.slice(0, 30)}...` : ` ${product.name}}`}
                                   </Link>
                                 </p>
 
