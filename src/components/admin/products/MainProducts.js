@@ -56,8 +56,9 @@ const MainProducts = (props) => {
             </div>
             <div className="col-lg-2 col-6 col-md-3">
               <select className="form-select">
-                <option>Latest added</option>
+                <option to="/admin/products?priceOrder=desc">Expensive first</option>
                 <option>Cheap first</option>
+                <option>Latest added</option>
                 <option>Most viewed</option>
               </select>
             </div>

@@ -37,7 +37,7 @@ export const listProducts =
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
     const { data } = await axios.get(
-      `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}`);
+      `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=All`);
     // console.log(">>>log data: ", data);
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -140,8 +140,8 @@ export const listProductsAdmin = (keyword = " ", pageNumber = " ") => async (dis
       },
     };
 
-    const { data } = await axios.get(`/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}`, config);
-    console.log("data test>>>", data);
+    const { data } = await axios.get(`/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=All`, config);
+    // console.log("data test>>>", data);
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
