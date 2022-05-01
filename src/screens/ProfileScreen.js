@@ -15,7 +15,7 @@ const ProfileScreen = () => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-  console.log(">>>View userInfo", userInfo);
+  // console.log(">>>View userInfo", userInfo);
   const listMyOrder = useSelector((state) => state.listMyOrders);
   const { loading, error, orders } = listMyOrder;
 

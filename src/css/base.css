@@ -303,3 +303,6 @@ html {
 .btn-bg-main:hover{
   color: var(--white-color);
 }
+.icon-refresh{
+  float: right;
+}
