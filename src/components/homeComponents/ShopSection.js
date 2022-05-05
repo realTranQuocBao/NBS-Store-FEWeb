@@ -9,7 +9,6 @@ import Message from './../base/LoadingError/Error';
 
 const ShopSection = (props) => {
   const { keyword, pageNumber } = props;
-  console.log("===> Log props: ", props);
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);

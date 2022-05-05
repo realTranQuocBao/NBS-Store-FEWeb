@@ -8,7 +8,6 @@ const Avatar = () => {
 
   const userDetails = useSelector(state => state.userDetails);
   const { user } = userDetails;
-  // console.log(">>>User", user);
   const [inputImg, setInputImg] = useState('');
   const [blob, setBlob] = useState(null);
 

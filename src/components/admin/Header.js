@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import $ from "jquery";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetails, listUser, logout } from "../../Redux/Actions/userActions";
+import { logout } from "../../Redux/Actions/userActions";
 
 const Header = () => {
   const dispatch = useDispatch();

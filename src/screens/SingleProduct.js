@@ -8,7 +8,6 @@ import Loading from './../components/base/LoadingError/Loading';
 import Message from './../components/base/LoadingError/Error';
 import moment from "moment";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../Redux/Constants/productConstants";
-import { toast } from "react-toastify";
 
 const SingleProduct = ({ history, match }) => {
 
