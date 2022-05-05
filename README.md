@@ -1,6 +1,5 @@
 # Done feature in NBS-Client
 
-### CLIENT
 - Get and show all products
 - Get and show single product
 - Create redux
@@ -25,13 +24,21 @@
 - Done policy UI
 - Done popular categories UI
 
-### Admin
-- Done default UI
-- Done fix get all products toptotal
 # Done feature in NBS-Admin
 
-- processing
+- Done default UI
+- Done get sale and product statistics
+- Done fix get all products toptotal
 
+- Done get all order
+
+- Done get avatar url admin
+- Done get all user
+
+- Done get all category
+- Done add new category and reload btn
+
+- Done add new product and choose category
 # difference
 
 - admin: jquery

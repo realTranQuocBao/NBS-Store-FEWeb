@@ -7,6 +7,7 @@ import { createProductAdmin } from "./../../../Redux/Actions/productActions";
 import Toast from "./../../base/LoadingError/Toast";
 import Message from "./../../base/LoadingError/Error";
 import Loading from "./../../base/LoadingError/Loading";
+import { listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -16,6 +17,7 @@ const ToastObjects = {
 };
 const AddProductMain = () => {
   const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const [countInStock, setCountInStock] = useState(0);
@@ -26,7 +28,14 @@ const AddProductMain = () => {
   const productCreateAdmin = useSelector((state) => state.productCreateAdmin);
   const { loading, error, product } = productCreateAdmin;
 
+  const categoryListAdmin = useSelector((state) => state.categoryListAdmin);
+  const {
+    loading: loadingCategory,
+    error: errorCategory,
+    category: categoryAddProduct } = categoryListAdmin;
+
   useEffect(() => {
+    dispatch(listCategoryAdmin());
     if (product) {
       toast.success("Product Added", ToastObjects);
       dispatch({ type: PRODUCT_CREATE_RESET });
@@ -40,7 +49,7 @@ const AddProductMain = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createProductAdmin(name, price, description, image, countInStock));
+    dispatch(createProductAdmin(name, category, price, description, image, countInStock));
   };
 
   return (
@@ -79,6 +88,29 @@ const AddProductMain = () => {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                     />
+                  </div>
+                  {errorCategory && <Message variant="alert-danger">{errorCategory}</Message>}
+                  {loadingCategory && <Loading />}
+                  <div className="mb-4">
+                    <label htmlFor="category_title" className="form-label">
+                      Category
+                    </label>
+                    <select
+                      id="category_title"
+                      className="form-select"
+                      onChange={(e) => setCategory(e.target.value)}
+                    >
+                      {
+                        categoryAddProduct && categoryAddProduct.map((category, index) => (
+                          <option
+                            key={index}
+                            value={category._id}
+                          >
+                            {category.name}
+                          </option>
+                        ))
+                      }
+                    </select>
                   </div>
                   <div className="mb-4">
                     <label htmlFor="product_price" className="form-label">
