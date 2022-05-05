@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import $ from "jquery";
-import { useDispatch } from "react-redux";
-import { logout } from "../../Redux/Actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserDetails, listUser, logout } from "../../Redux/Actions/userActions";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const userLogin = useSelector(state => state.userLogin);
+  const { userInfo } = userLogin;
+  // console.log("View users>>>", userInfo);
+
   useEffect(() => {
     $("[data-trigger]").on("click", function (e) {
       e.preventDefault();
@@ -79,7 +83,7 @@ const Header = () => {
             <Link className="dropdown-toggle" data-bs-toggle="dropdown" to="#">
               <img
                 className="img-xs rounded-circle"
-                src="https://codefly.vn/wp-content/uploads/code/2020/12/11934/projecthtml/Source%20Code/uploadImage/Profile/blank_avatar.png"
+                src={userInfo.avatarUrl}
                 alt="User"
               />
             </Link>

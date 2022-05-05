@@ -37,7 +37,7 @@ export const listProducts =
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
     const { data } = await axios.get(
-      `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}`);
+      `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=All`);
     // console.log(">>>log data: ", data);
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -106,6 +106,25 @@ export const createProductReview =
 /**
  * ADMIN
 */ 
+// export const listProductsAdmin =
+//   (keyword = " ", pageNumber = " ") =>
+//     async (dispatch) => {
+//   try {
+//     dispatch({ type: PRODUCT_LIST_REQUEST });
+//     const { data } = await axios.get(
+//       `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}`);
+//     // console.log(">>>log data: ", data);
+//     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+//   } catch (error) {
+//     dispatch({
+//       type: PRODUCT_LIST_FAIL,
+//       payload:
+//         error.response && error.response.data.message
+//           ? error.response.data.message
+//           : error.message,
+//     });
+//   }
+// };
 //  ALL PRODUCT
 export const listProductsAdmin = (keyword = " ", pageNumber = " ") => async (dispatch, getState) => {
   try {
@@ -121,7 +140,8 @@ export const listProductsAdmin = (keyword = " ", pageNumber = " ") => async (dis
       },
     };
 
-    const { data } = await axios.get(`/api/v1/product`, config);
+    const { data } = await axios.get(`/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=All`, config);
+    // console.log("data test>>>", data);
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {

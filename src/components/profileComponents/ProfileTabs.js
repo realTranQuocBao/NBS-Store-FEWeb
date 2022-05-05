@@ -21,15 +21,19 @@ const ProfileTabs = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
   const toastId = React.useRef(null);
 
   const dispatch = useDispatch();
 
   const userDetails = useSelector(state => state.userDetails);
   const { user, loading, error } = userDetails;
+  console.log(">>>User", user);
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { loading: updateLoading } = userUpdateProfile;
+  // console.log(">>>UserUpdateProfile", userUpdateProfile);
+
 
   useEffect(() => {
     if (user) {
@@ -40,7 +44,6 @@ const ProfileTabs = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-
     // check password match
     if ((password !== confirmPassword) ||
       (password === "") ||
@@ -50,7 +53,10 @@ const ProfileTabs = () => {
         toastId.current = toast.error("Password does not match", toastObjects);
       }
     } else {
-      dispatch(updateUserProfile({ id: user._id, name, email, password }));
+      dispatch(updateUserProfile(
+        { id: user._id, name, email, avatarUrl: user.avatarUrl, password }
+      ));
+
       if (!toast.isActive(toastId.current)) {
         toastId.current = toast.success("Profile Updated", toastObjects);
       }
@@ -63,7 +69,10 @@ const ProfileTabs = () => {
       {error && <Message variant="alert-danger">{error}</Message>}
       {loading && <Loading />}
       {updateLoading && <Loading />}
-      <form className="row  form-container" onSubmit={submitHandler}>
+      <form
+        className="row  form-container"
+        onSubmit={submitHandler}
+        encType='multipart/form-data'>
         <div className="col-md-6">
           <div className="form">
             <label htmlFor="account-fn">UserName</label>

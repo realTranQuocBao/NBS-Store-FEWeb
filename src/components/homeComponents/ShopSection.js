@@ -9,7 +9,7 @@ import Message from './../base/LoadingError/Error';
 
 const ShopSection = (props) => {
   const { keyword, pageNumber } = props;
-  // console.log("===> Log keyword shop section: ", keyword);
+  console.log("===> Log props: ", props);
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
@@ -55,8 +55,8 @@ const ShopSection = (props) => {
                               <div className="shoptext">
                                 <p>
                                   <Link to={`/products/${product._id}`}>
-                                    {`${product.name.length} >= 35` ? `  
-                                    ${product.name.slice(0, 35)}...` : ` ${product.name}}`}
+                                    {`${product.name.length} >= 30` ? `  
+                                    ${product.name.slice(0, 30)}...` : ` ${product.name}}`}
                                   </Link>
                                 </p>
 
