@@ -292,8 +292,17 @@ html {
 .btn-item-product {
   border: 1px solid #ccc;
   font-size: 10px;
-  color: red;
+  color: #333;
 }
 .btn-mobile {
   color: #212529;
+}
+.btn-bg-main{
+  background: var(--primary-color);
+}
+.btn-bg-main:hover{
+  color: var(--white-color);
+}
+.icon-refresh{
+  float: right;
 }

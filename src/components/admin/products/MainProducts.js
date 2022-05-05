@@ -9,14 +9,14 @@ import PaginationAdmin from "../Home/PaginationAdmin";
 
 const MainProducts = (props) => {
   const { keyword, pageNumber } = props;
-  // console.log("Log pageNumber>>>: ", pageNumber);
+  console.log("Log props>>>: ", props);
   const dispatch = useDispatch();
 
   const productListAdmin = useSelector((state) => state.productListAdmin.products);
   const { loading, error, products, page, pages } = productListAdmin;
   // const newProducts = products.products;
   // console.log("View all newproducts>>>", newProducts);
-  console.log("productListAdmin>>>", productListAdmin);
+  // console.log("productListAdmin>>>", productListAdmin);
 
   const productDeleteAdmin = useSelector((state) => state.productDeleteAdmin);
   const { error: errorDelete, success: successDelete } = productDeleteAdmin;
@@ -56,8 +56,9 @@ const MainProducts = (props) => {
             </div>
             <div className="col-lg-2 col-6 col-md-3">
               <select className="form-select">
-                <option>Latest added</option>
+                <option to="/admin/products?priceOrder=desc">Expensive first</option>
                 <option>Cheap first</option>
+                <option>Latest added</option>
                 <option>Most viewed</option>
               </select>
             </div>

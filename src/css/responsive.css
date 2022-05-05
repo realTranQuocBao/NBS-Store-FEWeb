@@ -112,7 +112,7 @@
     font-size: 23px;
   }
   .author-card-avatar {
-    display: none;
+    display: block;
   }
   .order-detail {
     margin-top: 20px;
