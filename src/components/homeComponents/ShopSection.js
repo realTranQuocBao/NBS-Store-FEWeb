@@ -18,7 +18,6 @@ const ShopSection = (props) => {
   useEffect(() => {
     dispatch(listProducts(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber]);
-  // console.log(">>>All data products: ", products);
   return (
     <>
       <div className="container">

@@ -20,7 +20,6 @@ const CreateCategory = () => {
 
   const categoryCreateAdmin = useSelector((state) => state.categoryCreateAdmin);
   const { loading, error, category } = categoryCreateAdmin;
-  // console.log("Load category>>>", category);
 
   useEffect(() => {
     if (category) {

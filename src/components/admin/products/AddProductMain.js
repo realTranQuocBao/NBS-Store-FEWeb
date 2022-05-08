@@ -100,6 +100,7 @@ const AddProductMain = () => {
                       className="form-select"
                       onChange={(e) => setCategory(e.target.value)}
                     >
+                      <option value="">Choose category</option>
                       {
                         categoryAddProduct && categoryAddProduct.map((category, index) => (
                           <option

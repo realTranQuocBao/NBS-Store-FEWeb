@@ -33,9 +33,7 @@ const Avatar = () => {
   }
   const onSubmitAvt = () => {
     const formData = new FormData();
-    // console.log(">>>view formData: ", formData);
     formData.append("file", blob);
-    // console.log(">>>View avatarUrl: ", avatarUrl);
     dispatch(updateUserAvatar({ user, formData }))
 
   }

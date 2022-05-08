@@ -8,7 +8,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
-  // console.log("View users>>>", userInfo);
 
   useEffect(() => {
     $("[data-trigger]").on("click", function (e) {

@@ -11,7 +11,6 @@ const CategoriesTable = () => {
   const history = useHistory();
   const categoryListAdmin = useSelector(state => state.categoryListAdmin);
   const { error, loading, category } = categoryListAdmin;
-  // console.log("This is categoryListAdmin>>>", categoryListAdmin);
 
   useEffect(() => {
     dispatch(listCategoryAdmin())
