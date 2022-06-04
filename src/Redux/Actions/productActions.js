@@ -124,7 +124,7 @@ export const createProductReview =
 //   }
 // };
 //  ALL PRODUCT
-export const listProductsAdmin = (keyword = " ", pageNumber = " ") => async (dispatch, getState) => {
+export const listProductsAdmin = (keyword = "", pageNumber = "") => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
 

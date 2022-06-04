@@ -30,8 +30,6 @@ const AddProductMain = () => {
 
   const categoryListAdmin = useSelector((state) => state.categoryListAdmin);
   const {
-    loading: loadingCategory,
-    error: errorCategory,
     category: categoryAddProduct } = categoryListAdmin;
 
   useEffect(() => {
@@ -89,8 +87,8 @@ const AddProductMain = () => {
                       onChange={(e) => setName(e.target.value)}
                     />
                   </div>
-                  {errorCategory && <Message variant="alert-danger">{errorCategory}</Message>}
-                  {loadingCategory && <Loading />}
+                  {/* {errorCategory && <Message variant="alert-danger">{errorCategory}</Message>}
+                  {loadingCategory && <Loading />} */}
                   <div className="mb-4">
                     <label htmlFor="category_title" className="form-label">
                       Category

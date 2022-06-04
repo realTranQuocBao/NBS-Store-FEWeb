@@ -35,8 +35,8 @@ const EditProductMain = (props) => {
   const [category, setCategory] = useState(product.category);
   useEffect(() => {
     setCategory(product.category);
-    // return () => { setCategory(product.category) }
-  }, [product._id]);
+    return () => { setCategory(product.category) }
+  }, [product._id, product.category]);
 
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
@@ -47,8 +47,8 @@ const EditProductMain = (props) => {
 
   const categoryListAdmin = useSelector((state) => state.categoryListAdmin);
   const {
-    loading: loadingCategory,
-    error: errorCategory,
+    // loading: loadingCategory,
+    // error: errorCategory,
     category: categoryEditProduct
   } = categoryListAdmin;
 
@@ -69,7 +69,7 @@ const EditProductMain = (props) => {
         setPrice(product.price);
       }
     }
-  }, [product, dispatch, productId, successUpdate]);
+  }, [product, dispatch, productId, successUpdate, category]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -131,8 +131,8 @@ const EditProductMain = (props) => {
                           onChange={(e) => setName(e.target.value)}
                         />
                       </div>
-                          {errorCategory && <Message variant="alert-danger">{errorCategory}</Message>}
-                          {loadingCategory && <Loading />}
+                          {/* {errorCategory && <Message variant="alert-danger">{errorCategory}</Message>}
+                          {loadingCategory && <Loading />} */}
                           <div className="mb-4">
                             <label htmlFor="category_title" className="form-label">
                               Category
