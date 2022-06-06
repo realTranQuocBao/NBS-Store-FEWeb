@@ -70,7 +70,7 @@ const App = () => {
 
         {/* ADMIN */}
         <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
-        <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} />
+        <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} exact />
         <Route path="/admin/search/:keyword"
           component={ProductScreenAdmin} exact />
         <Route path="/admin/products/page/:pagenumber"

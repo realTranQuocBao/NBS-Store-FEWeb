@@ -246,7 +246,7 @@ body.offcanvas-active {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 .content-header .content-title {
   margin-bottom: 0;
