@@ -210,7 +210,7 @@ body.offcanvas-active {
 .main-header {
   padding-left: 3%;
   padding-right: 3%;
-  height: 72px;
+  /* height: 72px; */
   background-color: #fff;
   border-bottom: 1px solid rgba(108, 117, 125, 0.25);
 }
