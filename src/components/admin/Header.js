@@ -1,10 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import $ from "jquery";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../Redux/Actions/userActions";
+import { useHistory } from "react-router-dom";
 
 const Header = () => {
+  const [keyword, setKeyword] = useState();
+  let history = useHistory();
+
   const dispatch = useDispatch();
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
@@ -28,6 +32,15 @@ const Header = () => {
     });
   }, []);
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (keyword.trim()) {
+      history.push(`/admin/search/${keyword}`);
+    } else {
+      history.push(`/admin`);
+    }
+  }
+
   const logoutHandler = () => {
     dispatch(logout());
   };
@@ -35,15 +48,16 @@ const Header = () => {
   return (
     <header className="main-header navbar">
       <div className="col-search">
-        <form className="searchform">
+        <form className="searchform" onSubmit={submitHandler}>
           <div className="input-group search-wrap-admin">
             <input
               list="search_terms"
               type="text"
               className="form-control input-search-admin"
               placeholder="Search term"
+              onChange={e => setKeyword(e.target.value)}
             />
-            <button className="btn btn-light bg btn-search-admin" type="button">
+            <button className="btn btn-light bg btn-search-admin" type="submit">
               <i className="far fa-search icon-search-admin"></i>
             </button>
           </div>

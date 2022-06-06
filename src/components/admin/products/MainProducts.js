@@ -2,25 +2,26 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Product from "./Product";
 import { useDispatch, useSelector } from "react-redux";
-import { listProductsAdminAll } from "./../../../Redux/Actions/productActions.js";
+import { listProducts, listProductsAdmin, listProductsAdminAll } from "./../../../Redux/Actions/productActions.js";
 import Loading from "./../../base/LoadingError/Loading";
 import Message from "./../../base/LoadingError/Error";
 import PaginationAdmin from "../Home/PaginationAdmin";
 
 const MainProducts = (props) => {
-  // const { keyword, pageNumber } = props;
+  const { keyword, pageNumber } = props;
   const dispatch = useDispatch();
 
   const productListAdmin = useSelector(state => state.productListAdmin);
-  const { products } = productListAdmin;
+  const { loading, error, products, page, pages } = productListAdmin;
+
   console.log(products);
 
   const productDeleteAdmin = useSelector((state) => state.productDeleteAdmin);
   const { error: errorDelete, success: successDelete } = productDeleteAdmin;
 
   useEffect(() => {
-    dispatch(listProductsAdminAll());
-  }, [dispatch, successDelete]);
+    dispatch(listProductsAdmin(keyword, pageNumber));
+  }, [dispatch, keyword, pageNumber, successDelete]);
 
   return (
     <section className="content-main">
@@ -66,24 +67,24 @@ const MainProducts = (props) => {
           {errorDelete && (
             <Message variant="alert-danger">{errorDelete}</Message>
           )}
-          {/* {loading ? (
+          {loading ? (
             <Loading />
           ) : error ? (
             <Message variant="alert-danger">{error}</Message>
-          ) : ( */}
+            ) : (
             <div className="row">
               {/* Products */}
                   {products && products.map((product) => (
                 <Product product={product} key={product._id} />
               ))}
             </div>
-          {/* )} */}
+          )}
           {/* PaginationAdmin */}
-          {/* <PaginationAdmin
+          <PaginationAdmin
             page={page}
             pages={pages}
             keyword={keyword ? keyword : ""}
-          /> */}
+          />
           {/* <nav className="float-end mt-4" aria-label="Page navigation">
             <ul className="pagination">
               <li className="page-item disabled">
