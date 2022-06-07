@@ -24,6 +24,11 @@ const ProfileScreen = () => {
     dispatch(getUserDetails("profile"));
   }, [dispatch]);
 
+  const onAvatarLoadError = (e) => {
+    e.currentTarget.onerror = null; // prevents looping
+    e.currentTarget.src = "/images/avatar/default.png";
+  };
+
   return (
     <>
       <Header />
@@ -43,10 +48,13 @@ const ProfileScreen = () => {
               </div>
               <div className="author-card-profile row">
                 <div className="author-card-avatar col-md-5">
-                  <img src={userInfo.avatarUrl} alt="userprofileimage" />
+                  <img
+                    src={userInfo.avatarUrl}
+                    onError={onAvatarLoadError}
+                    alt="userprofileimage"
+                  />
                 </div>
                 <Avatar />
-
               </div>
             </div>
             <div className="wizard pt-3 ">
