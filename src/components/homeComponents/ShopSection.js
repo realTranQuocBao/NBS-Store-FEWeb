@@ -9,7 +9,6 @@ import Message from './../base/LoadingError/Error';
 
 const ShopSection = (props) => {
   const { keyword, pageNumber } = props;
-  console.log("===> Log props: ", props);
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
@@ -19,7 +18,6 @@ const ShopSection = (props) => {
   useEffect(() => {
     dispatch(listProducts(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber]);
-  // console.log(">>>All data products: ", products);
   return (
     <>
       <div className="container">

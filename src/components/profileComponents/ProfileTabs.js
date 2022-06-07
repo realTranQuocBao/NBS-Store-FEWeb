@@ -28,11 +28,9 @@ const ProfileTabs = () => {
 
   const userDetails = useSelector(state => state.userDetails);
   const { user, loading, error } = userDetails;
-  console.log(">>>User", user);
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { loading: updateLoading } = userUpdateProfile;
-  // console.log(">>>UserUpdateProfile", userUpdateProfile);
 
 
   useEffect(() => {

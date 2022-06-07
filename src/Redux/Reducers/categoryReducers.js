@@ -16,7 +16,6 @@ export const categoryListReducerAdmin = (state = { category: [] }, action) => {
         case CATEGORY_LIST_REQUEST:
             return { loading: true, category: [] };
         case CATEGORY_LIST_SUCCESS:
-            // console.log("check success>>>");
             return { loading: false, category: action.payload };
         case CATEGORY_LIST_FAIL:
             return { loading: false, error: action.payload };

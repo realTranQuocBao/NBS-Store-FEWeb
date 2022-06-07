@@ -5,7 +5,6 @@ import { deleteProductAdmin } from "../../../Redux/Actions/productActions";
 
 const Product = (props) => {
   const { product } = props;
-  // console.log("Product>>>", product);
   const dispatch = useDispatch();
 
   const deletehandler = (id) => {

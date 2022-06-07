@@ -10,7 +10,6 @@ const Main = () => {
   const { loading, error, orders } = orderListAdmin;
   const productList = useSelector((state) => state.productList);
   const { products } = productList;
-  // console.log("ProductList>>>", productList);
   return (
     <>
       <section className="content-main">

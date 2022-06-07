@@ -1,29 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Product from "./Product";
 import { useDispatch, useSelector } from "react-redux";
-import { listProductsAdmin } from "./../../../Redux/Actions/productActions";
+import { listProducts, listProductsAdmin, listProductsAdminAll } from "./../../../Redux/Actions/productActions.js";
 import Loading from "./../../base/LoadingError/Loading";
 import Message from "./../../base/LoadingError/Error";
 import PaginationAdmin from "../Home/PaginationAdmin";
 
 const MainProducts = (props) => {
   const { keyword, pageNumber } = props;
-  console.log("Log props>>>: ", props);
   const dispatch = useDispatch();
 
-  const productListAdmin = useSelector((state) => state.productListAdmin.products);
+  const productListAdmin = useSelector(state => state.productListAdmin);
   const { loading, error, products, page, pages } = productListAdmin;
-  // const newProducts = products.products;
-  // console.log("View all newproducts>>>", newProducts);
-  // console.log("productListAdmin>>>", productListAdmin);
 
   const productDeleteAdmin = useSelector((state) => state.productDeleteAdmin);
   const { error: errorDelete, success: successDelete } = productDeleteAdmin;
 
   useEffect(() => {
     dispatch(listProductsAdmin(keyword, pageNumber));
-  }, [dispatch, successDelete, keyword, pageNumber]);
+  }, [dispatch, keyword, pageNumber, successDelete]);
 
   return (
     <section className="content-main">
@@ -38,7 +34,7 @@ const MainProducts = (props) => {
 
       <div className="card mb-4 shadow-sm">
         <header className="card-header bg-white ">
-          <div className="row gx-3 py-3">
+          <div className="row">
             <div className="col-lg-4 col-md-6 me-auto ">
               <input
                 type="search"
@@ -73,10 +69,10 @@ const MainProducts = (props) => {
             <Loading />
           ) : error ? (
             <Message variant="alert-danger">{error}</Message>
-          ) : (
+            ) : (
             <div className="row">
               {/* Products */}
-                  {products && products.map((product) => (
+                  {products?.map((product) => (
                 <Product product={product} key={product._id} />
               ))}
             </div>
@@ -87,36 +83,6 @@ const MainProducts = (props) => {
             pages={pages}
             keyword={keyword ? keyword : ""}
           />
-          {/* <nav className="float-end mt-4" aria-label="Page navigation">
-            <ul className="pagination">
-              <li className="page-item disabled">
-                <Link className="page-link" to="#">
-                  Previous
-                </Link>
-              </li>
-              <li className="page-item active">
-                <Link className="page-link" to="#">
-                  1
-                </Link>
-              </li>
-              <li className="page-item">
-                <Link className="page-link" to="#">
-                  2
-                </Link>
-              </li>
-              <li className="page-item">
-                <Link className="page-link" to="#">
-                  3
-                </Link>
-              </li>
-              <li className="page-item">
-                <Link className="page-link" to="#">
-                  Next
-                </Link>
-              </li>
-            </ul>
-
-          </nav> */}
         </div>
       </div>
     </section>

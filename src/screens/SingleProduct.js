@@ -8,11 +8,9 @@ import Loading from './../components/base/LoadingError/Loading';
 import Message from './../components/base/LoadingError/Error';
 import moment from "moment";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../Redux/Constants/productConstants";
-import { toast } from "react-toastify";
 
 const SingleProduct = ({ history, match }) => {
 
-  // console.log(">>>View match: ", match);
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
@@ -42,7 +40,6 @@ const SingleProduct = ({ history, match }) => {
 
     dispatch(detailsProduct(productId))
   }, [dispatch, productId, successCreateReview]);
-  // console.log(">>>Single data product: ", product);
 
   const handleAddToCart = (e) => {
     e.preventDefault();

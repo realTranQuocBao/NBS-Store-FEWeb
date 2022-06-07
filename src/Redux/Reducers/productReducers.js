@@ -58,7 +58,6 @@ export const productDetailsReducer = (
     case PRODUCT_DETAILS_REQUEST:
       return { ...state, loading: true };
     case PRODUCT_DETAILS_SUCCESS:
-      // console.log(">>>check success");
       return { loading: false, product: action.payload };
     case PRODUCT_DETAILS_FAIL:
       return { loading: false, error: action.payload };
@@ -92,8 +91,12 @@ export const productListReducerAdmin = (state = { products: [] }, action) => {
     case PRODUCT_LIST_REQUEST:
       return { loading: true, products: [] };
     case PRODUCT_LIST_SUCCESS:
-      // console.log("check success>>>");
-      return { loading: false, products: action.payload };
+      return {
+        loading: false,
+        page: action.payload.page,
+        pages: action.payload.pages,
+        products: action.payload.products
+      };
     case PRODUCT_LIST_FAIL:
       return { loading: false, error: action.payload };
     default:
