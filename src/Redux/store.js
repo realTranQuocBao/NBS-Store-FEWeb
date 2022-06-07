@@ -32,7 +32,7 @@ import {
   orderListReducerAdmin,
   orderPayReducer,
 } from "./Reducers/orderReducres";
-import { categoryCreateReducerAdmin, categoryListReducerAdmin } from "./Reducers/categoryReducers";
+import { categoryCreateReducerAdmin, categoryDeleteReducerAdmin, categoryListReducerAdmin } from "./Reducers/categoryReducers";
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -58,6 +58,7 @@ const reducer = combineReducers({
   productUpdate: productUpdateReducer,
   categoryListAdmin: categoryListReducerAdmin,
   categoryCreateAdmin: categoryCreateReducerAdmin,
+  categoryDeleteAdmin: categoryDeleteReducerAdmin,
   orderListAdmin: orderListReducerAdmin,
   orderDeliver: orderDeliveredReducer,
 });
