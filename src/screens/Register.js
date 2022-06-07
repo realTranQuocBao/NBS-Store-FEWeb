@@ -16,7 +16,6 @@ const Register = ({ location, history }) => {
 
     const dispatch = useDispatch();
     const userRegister = useSelector(state => state.userRegister);
-    // console.log(">>>Register: ", userRegister);
     const { loading, error, userInfo } = userRegister;
     useEffect(() => {
         if (userInfo) {
@@ -44,9 +43,7 @@ const Register = ({ location, history }) => {
             dispatch(userRegisterAction(value.name, value.email, value.password));
         }
     })
-    // console.log("name>>>>", formik.errors.name);
-    // console.log("password>>>>", formik.errors.password);
-    // console.log("confirmedpassword>>>>", formik.errors.confirmedPassword);
+
     return (
         <>
             <Header />

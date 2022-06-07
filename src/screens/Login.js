@@ -15,7 +15,6 @@ const Login = ({ location, history }) => {
 
   const dispatch = useDispatch();
   const userLogin = useSelector(state => state.userLogin);
-  // console.log(">>>userLogin nek: ", userLogin);
   const { loading, error, userInfo } = userLogin;
 
   useEffect(() => {

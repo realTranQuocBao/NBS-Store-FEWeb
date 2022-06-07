@@ -8,7 +8,6 @@ const Avatar = () => {
 
   const userDetails = useSelector(state => state.userDetails);
   const { user } = userDetails;
-  // console.log(">>>User", user);
   const [inputImg, setInputImg] = useState('');
   const [blob, setBlob] = useState(null);
 
@@ -34,9 +33,7 @@ const Avatar = () => {
   }
   const onSubmitAvt = () => {
     const formData = new FormData();
-    // console.log(">>>view formData: ", formData);
     formData.append("file", blob);
-    // console.log(">>>View avatarUrl: ", avatarUrl);
     dispatch(updateUserAvatar({ user, formData }))
 
   }

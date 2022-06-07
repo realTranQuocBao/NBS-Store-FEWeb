@@ -4,16 +4,14 @@ import { listProductsAdminAll } from "../../../Redux/Actions/productActions";
 
 const TopTotal = (props) => {
   const dispatch = useDispatch();
-  const productListAdmin = useSelector(state => state.productListAdmin);
-  const { products } = productListAdmin;
-  // console.log("All products admin>>>", productListAdmin);
+  const productListAdminAll = useSelector(state => state.productListAdminAll);
+  const { products } = productListAdminAll;
 
   useEffect(() => {
     dispatch(listProductsAdminAll())
   }, [dispatch])
 
   const { orders } = props;
-  // console.log("props>>>", props);
   let totalSale = 0;
   if (orders) {
     orders.map((order) =>

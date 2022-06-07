@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const PaginationAdmin = (props) => {
   const { page, pages, keyword = "" } = props;
-  // console.log("Log props admin>>>", props);
   return (
     pages > 1 && (
       <nav>

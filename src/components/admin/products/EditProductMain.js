@@ -10,6 +10,7 @@ import { PRODUCT_UPDATE_RESET } from "../../../Redux/Constants/productConstants"
 import { toast } from "react-toastify";
 import Message from "../../base/LoadingError/Error";
 import Loading from "../../base/LoadingError/Loading";
+import { listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -31,6 +32,11 @@ const EditProductMain = (props) => {
 
   const productEditAdmin = useSelector((state) => state.productEditAdmin);
   const { loading, error, product } = productEditAdmin;
+  const [category, setCategory] = useState(product.category);
+  useEffect(() => {
+    setCategory(product.category);
+    return () => { setCategory(product.category) }
+  }, [product._id, product.category]);
 
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
@@ -39,7 +45,15 @@ const EditProductMain = (props) => {
     success: successUpdate,
   } = productUpdate;
 
+  const categoryListAdmin = useSelector((state) => state.categoryListAdmin);
+  const {
+    // loading: loadingCategory,
+    // error: errorCategory,
+    category: categoryEditProduct
+  } = categoryListAdmin;
+
   useEffect(() => {
+    dispatch(listCategoryAdmin());
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
       toast.success("Product Updated", ToastObjects);
@@ -48,13 +62,14 @@ const EditProductMain = (props) => {
         dispatch(editProductAdmin(productId));
       } else {
         setName(product.name);
+        setCategory(category);
         setDescription(product.description);
         setCountInStock(product.countInStock);
         setImage(product.image);
         setPrice(product.price);
       }
     }
-  }, [product, dispatch, productId, successUpdate]);
+  }, [product, dispatch, productId, successUpdate, category]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -62,6 +77,7 @@ const EditProductMain = (props) => {
       updateProductAdmin({
         _id: productId,
         name,
+        category,
         price,
         description,
         image,
@@ -115,6 +131,31 @@ const EditProductMain = (props) => {
                           onChange={(e) => setName(e.target.value)}
                         />
                       </div>
+                          {/* {errorCategory && <Message variant="alert-danger">{errorCategory}</Message>}
+                          {loadingCategory && <Loading />} */}
+                          <div className="mb-4">
+                            <label htmlFor="category_title" className="form-label">
+                              Category
+                            </label>
+                            <select
+                              id="category_title"
+                              className="form-select"
+                              value={category}
+                              onChange={(e) => setCategory(e.target.value)}
+                            >
+                              {
+                                categoryEditProduct && categoryEditProduct.map((categoryItem, index) => (
+                                  <option
+                                    key={index}
+                                    value={categoryItem._id}
+                                  >
+                                    {categoryItem.name}
+                                  </option>
+                                )
+                                )
+                              }
+                            </select>
+                          </div>
                       <div className="mb-4">
                         <label htmlFor="product_price" className="form-label">
                           Price

@@ -5,7 +5,6 @@ import MainProducts from "./../../components/admin/products/MainProducts";
 
 const ProductScreen = ({ match }) => {
   window.scrollTo(0, 0);
-  console.log("Log view match>>>", match);
   const keyword = match.params.keyword;
   const pageNumber = match.params.pagenumber;
   return (

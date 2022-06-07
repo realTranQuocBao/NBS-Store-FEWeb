@@ -22,6 +22,7 @@ import {
   productCreateReducerAdmin,
   productEditReducerAdmin,
   productDeleteReducerAdmin,
+  productListReducerAdminAll,
 } from "./Reducers/productReducers";
 import {
   orderCreateReducer,
@@ -31,7 +32,7 @@ import {
   orderListReducerAdmin,
   orderPayReducer,
 } from "./Reducers/orderReducres";
-import { categoryCreateReducerAdmin, categoryListReducerAdmin } from "./Reducers/categoryReducers";
+import { categoryCreateReducerAdmin, categoryDeleteReducerAdmin, categoryListReducerAdmin } from "./Reducers/categoryReducers";
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -50,12 +51,14 @@ const reducer = combineReducers({
   //admin
   userList: userListReducer,
   productListAdmin: productListReducerAdmin,
+  productListAdminAll: productListReducerAdminAll,
   productDeleteAdmin: productDeleteReducerAdmin,
   productCreateAdmin: productCreateReducerAdmin,
   productEditAdmin: productEditReducerAdmin,
   productUpdate: productUpdateReducer,
   categoryListAdmin: categoryListReducerAdmin,
   categoryCreateAdmin: categoryCreateReducerAdmin,
+  categoryDeleteAdmin: categoryDeleteReducerAdmin,
   orderListAdmin: orderListReducerAdmin,
   orderDeliver: orderDeliveredReducer,
 });

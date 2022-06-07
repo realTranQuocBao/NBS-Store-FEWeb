@@ -39,7 +39,6 @@ export const listProducts =
             const { data } = await axios.get(
                 `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=All`
             );
-            // console.log(">>>log data: ", data);
             dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
         } catch (error) {
             dispatch({
@@ -53,7 +52,6 @@ export const detailsProduct = (id) => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_DETAILS_REQUEST });
         const { data } = await axios.get(`/api/v1/product/${id}`);
-        // console.log(">>>log data: ", data);
         dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
     } catch (error) {
         dispatch({
@@ -94,26 +92,8 @@ export const createProductReview = (productId, review) => async (dispatch, getSt
 /**
  * ADMIN
  */
-// export const listProductsAdmin =
-//   (keyword = " ", pageNumber = " ") =>
-//     async (dispatch) => {
-//   try {
-//     dispatch({ type: PRODUCT_LIST_REQUEST });
-//     const { data } = await axios.get(
-//       `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}`);
-//     // console.log(">>>log data: ", data);
-//     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
-//   } catch (error) {
-//     dispatch({
-//       type: PRODUCT_LIST_FAIL,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     });
-//   }
-// };
-//  ALL PRODUCT
+
+//  GET LIST PRODUCT HAVE BAGINATION
 export const listProductsAdmin =
     (keyword = "", pageNumber = "") =>
     async (dispatch, getState) => {
@@ -134,7 +114,6 @@ export const listProductsAdmin =
                 `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=All`,
                 config
             );
-            // console.log("data test>>>", data);
 
             dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
         } catch (error) {
@@ -148,6 +127,7 @@ export const listProductsAdmin =
             });
         }
     };
+
 // GET ALL PRODUCTS WITHOUT PAGINATION
 export const listProductsAdminAll = () => async (dispatch, getState) => {
     try {
@@ -209,38 +189,39 @@ export const deleteProductAdmin = (id) => async (dispatch, getState) => {
 };
 
 // CREATE PRODUCT
-export const createProductAdmin = (name, price, description, image, countInStock) => async (dispatch, getState) => {
-    try {
-        dispatch({ type: PRODUCT_CREATE_REQUEST });
+export const createProductAdmin =
+    (name, category, price, description, image, countInStock) => async (dispatch, getState) => {
+        try {
+            dispatch({ type: PRODUCT_CREATE_REQUEST });
 
-        const {
-            userLogin: { userInfo }
-        } = getState();
+            const {
+                userLogin: { userInfo }
+            } = getState();
 
-        const config = {
-            headers: {
-                Authorization: `Bearer ${userInfo.token}`
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            };
+
+            const { data } = await axios.post(
+                `/api/v1/product/`,
+                { name, category, price, description, image, countInStock },
+                config
+            );
+
+            dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data });
+        } catch (error) {
+            const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+            if (message === "Not authorized, token failed") {
+                dispatch(logout());
             }
-        };
-
-        const { data } = await axios.post(
-            `/api/v1/product/`,
-            { name, price, description, image, countInStock },
-            config
-        );
-
-        dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data });
-    } catch (error) {
-        const message = error.response && error.response.data.message ? error.response.data.message : error.message;
-        if (message === "Not authorized, token failed") {
-            dispatch(logout());
+            dispatch({
+                type: PRODUCT_CREATE_FAIL,
+                payload: message
+            });
         }
-        dispatch({
-            type: PRODUCT_CREATE_FAIL,
-            payload: message
-        });
-    }
-};
+    };
 
 // EDIT PRODUCT
 export const editProductAdmin = (id) => async (dispatch) => {

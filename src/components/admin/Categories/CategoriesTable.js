@@ -2,26 +2,54 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
+import { toast } from "react-toastify";
+import { deleteCategoryAdmin, listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
+import { CATEGORY_DELETE_SUCCESS } from "../../../Redux/Constants/categoryConstants";
 import Message from "../../base/LoadingError/Error";
 import Loading from "../../base/LoadingError/Loading";
+import Toast from "../../base/LoadingError/Toast";
 
+const ToastObjects = {
+  pauseOnFocusLoss: false,
+  draggable: false,
+  pauseOnHover: false,
+  autoClose: 2000,
+};
 const CategoriesTable = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const categoryListAdmin = useSelector(state => state.categoryListAdmin);
   const { error, loading, category } = categoryListAdmin;
-  // console.log("This is categoryListAdmin>>>", categoryListAdmin);
 
-  useEffect(() => {
-    dispatch(listCategoryAdmin())
-  }, [dispatch])
+  const categoryCreateAdmin = useSelector(state => state.categoryCreateAdmin);
+  const { success: successAdd } = categoryCreateAdmin;
+
+  const categoryDeleteAdmin = useSelector(state => state.categoryDeleteAdmin);
+  const { success: successDel, error: errorDel } = categoryDeleteAdmin;
 
   const handleReloadCategory = () => {
     history.push('/admin/category');
   }
+  const categoryDeleteHandeler = (id) => {
 
+    if (window.confirm(("Are you sure delete category???"))) {
+      dispatch(deleteCategoryAdmin(id));
+    }
+  }
+  useEffect(() => {
+    if (successDel) {
+      dispatch({ type: CATEGORY_DELETE_SUCCESS });
+      toast.success("Deleted success category!!!", ToastObjects);
+    } else {
+      toast.error(errorDel, ToastObjects);
+    }
+  }, [successDel, errorDel])
+  useEffect(() => {
+    dispatch(listCategoryAdmin())
+  }, [dispatch, successAdd, successDel])
   return (
+    <>
+      <Toast />
     <span className="col-md-12 col-lg-8">
       <span
         onClick={handleReloadCategory}
@@ -80,7 +108,11 @@ const CategoriesTable = () => {
                             <Link className="dropdown-item" to="#">
                               Edit info
                             </Link>
-                            <Link className="dropdown-item text-danger" to="#">
+                            <Link
+                              to="#"
+                              className="dropdown-item text-danger"
+                              onClick={() => categoryDeleteHandeler(item._id)}
+                            >
                               Delete
                             </Link>
                           </div>
@@ -93,6 +125,7 @@ const CategoriesTable = () => {
         </tbody>
       </table>
     </span>
+    </>
   );
 };
 

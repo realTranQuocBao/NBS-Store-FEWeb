@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-// import * as firebase from 'firebase/app'
 import ImageCropper from './ImageCropper'
 import { updateUserAvatar } from '../../Redux/Actions/userActions'
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,7 +17,6 @@ const ImageUpload = () => {
     const getBlob = (blob) => {
         // pass blob up from the ImageCropper component
         setBlob(blob)
-        // console.log("blobbbbbbb", blob);
     }
 
     const onInputChange = (e) => {
@@ -28,37 +26,19 @@ const ImageUpload = () => {
 
         reader.addEventListener('load', () => {
             setInputImg(reader.result)
-            // console.log(">>>inputimgggggggggggggggggggggg", blob);
         }, false)
 
         if (file) {
             reader.readAsDataURL(file)
         }
-        // dispatch(updateUserAvatar({ user, blob }))
-
-
     }
 
     const handleSubmitImage = (e) => {
         // upload blob to firebase 'images' folder with filename 'image'
         e.preventDefault()
-        // firebase
-        //     .storage()
-        //     .ref('images')
-        //     .child('image')
-        //     .put(blob, { contentType: blob.type })
-        //     .then(() => {
-        //         // redirect user 
-        //     })
-        // const blob = new FormData();
-        // console.log(">>>view formData: ", blob);
-        // blob.append("file", e.target.files[0]);
         const formData = new FormData();
-        // console.log(">>>view formData: ", formData);
         formData.append("file", inputImg);
-        // console.log(">>>show inputimg", inputImg);
         dispatch(updateUserAvatar({ user, formData }))
-        console.log("This is form dadaaaaaaaaaaaaaaa", { formData });
     }
 
 

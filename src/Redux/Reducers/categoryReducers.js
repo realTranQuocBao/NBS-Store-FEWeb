@@ -5,7 +5,10 @@ import {
     CATEGORY_CREATE_REQUEST,
     CATEGORY_CREATE_SUCCESS,
     CATEGORY_CREATE_FAIL,
-    CATEGORY_CREATE_RESET
+    CATEGORY_CREATE_RESET,
+    CATEGORY_DELETE_REQUEST,
+    CATEGORY_DELETE_SUCCESS,
+    CATEGORY_DELETE_FAIL
 } from "./../Constants/categoryConstants.js";
 /**
  * ADMIN ONLY
@@ -16,7 +19,6 @@ export const categoryListReducerAdmin = (state = { category: [] }, action) => {
         case CATEGORY_LIST_REQUEST:
             return { loading: true, category: [] };
         case CATEGORY_LIST_SUCCESS:
-            // console.log("check success>>>");
             return { loading: false, category: action.payload };
         case CATEGORY_LIST_FAIL:
             return { loading: false, error: action.payload };
@@ -36,6 +38,19 @@ export const categoryCreateReducerAdmin = (state = {}, action) => {
             return { loading: false, error: action.payload };
         case CATEGORY_CREATE_RESET:
             return {};
+        default:
+            return state;
+    }
+};
+// DELETE CATEGORY
+export const categoryDeleteReducerAdmin = (state = {}, action) => {
+    switch (action.type) {
+        case CATEGORY_DELETE_REQUEST:
+            return { loading: true };
+        case CATEGORY_DELETE_SUCCESS:
+            return { loading: false, success: true };
+        case CATEGORY_DELETE_FAIL:
+            return { loading: false, error: action.payload };
         default:
             return state;
     }

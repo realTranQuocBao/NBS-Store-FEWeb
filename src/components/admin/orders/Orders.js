@@ -4,7 +4,6 @@ import moment from "moment";
 
 const Orders = (props) => {
   const { orders } = props;
-  console.log("List orders>>>", orders);
 
   return (
     <table className="table">

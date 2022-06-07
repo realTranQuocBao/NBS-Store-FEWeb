@@ -20,13 +20,14 @@ const CreateCategory = () => {
 
   const categoryCreateAdmin = useSelector((state) => state.categoryCreateAdmin);
   const { loading, error, category } = categoryCreateAdmin;
-  // console.log("Load category>>>", category);
 
   useEffect(() => {
     if (category) {
       toast.success("Category Added", ToastObjects);
       dispatch({ type: CATEGORY_CREATE_RESET });
       setName("");
+    } else {
+      toast.error(error, ToastObjects)
     }
   }, [category, dispatch, loading]);
 
@@ -39,7 +40,7 @@ const CreateCategory = () => {
       <Toast />
       <div className="col-md-12 col-lg-4">
         <form onSubmit={submitHandler}>
-          {error && <Message variant="alert-danger">{error}</Message>}
+          {/* {error && <Message variant="alert-danger">{error}</Message>} */}
           {loading && <Loading />}
           <div className="mb-4">
             <label htmlFor="category_name" className="form-label">

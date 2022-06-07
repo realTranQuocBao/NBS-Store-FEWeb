@@ -3,6 +3,9 @@ import {
     CATEGORY_CREATE_FAIL,
     CATEGORY_CREATE_REQUEST,
     CATEGORY_CREATE_SUCCESS,
+    CATEGORY_DELETE_FAIL,
+    CATEGORY_DELETE_REQUEST,
+    CATEGORY_DELETE_SUCCESS,
     CATEGORY_LIST_FAIL,
     CATEGORY_LIST_REQUEST,
     CATEGORY_LIST_SUCCESS
@@ -13,7 +16,7 @@ import { logout } from "./userActions.js";
  * ADMIN
  */
 // LIST ALL CATEGORY
-export const listCategoryAdmin = (keyword = " ", pageNumber = " ") => async (dispatch, getState) => {
+export const listCategoryAdmin = () => async (dispatch, getState) => {
     try {
         dispatch({ type: CATEGORY_LIST_REQUEST });
 
@@ -28,7 +31,6 @@ export const listCategoryAdmin = (keyword = " ", pageNumber = " ") => async (dis
         };
 
         const { data } = await axios.get(`/api/v1/category/all`, config);
-        // console.log("log category>>>", data); 
 
         dispatch({ type: CATEGORY_LIST_SUCCESS, payload: data });
     } catch (error) {
@@ -83,3 +85,36 @@ export const createCategoryAdmin =
                 });
             }
         };
+
+// DELETE CATEGORY
+export const deleteCategoryAdmin = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: CATEGORY_DELETE_REQUEST });
+
+        const {
+            userLogin: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        await axios.delete(`/api/v1/category/${id}`, config);
+
+        dispatch({ type: CATEGORY_DELETE_SUCCESS });
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message;
+        if (message === "Not authorized, token failed") {
+            dispatch(logout());
+        }
+        dispatch({
+            type: CATEGORY_DELETE_FAIL,
+            payload: message,
+        });
+    }
+};
