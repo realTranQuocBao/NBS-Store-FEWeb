@@ -68,7 +68,7 @@ const AddProductMain = () => {
           </div>
 
           <div className="row mb-4">
-            <div className="col-xl-8 col-lg-8">
+            <div className="">
               <div className="card mb-4 shadow-sm">
                 <div className="card-body">
                   {error && <Message variant="alert-danger">{error}</Message>}

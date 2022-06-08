@@ -59,11 +59,11 @@ const CategoriesTable = () => {
       <table className="table">
         <thead>
           <tr>
-            <th>
+              {/* <th>
               <div className="form-check">
                 <input className="form-check-input" type="checkbox" value="" />
               </div>
-            </th>
+            </th> */}
             <th>STT</th>
             <th>Name</th>
             <th className="text-end">Action</th>
@@ -86,11 +86,11 @@ const CategoriesTable = () => {
                 (
                   category && category.map((item, index) => (
                     <tr key={item._id}>
-                      <td>
+                      {/* <td>
                         <div className="form-check">
                           <input className="form-check-input" type="checkbox" value="" />
                         </div>
-                      </td>
+                      </td> */}
                       <td>{index + 1}</td>
                       <td>
                         <b>{item.name}</b>

@@ -11,12 +11,12 @@ const MainCategories = () => {
 
       <div className="card shadow-sm">
         <div className="card-body">
-          <div className="row">
+          {/* <div className="row"> */}
             {/* Create category */}
             <CreateCategory />
             {/* Categories table */}
             <CategoriesTable />
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </section>
