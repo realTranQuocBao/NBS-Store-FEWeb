@@ -6,7 +6,7 @@ import {
   editProductAdmin,
   updateProductAdmin,
 } from "./../../../Redux/Actions/productActions";
-import { PRODUCT_UPDATE_RESET } from "../../../Redux/Constants/productConstants";
+import { PRODUCT_CREATE_FAIL, PRODUCT_UPDATE_RESET } from "../../../Redux/Constants/productConstants";
 import { toast } from "react-toastify";
 import Message from "../../base/LoadingError/Error";
 import Loading from "../../base/LoadingError/Loading";
@@ -60,9 +60,10 @@ const EditProductMain = (props) => {
     } else {
       if (!product.name || product._id !== productId) {
         dispatch(editProductAdmin(productId));
-      } else {
+      }
+      else {
         setName(product.name);
-        setCategory(category);
+        // setCategory(category);
         setDescription(product.description);
         setCountInStock(product.countInStock);
         setImage(product.image);
@@ -73,7 +74,8 @@ const EditProductMain = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
+    if (price >= 0 && countInStock >= 0) {
+      dispatch(
       updateProductAdmin({
         _id: productId,
         name,
@@ -82,8 +84,11 @@ const EditProductMain = (props) => {
         description,
         image,
         countInStock,
-      })
-    );
+      }));
+    } else {
+      dispatch({ type: PRODUCT_CREATE_FAIL });
+      toast.error("Update product fail!!!", ToastObjects)
+    }
   };
 
   return (
@@ -104,7 +109,7 @@ const EditProductMain = (props) => {
           </div>
 
           <div className="row mb-4">
-            <div className="col-xl-8 col-lg-8">
+            <div className="">
               <div className="card mb-4 shadow-sm">
                 <div className="card-body">
                   {errorUpdate && (
@@ -147,9 +152,9 @@ const EditProductMain = (props) => {
                                 categoryEditProduct && categoryEditProduct.map((categoryItem, index) => (
                                   <option
                                     key={index}
-                                    value={categoryItem._id}
+                                    value={categoryItem?._id}
                                   >
-                                    {categoryItem.name}
+                                    {categoryItem?.name}
                                   </option>
                                 )
                                 )

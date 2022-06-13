@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { PRODUCT_CREATE_RESET } from "./../../../Redux/Constants/productConstants";
+import { PRODUCT_CREATE_FAIL, PRODUCT_CREATE_RESET } from "./../../../Redux/Constants/productConstants";
 import { createProductAdmin } from "./../../../Redux/Actions/productActions";
 import Toast from "./../../base/LoadingError/Toast";
 import Message from "./../../base/LoadingError/Error";
@@ -47,7 +47,12 @@ const AddProductMain = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createProductAdmin(name, category, price, description, image, countInStock));
+    if (price >= 0 && countInStock >= 0) {
+      dispatch(createProductAdmin(name, category, price, description, image, countInStock));
+    } else {
+      dispatch({ type: PRODUCT_CREATE_FAIL });
+      toast.error("Add product fail!!!", ToastObjects)
+    }
   };
 
   return (

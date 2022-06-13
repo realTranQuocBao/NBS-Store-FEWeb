@@ -32,7 +32,13 @@ import {
   orderListReducerAdmin,
   orderPayReducer,
 } from "./Reducers/orderReducres";
-import { categoryCreateReducerAdmin, categoryDeleteReducerAdmin, categoryListReducerAdmin } from "./Reducers/categoryReducers";
+import {
+  categoryCreateReducerAdmin,
+  categoryDeleteReducerAdmin,
+  categoryEditReducerAdmin,
+  categoryListReducerAdmin,
+  categoryUpdateReducerAdmin
+} from "./Reducers/categoryReducers";
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -59,6 +65,8 @@ const reducer = combineReducers({
   categoryListAdmin: categoryListReducerAdmin,
   categoryCreateAdmin: categoryCreateReducerAdmin,
   categoryDeleteAdmin: categoryDeleteReducerAdmin,
+  categoryEditAdmin: categoryEditReducerAdmin,
+  categoryUpdateAdmin: categoryUpdateReducerAdmin,
   orderListAdmin: orderListReducerAdmin,
   orderDeliver: orderDeliveredReducer,
 });
