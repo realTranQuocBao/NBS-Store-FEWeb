@@ -32,7 +32,7 @@ const UpdateCategory = ({ currentCategory }) => {
     console.log("con khiiiii", category[currentCategory]?.name)
     useEffect(() => {
         setName(category[currentCategory]?.name);
-    }, [currentCategory]);
+    }, [dispatch, category, currentCategory]);
 
     useEffect(() => {
         if (success) {
@@ -42,7 +42,7 @@ const UpdateCategory = ({ currentCategory }) => {
             toast.success(error, ToastObjects);
         }
         dispatch({ type: CATEGORY_UPDATE_RESET })
-    }, [success, error]);
+    }, [dispatch, success, error]);
 
     const submitHandler = (e) => {
         e.preventdefault();
