@@ -1,11 +1,12 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Product from "./Product";
 import { useDispatch, useSelector } from "react-redux";
-import { listProducts, listProductsAdmin, listProductsAdminAll } from "./../../../Redux/Actions/productActions.js";
+import { listProductsAdmin } from "./../../../Redux/Actions/productActions.js";
 import Loading from "./../../base/LoadingError/Loading";
 import Message from "./../../base/LoadingError/Error";
 import PaginationAdmin from "../Home/PaginationAdmin";
+import Toast from "../../base/LoadingError/Toast";
 
 const MainProducts = (props) => {
   const { keyword, pageNumber } = props;
@@ -20,10 +21,15 @@ const MainProducts = (props) => {
   useEffect(() => {
     dispatch(listProductsAdmin(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber, successDelete]);
-
   return (
     <section className="content-main">
+      <Toast />
       <div className="content-header">
+        <div>
+          <Link to="/admin/products" className="btn btn-danger btn-size">
+            Back
+          </Link>
+        </div>
         <h2 className="content-title">Products</h2>
         <div>
           <Link to="/admin/addproduct" className="btn btn-primary btn-size">
@@ -70,12 +76,31 @@ const MainProducts = (props) => {
           ) : error ? (
             <Message variant="alert-danger">{error}</Message>
             ) : (
-            <div className="row">
-              {/* Products */}
-                  {products?.map((product) => (
-                <Product product={product} key={product._id} />
-              ))}
-            </div>
+                <>
+
+                  <table className="table">
+                    <thead className="pc-header">
+                      <tr>
+                        <th>STT</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Rating&Reviews</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>CountInStock</th>
+                        <th>Total Sales</th>
+                        <th className="text-end">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        products?.map((product, index) => (
+                          <Product product={product} index={index} key={product._id} successDelete={successDelete} />
+                        ))
+                      }
+                    </tbody>
+                  </table>
+                </>
           )}
           {/* PaginationAdmin */}
           <PaginationAdmin

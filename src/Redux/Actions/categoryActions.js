@@ -8,7 +8,10 @@ import {
     CATEGORY_DELETE_SUCCESS,
     CATEGORY_LIST_FAIL,
     CATEGORY_LIST_REQUEST,
-    CATEGORY_LIST_SUCCESS
+    CATEGORY_LIST_SUCCESS,
+    CATEGORY_UPDATE_FAIL,
+    CATEGORY_UPDATE_REQUEST,
+    CATEGORY_UPDATE_SUCCESS
 } from "../Constants/categoryConstants.js";
 import { logout } from "./userActions.js";
 
@@ -114,6 +117,44 @@ export const deleteCategoryAdmin = (id) => async (dispatch, getState) => {
         }
         dispatch({
             type: CATEGORY_DELETE_FAIL,
+            payload: message,
+        });
+    }
+};
+
+// UPDATE CATEGORY
+export const updateCategoryAdmin = (category) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: CATEGORY_UPDATE_REQUEST });
+
+        const {
+            userLogin: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        const { data } = await axios.put(
+            `/api/v1/category/${category._id}`,
+            category,
+            config
+        );
+
+        dispatch({ type: CATEGORY_UPDATE_SUCCESS, payload: data });
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message;
+        if (message === "Not authorized, token failed") {
+            dispatch(logout());
+        }
+        dispatch({
+            type: CATEGORY_UPDATE_FAIL,
             payload: message,
         });
     }

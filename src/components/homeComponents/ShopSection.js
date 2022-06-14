@@ -40,7 +40,7 @@ const ShopSection = (props) => {
                       : (
                         products && products.map((product) => (
                           <div
-                            className="shop col-lg-4 col-md-6 col-sm-6"
+                            className="shop col-lg-3 col-md-6 col-sm-6"
                             key={product._id}
                           >
                             <div className="border-product">
@@ -53,8 +53,8 @@ const ShopSection = (props) => {
                               <div className="shoptext">
                                 <p>
                                   <Link to={`/products/${product._id}`}>
-                                    {`${product.name.length} >= 30` ? `  
-                                    ${product.name.slice(0, 30)}...` : ` ${product.name}}`}
+                                    {`${product.name.length} >= 25` ? `  
+                                    ${product.name.slice(0, 25)}...` : ` ${product.name}}`}
                                   </Link>
                                 </p>
 

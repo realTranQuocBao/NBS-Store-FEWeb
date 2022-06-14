@@ -11,6 +11,10 @@ const UserComponent = () => {
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
 
+  const onAvatarLoadError = (e) => {
+    e.currentTarget.onerror = null; // prevents looping
+    e.currentTarget.src = "/images/avatar/default.png";
+  };
   useEffect(() => {
     dispatch(listUser());
   }, [dispatch]);
@@ -68,6 +72,7 @@ const UserComponent = () => {
                       <img
                         className="img-md img-avatar"
                         src={user.avatarUrl}
+                        onError={onAvatarLoadError}
                         alt="User pic"
                       />
                     </div>

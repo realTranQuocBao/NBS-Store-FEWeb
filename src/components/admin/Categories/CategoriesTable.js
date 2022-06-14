@@ -4,10 +4,9 @@ import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { deleteCategoryAdmin, listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
-import { CATEGORY_DELETE_SUCCESS } from "../../../Redux/Constants/categoryConstants";
+import { CATEGORY_DELETE_RESET } from "../../../Redux/Constants/categoryConstants";
 import Message from "../../base/LoadingError/Error";
 import Loading from "../../base/LoadingError/Loading";
-import Toast from "../../base/LoadingError/Toast";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -15,9 +14,10 @@ const ToastObjects = {
   pauseOnHover: false,
   autoClose: 2000,
 };
-const CategoriesTable = () => {
+const CategoriesTable = ({ handleEditCategory, handleCurrentCategory }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+
   const categoryListAdmin = useSelector(state => state.categoryListAdmin);
   const { error, loading, category } = categoryListAdmin;
 
@@ -36,20 +36,24 @@ const CategoriesTable = () => {
       dispatch(deleteCategoryAdmin(id));
     }
   }
+
   useEffect(() => {
     if (successDel) {
-      dispatch({ type: CATEGORY_DELETE_SUCCESS });
       toast.success("Deleted success category!!!", ToastObjects);
-    } else {
+      console.log("check", successDel);
+    }
+    if (errorDel) {
       toast.error(errorDel, ToastObjects);
     }
-  }, [successDel, errorDel])
+    dispatch({ type: CATEGORY_DELETE_RESET });
+  }, [dispatch, successDel, errorDel])
+
   useEffect(() => {
-    dispatch(listCategoryAdmin())
+    dispatch(listCategoryAdmin());
   }, [dispatch, successAdd, successDel])
+
   return (
     <>
-      <Toast />
     <span className="col-md-12 col-lg-8">
       <span
         onClick={handleReloadCategory}
@@ -58,12 +62,7 @@ const CategoriesTable = () => {
       </span>
       <table className="table">
         <thead>
-          <tr>
-            <th>
-              <div className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-              </div>
-            </th>
+            <tr>
             <th>STT</th>
             <th>Name</th>
             <th className="text-end">Action</th>
@@ -86,11 +85,6 @@ const CategoriesTable = () => {
                 (
                   category && category.map((item, index) => (
                     <tr key={item._id}>
-                      <td>
-                        <div className="form-check">
-                          <input className="form-check-input" type="checkbox" value="" />
-                        </div>
-                      </td>
                       <td>{index + 1}</td>
                       <td>
                         <b>{item.name}</b>
@@ -100,21 +94,25 @@ const CategoriesTable = () => {
                           <Link
                             to="#"
                             data-bs-toggle="dropdown"
-                            className="btn btn-light"
                           >
                             <i className="fas fa-ellipsis-h"></i>
                           </Link>
                           <div className="dropdown-menu">
-                            <Link className="dropdown-item" to="#">
+                            <button
+                              className="btn-warning dropdown-item text-warning"
+                              onClick={() => {
+                                handleEditCategory();
+                                handleCurrentCategory(index);
+                              }}
+                            >
                               Edit info
-                            </Link>
-                            <Link
-                              to="#"
-                              className="dropdown-item text-danger"
+                            </button>
+                            <button
+                              className="btn-danger dropdown-item text-danger"
                               onClick={() => categoryDeleteHandeler(item._id)}
                             >
                               Delete
-                            </Link>
+                            </button>
                           </div>
                         </div>
                       </td>
