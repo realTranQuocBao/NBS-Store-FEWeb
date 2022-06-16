@@ -14,13 +14,11 @@ const ToastObjects = {
 };
 const UpdateCategory = ({ currentCategory }) => {
     const [name, setName] = useState("");
-    console.log("id", currentCategory);
 
     const dispatch = useDispatch();
 
     const categoryListAdmin = useSelector((state) => state.categoryListAdmin);
     const { category } = categoryListAdmin;
-    console.log("category", category);
 
     const categoryUpdateAdmin = useSelector((state) => state.categoryUpdateAdmin);
     const {
@@ -29,7 +27,6 @@ const UpdateCategory = ({ currentCategory }) => {
         error
     } = categoryUpdateAdmin;
 
-    console.log("con khiiiii", category[currentCategory]?.name)
     useEffect(() => {
         setName(category[currentCategory]?.name);
     }, [dispatch, category, currentCategory]);

@@ -6,7 +6,7 @@ import CalltoActionSection from "../components/homeComponents/CalltoActionSectio
 import Slideshow from '../components/Slideshow';
 import Footer from '../components/Footer';
 import Policy from "./Policy";
-import PopularProduct from "./PopularProduct";
+// import PopularProduct from "./PopularProduct";
 import CustomerReview from "./CustomerReview";
 import Trademark from "./Trademark";
 
@@ -21,10 +21,10 @@ const HomeScreen = ({ match }) => {
       <Policy />
       {/* <PopularProduct /> */}
       <ShopSection keyword={keyword} pageNumber={pageNumber} />
-      <CalltoActionSection />
-      <ContactInfo />
       <CustomerReview />
       <Trademark />
+      <CalltoActionSection />
+      <ContactInfo />
       <Footer />
     </div>
   );

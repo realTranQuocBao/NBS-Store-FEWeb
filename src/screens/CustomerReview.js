@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 const CustomerReview = () => {
     const getReviewCustomer = useSelector(state => state.productList);
     const { products } = getReviewCustomer;
-    // console.log(products[0]);
 
     return (
         <div className="evaluate">
@@ -17,7 +16,7 @@ const CustomerReview = () => {
                     <div className="col l-4 m-6">
                         <div className="evaluate__user">
                             <div className="evaluate__user-img">
-                                <img src="images/user.png" alt="" />
+                                <img src="../images/user.png" alt="" />
                             </div>
                             <div className="evaluate__content">
                                 <div className="evaluate__content-icon">
@@ -37,7 +36,7 @@ const CustomerReview = () => {
                     <div className="col l-4 m-6">
                         <div className="evaluate__user">
                             <div className="evaluate__user-img">
-                                <img src="images/user.png" alt="" />
+                                <img src="../images/user.png" alt="" />
                             </div>
                             <div className="evaluate__content">
                                 <div className="evaluate__content-icon">
@@ -57,7 +56,7 @@ const CustomerReview = () => {
                     <div className="col l-4 m-6">
                         <div className="evaluate__user">
                             <div className="evaluate__user-img">
-                                <img src="images/user.png" alt="" />
+                                <img src="../images/user.png" alt="" />
                             </div>
                             <div className="evaluate__content">
                                 <div className="evaluate__content-icon">

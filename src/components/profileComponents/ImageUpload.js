@@ -10,9 +10,7 @@ const ImageUpload = () => {
 
 
     const [blob, setBlob] = useState(null);
-    console.log("blobbbbbbbbbbbbb", blob);
     const [inputImg, setInputImg] = useState('')
-    console.log("inputimgggggggggg", inputImg);
 
     const getBlob = (blob) => {
         // pass blob up from the ImageCropper component
