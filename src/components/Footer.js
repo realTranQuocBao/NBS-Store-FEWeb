@@ -1,19 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const [visible, setVisible] = useState(false)
+
+  const toggleVisible = () => {
+    const scrolled = document.documentElement.scrollTop;
+    if (scrolled > 300) {
+      setVisible(true)
+    }
+    else if (scrolled <= 300) {
+      setVisible(false)
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+      /* you can also use 'auto' behaviour
+         in place of 'smooth' */
+    });
+  };
+
+  window.addEventListener('scroll', toggleVisible);
   return (
     <>
       <footer className="footer">
-        {/* <div className="footer__banner c-0">
-          <img className="footer__banner--img" src="./assets/img/logo/sec_store_bg.jpg" alt="" />
-          <div className="footer__title">
-            <h2 className="footer__title--heading">HỆ THỐNG CỬA HÀNG MEW SHOES <br />
-              TRÊN TOÀN QUỐC
-            </h2>
-            <Link to="#" className="footer__btn btn btn--rounded">Hệ thống 10 showroom</Link>
-          </div>
-        </div> */}
 
         <div className="footer__information">
           <div className="grid wide">
@@ -99,7 +112,11 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <Link to="#" className="active-top">
+      <Link
+        to="#"
+        className="active-top"
+        style={{ display: visible ? "inline" : "none" }}
+      >
         <i className="fas fa-arrow-circle-up"></i>
       </Link>
     </>

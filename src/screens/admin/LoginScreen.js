@@ -28,9 +28,6 @@ const Login = ({ history }) => {
   return (
     <>
       <Toast />
-      {
-        console.log(">>>Login admin")
-      }
       <div
         className="card shadow mx-auto"
         style={{ maxWidth: "380px", marginTop: "100px" }}

@@ -39,7 +39,6 @@ const Register = ({ location, history }) => {
 
         }),
         onSubmit: (value) => {
-            // console.log(value);
             dispatch(userRegisterAction(value.name, value.email, value.password));
         }
     })

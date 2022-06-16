@@ -30,7 +30,6 @@ const ShopSection = (props) => {
 
   }
   handleCategoryFilter();
-  console.log("productsFilter", productsFilter);
 
   // handle get all products
   useEffect(() => {

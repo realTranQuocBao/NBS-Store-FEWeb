@@ -40,7 +40,6 @@ const CategoriesTable = ({ handleEditCategory, handleCurrentCategory }) => {
   useEffect(() => {
     if (successDel) {
       toast.success("Deleted success category!!!", ToastObjects);
-      console.log("check", successDel);
     }
     if (errorDel) {
       toast.error(errorDel, ToastObjects);

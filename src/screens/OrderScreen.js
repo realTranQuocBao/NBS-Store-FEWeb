@@ -61,9 +61,6 @@ const OrderScreen = ({ match }) => {
 
   return (
     <>
-      {/* {
-        console.log("??? check show order screen: ====>")
-      } */}
       <Header />
       <div className="container">
         {loading ? (

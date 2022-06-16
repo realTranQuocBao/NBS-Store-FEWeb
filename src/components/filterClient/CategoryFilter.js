@@ -1,7 +1,6 @@
 import React from 'react'
 
 const CategoryFilter = ({ category, categoryFilter, setCategoryFilter }) => {
-    console.log("categoryFilter", categoryFilter);
 
     return (
         <div className='filter-menu-item'>

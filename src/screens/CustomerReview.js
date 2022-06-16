@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 const CustomerReview = () => {
     const getReviewCustomer = useSelector(state => state.productList);
     const { products } = getReviewCustomer;
-    // console.log(products[0]);
 
     return (
         <div className="evaluate">
