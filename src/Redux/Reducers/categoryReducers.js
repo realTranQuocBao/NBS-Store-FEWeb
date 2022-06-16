@@ -18,6 +18,24 @@ import {
     CATEGORY_UPDATE_RESET,
     CATEGORY_DELETE_RESET
 } from "./../Constants/categoryConstants.js";
+
+/**
+ * CLIENT ONLY
+ */
+// ALL CATEGORYS
+export const categoryListReducer = (state = { category: [] }, action) => {
+    switch (action.type) {
+        case CATEGORY_LIST_REQUEST:
+            return { loading: true, category: [] };
+        case CATEGORY_LIST_SUCCESS:
+            return { loading: false, category: action.payload };
+        case CATEGORY_LIST_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 /**
  * ADMIN ONLY
  */

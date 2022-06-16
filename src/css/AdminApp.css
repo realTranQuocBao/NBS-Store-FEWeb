@@ -936,3 +936,7 @@ ul.row-sm {
 .icon-search-admin {
     z-index: unset;
 }
+
+.product-container{
+    width: 85%;
+}

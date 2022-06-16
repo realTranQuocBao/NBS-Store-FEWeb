@@ -29,16 +29,16 @@ const Footer = () => {
                     <div className="gird">
                       <div className="row no-gutters">
                         <div className="col l-3">
-                          <img className="footer__infomation--bank" src="./images/bank/payment-1.png" alt="" />
+                          <img className="footer__infomation--bank" src="../images/bank/payment-1.png" alt="" />
                         </div>
                         <div className="col l-3">
-                          <img className="footer__infomation--bank" src="./images/bank/payment-2.png" alt="" />
+                          <img className="footer__infomation--bank" src="../images/bank/payment-2.png" alt="" />
                         </div>
                         <div className="col l-3">
-                          <img className="footer__infomation--bank" src="./images/bank/payment-3.png" alt="" />
+                          <img className="footer__infomation--bank" src="../images/bank/payment-3.png" alt="" />
                         </div>
                         <div className="col l-3">
-                          <img className="footer__infomation--bank" src="./images/bank/payment-4.png" alt="" />
+                          <img className="footer__infomation--bank" src="../images/bank/payment-4.png" alt="" />
                         </div>
                       </div>
                     </div>

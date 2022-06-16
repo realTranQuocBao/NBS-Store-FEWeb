@@ -16,6 +16,29 @@ import {
 import { logout } from "./userActions.js";
 
 /**
+ * CLIENT
+ */
+// LIST ALL CATEGORY
+export const listCategory = () => async (dispatch) => {
+    try {
+        dispatch({ type: CATEGORY_LIST_REQUEST });
+
+        const { data } = await axios.get(`/api/v1/category`);
+
+        dispatch({ type: CATEGORY_LIST_SUCCESS, payload: data });
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message;
+
+        dispatch({
+            type: CATEGORY_LIST_FAIL,
+            payload: message,
+        });
+    }
+};
+/**
  * ADMIN
  */
 // LIST ALL CATEGORY
