@@ -30,11 +30,11 @@ const Orders = (props) => {
             <td>${order.totalPrice}</td>
             <td>
               {order.isPaid ? (
-                <span className="badge rounded-pill alert-success">
+                <span className="badge3 rounded-pill alert-success">
                   Paid At {moment(order.paidAt).format("MMM Do YY")}
                 </span>
               ) : (
-                <span className="badge rounded-pill alert-danger">
+                  <span className="badge3 rounded-pill alert-danger">
                   Not Paid
                 </span>
               )}
@@ -42,9 +42,9 @@ const Orders = (props) => {
             <td>{moment(order.createdAt).format("MMM Do YY")}</td>
             <td>
               {order.isDelivered ? (
-                <span className="badge btn-success">Delivered</span>
+                <span className="badge3 btn-success">Delivered</span>
               ) : (
-                <span className="badge btn-dark">Not delivered</span>
+                  <span className="badge3 btn-dark">Not delivered</span>
               )}
             </td>
             <td className="d-flex justify-content-end align-item-center">
