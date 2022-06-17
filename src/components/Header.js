@@ -73,7 +73,7 @@ const Header = () => {
             <div className="container ">
               <div className="row ">
                 <div className="col-6 d-flex align-items-center">
-                  <Link className="navbar-brand" to="/">
+                  <Link className="navbar-brand" to="/profile">
                     <img alt="logo" src="/images/logo.png" />
                   </Link>
                 </div>

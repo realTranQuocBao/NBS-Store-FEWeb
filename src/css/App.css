@@ -121,7 +121,7 @@ textarea:focus {
 }
 .name-button {
     padding: 5px 15px;
-    border: 1px solid #e4e4e4;
+    border: unset;
     background-color: white;
     border-radius: 2px;
     margin: 0 15px;
@@ -503,23 +503,36 @@ textarea:focus {
 .custom-file-input:active {
     outline: 0;
 }
-.btn-submit-change-avt,
-.enable {
+
+.btn-group-avt{
+    display: flex;
+    flex-direction: row;
+    bottom: 0;
     position: absolute;
+    flex-wrap: nowrap;
+    right: 0;
+}
+.btn-submit-change-avt,
+.enableCancel,
+.enable {
     padding: 3px 10px !important;
     font-size: 16px !important;
     background: var(--primary-color);
     color: #ccc;
     z-index: 10;
-    right: 0;
-    bottom: 0;
 }
+.enableCancel{
+    z-index: 10;
+    right: 0;
+    background-color: var(--red-color);
+}
+
+.btn-cancel-change-avt,
 .btn-submit-change-avt {
     display: none !important;
 }
 .enable {
     display: block !important;
-    z-index: 10;
 }
 .btn-submit-change-avt:hover {
     color: var(--white-color);
