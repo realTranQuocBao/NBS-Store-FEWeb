@@ -4,15 +4,15 @@ import 'react-slideshow-image/dist/styles.css';
 
 const slideImages = [
   {
-    url: 'images/slide-img1.jpg',
+    url: '../images/slide-img1.jpg',
     caption: 'Slide 1'
   },
   {
-    url: 'images/slide-img2.jpg',
+    url: '../images/slide-img2.jpg',
     caption: 'Slide 2'
   },
   {
-    url: 'images/slide-img3.jpg',
+    url: '../images/slide-img3.jpg',
     caption: 'Slide 3'
   },
 ];

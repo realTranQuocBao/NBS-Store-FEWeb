@@ -176,6 +176,11 @@ const Header = () => {
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
                 {userInfo ? (
                   <div className="btn-group">
+                    <img
+                      className="img-xs rounded-circle"
+                      src={userInfo.avatarUrl}
+                      alt="User avatar"
+                    />
                     <button
                       type="button"
                       className="name-button dropdown-toggle"
@@ -183,6 +188,7 @@ const Header = () => {
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
+
                       Hi, {`${userInfo.name.length} >= 10` ? `  ${userInfo.name.slice(0, 10)}...` : `  ${userInfo.name}`}
                     </button>
                     <div className="dropdown-menu">

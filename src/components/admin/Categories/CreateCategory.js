@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { createCategoryAdmin } from "../../../Redux/Actions/categoryActions";
 import { CATEGORY_CREATE_RESET } from "../../../Redux/Constants/categoryConstants.js";
-import Message from "../../base/LoadingError/Error";
 import Loading from "../../base/LoadingError/Loading";
 import Toast from "../../base/LoadingError/Toast";
 
@@ -29,7 +28,7 @@ const CreateCategory = () => {
     } else {
       toast.error(error, ToastObjects)
     }
-  }, [category, dispatch, loading]);
+  }, [category, dispatch, loading, error]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -49,7 +48,7 @@ const CreateCategory = () => {
             <input
               type="text"
               placeholder="Type here"
-              className="form-control py-3"
+              className="form-control"
               id="category_name"
               value={name}
               onChange={e => setName(e.target.value)}
@@ -70,7 +69,7 @@ const CreateCategory = () => {
 
           <div className="d-grid">
             <button
-              className="btn btn-size btn-primary py-3">
+              className="btn btn-size btn-primary">
               Create category
             </button>
           </div>
