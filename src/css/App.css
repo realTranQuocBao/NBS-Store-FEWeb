@@ -1247,4 +1247,11 @@ a.popu-cate__item {
 }
 
 /* best seller */
-
+.slick-prev:before {
+    content: '←';
+    color: black !important;
+}
+.slick-next:before {
+    content: '→';
+    color: black !important;
+}

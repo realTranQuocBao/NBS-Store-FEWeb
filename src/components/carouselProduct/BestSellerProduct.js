@@ -11,7 +11,7 @@ const BestSellerProduct = () => {
     const dispatch = useDispatch();
     const getBestSellerProduct = useSelector(state => state.productListBestSeller);
     const { products } = getBestSellerProduct;
-    console.log("products", products);
+    // console.log("products", products);
 
     useEffect(() => {
         dispatch(listProductsBestSeller());
