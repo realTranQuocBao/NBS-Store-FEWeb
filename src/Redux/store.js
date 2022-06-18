@@ -23,6 +23,7 @@ import {
   productEditReducerAdmin,
   productDeleteReducerAdmin,
   productListReducerAdminAll,
+  productListReducerBestSeller,
 } from "./Reducers/productReducers";
 import {
   orderCreateReducer,
@@ -43,6 +44,7 @@ import {
 
 const reducer = combineReducers({
   productList: productListReducer,
+  productListBestSeller: productListReducerBestSeller,
   productDetails: productDetailsReducer,
   productReviewCreate: productCreateReviewReducer,
   cart: cartReducers,

@@ -52,6 +52,29 @@
     }
 }
 @media (max-width: 768px) {
+    .product-container {
+    margin: 0 auto;
+    width: 85%;
+}
+
+.shop.col-lg-3{
+    width: 50%;
+    font-size: 1rem;
+}
+.col-8.row.product-container {
+    margin: 0 auto;
+}
+.product-container {
+    width: 100%;
+}
+.shoptext {
+    font-size: 14px;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
     .pc-header {
         display: none !important;
     }
@@ -127,6 +150,7 @@
     }
 }
 @media (max-width: 575.98px) {
+    
     .evaluate__container {
         display: flex;
         margin-left: -4px;

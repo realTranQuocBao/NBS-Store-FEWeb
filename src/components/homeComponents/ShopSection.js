@@ -23,7 +23,7 @@ const ShopSection = (props) => {
   let productsFilter = [];
   const handleCategoryFilter = () => {
     if (categoryFilter !== '') {
-      productsFilter = products.filter(item => item.category._id === categoryFilter)
+      productsFilter = products ? products.filter(item => item.category._id === categoryFilter) : []
     } else {
       productsFilter = products;
     }
