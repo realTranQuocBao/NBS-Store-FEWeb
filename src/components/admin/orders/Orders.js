@@ -1,9 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { deleteOrderAdmin } from "../../../Redux/Actions/orderActions";
+import Toast from "../../base/LoadingError/Toast";
 
 const Orders = (props) => {
+  const dispatch = useDispatch();
   const { orders } = props;
+
+  const handleDeleteOrder = (id) => {
+    if (window.confirm(("Are you sure delete order???"))) {
+      dispatch(deleteOrderAdmin(id));
+    }
+  }
 
   return (
     <table className="table">
@@ -24,7 +34,7 @@ const Orders = (props) => {
         {orders && orders.map((order) => (
           <tr key={order._id}>
             <td>
-              <b>{`${order.user.name.lenght} >=10` ? `${order.user.name.slice(0, 10)}...` : `${order.user.name}`}</b>
+              <b>{`${order.user.name.lenght} >=15` ? `${order.user.name.slice(0, 15)}...` : `${order.user.name}`}</b>
             </td>
             <td>{order.user.email}</td>
             <td>${order.totalPrice}</td>
@@ -50,6 +60,13 @@ const Orders = (props) => {
             <td className="d-flex justify-content-end align-item-center">
               <Link to={`/admin/order/${order._id}`} className="text-success">
                 <i className="fas fa-eye"></i>
+              </Link>
+              <Link
+                to="#"
+                className="text-danger ms-3"
+                onClick={() => handleDeleteOrder(order._id)}
+              >
+                <i className="fas fa-trash"></i>
               </Link>
             </td>
           </tr>

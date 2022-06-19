@@ -3,6 +3,10 @@ import {
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_RESET,
   ORDER_CREATE_SUCCESS,
+  ORDER_DELETE_FAIL,
+  ORDER_DELETE_REQUEST,
+  ORDER_DELETE_RESET,
+  ORDER_DELETE_SUCCESS,
   ORDER_DELIVERED_FAIL,
   ORDER_DELIVERED_REQUEST,
   ORDER_DELIVERED_RESET,
@@ -120,6 +124,22 @@ export const orderDeliveredReducer = (state = {}, action) => {
     case ORDER_DELIVERED_FAIL:
       return { loading: false, error: action.payload };
     case ORDER_DELIVERED_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+// DELETE ORDER
+export const orderDeleteReducerAdmin = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_DELETE_REQUEST:
+      return { loading: true };
+    case ORDER_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case ORDER_DELETE_FAIL:
+      return { loading: false, error: action.payload };
+    case ORDER_DELETE_RESET:
       return {};
     default:
       return state;

@@ -1,15 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Message from "./../../base/LoadingError/Error";
 import Loading from "./../../base/LoadingError/Loading";
 import Orders from "./Orders";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { listOrders } from "../../../Redux/Actions/orderActions";
+import { toast } from "react-toastify";
+import { ORDER_DELETE_RESET } from "../../../Redux/Constants/orderConstants";
+import Toast from "../../base/LoadingError/Toast";
 
+const ToastObjects = {
+  pauseOnFocusLoss: false,
+  draggable: false,
+  pauseOnHover: false,
+  autoClose: 2000,
+};
 const OrderMain = () => {
+  const dispatch = useDispatch();
   const orderListAdmin = useSelector((state) => state.orderListAdmin);
   const { loading, error, orders } = orderListAdmin;
 
+  const deleteOrder = useSelector(state => state.orderDeleteAdmin);
+  const { success: successDelOrder, error: errorDelOrder } = deleteOrder;
+
+  useEffect(() => {
+    if (successDelOrder) {
+      toast.success("Delete order success!!!", ToastObjects);
+    }
+    if (errorDelOrder) {
+      toast.error(errorDelOrder, ToastObjects);
+    }
+    dispatch({ type: ORDER_DELETE_RESET });
+  }, [dispatch, successDelOrder, errorDelOrder]);
+
+  useEffect(() => {
+    dispatch(listOrders())
+  }, [dispatch, successDelOrder]);
+
   return (
     <section className="content-main">
+      <Toast />
       <div className="content-header">
         <h2 className="content-title">Orders</h2>
       </div>

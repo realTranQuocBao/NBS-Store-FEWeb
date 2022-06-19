@@ -54,7 +54,7 @@
 @media (max-width: 768px) {
     .product-container {
     margin: 0 auto;
-    width: 85%;
+    width: 100% !important;
 }
 
 .shop.col-lg-3{
