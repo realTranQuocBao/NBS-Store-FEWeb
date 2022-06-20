@@ -30,6 +30,7 @@ import {
   orderDeleteReducerAdmin,
   orderDeliveredReducer,
   orderDetailsReducer,
+  orderIsPaidReducer,
   orderListMyReducer,
   orderListReducerAdmin,
   orderPayReducer,
@@ -75,7 +76,8 @@ const reducer = combineReducers({
   categoryUpdateAdmin: categoryUpdateReducerAdmin,
   orderListAdmin: orderListReducerAdmin,
   orderDeliver: orderDeliveredReducer,
-  orderDeleteAdmin: orderDeleteReducerAdmin
+  orderDeleteAdmin: orderDeleteReducerAdmin,
+  orderIsPaidAdmin: orderIsPaidReducer,
 });
 
 //get cart from localstorage

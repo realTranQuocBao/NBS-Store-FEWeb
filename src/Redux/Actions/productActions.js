@@ -55,7 +55,7 @@ export const listProductsBestSeller = () =>
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
       const { data } = await axios.get(
-        `/api/v1/product/?bestSeller=true`);
+        `/api/v1/product?category=All&bestSeller=true`);
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {
       dispatch({

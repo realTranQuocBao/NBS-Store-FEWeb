@@ -181,7 +181,7 @@ export const listOrders = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/v1/order/all`, config);
+    const { data } = await axios.get(`/api/v1/order`, config);
 
     dispatch({ type: ORDER_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -262,6 +262,41 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
     }
     dispatch({
       type: ORDER_DELIVERED_FAIL,
+      payload: message,
+    });
+  }
+};
+// ORDER ORDER IS PAID
+export const isPaidOrder = (order) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ORDER_PAY_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.patch(
+      `/api/v1/order/${order._id}/pay`,
+      {},
+      config
+    );
+    dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: ORDER_PAY_FAIL,
       payload: message,
     });
   }

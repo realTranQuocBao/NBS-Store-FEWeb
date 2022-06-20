@@ -14,17 +14,15 @@ import BestSellerProduct from "../components/carouselProduct/BestSellerProduct";
 const HomeScreen = ({ match }) => {
   window.scrollTo(0, 0);
   const keyword = match.params.keyword;
-  console.log("keyword", keyword);
   const pageNumber = match.params.pageNumber !== undefined ? match.params.pageNumber : match.params.pagenumber;
   return (
     <div>
       <Header />
-      <div style={{ display: `${keyword}` !== `${undefined}` ? "none" : "block" }}>
+      <div style={{ display: `${keyword}` !== `${undefined}` || `${pageNumber}` !== `${undefined}` ? "none" : "block" }}>
         <Slideshow />
         <Policy />
         <div className="container">
           <BestSellerProduct />
-
         </div>
       </div>
       {/* <PopularProduct /> */}
