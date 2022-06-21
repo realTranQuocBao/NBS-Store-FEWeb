@@ -29,7 +29,10 @@ const Header = () => {
     }
   }
 
-
+  const onAvatarLoadError = (e) => {
+    e.currentTarget.onerror = null; // prevents looping
+    e.currentTarget.src = "../images/avatar/default.png";
+  };
 
   return (
     <div>
@@ -179,6 +182,7 @@ const Header = () => {
                     <img
                       className="img-xs rounded-circle"
                       src={userInfo.avatarUrl}
+                      onError={onAvatarLoadError}
                       alt="User avatar"
                     />
                     <button

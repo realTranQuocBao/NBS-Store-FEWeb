@@ -54,7 +54,7 @@ const TopTotal = (props) => {
             </span>
             <div className="text">
               <h6 className="mb-1">Total Products</h6>
-              {products ? <span>{products.length}</span> : <span>0</span>}
+              {products.total ? <span>{products.total}</span> : <span>0</span>}
             </div>
           </article>
         </div>
