@@ -29,7 +29,7 @@ const MainProducts = (props) => {
 
   const handleCategoryFilterAdmin = () => {
     if (categoryFilterAdmin !== '') {
-      productsFilterCategory = products.filter((itemCate) => itemCate.category._id === categoryFilterAdmin)
+      productsFilterCategory = products ? products.filter((itemCate) => itemCate.category._id === categoryFilterAdmin) : []
     } else {
       productsFilterCategory = products;
     }

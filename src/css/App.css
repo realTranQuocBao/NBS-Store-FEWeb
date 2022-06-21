@@ -20,10 +20,10 @@ body {
     padding: 0;
     box-sizing: border-box;
 }
-html::-webkit-scrollbar,
+/* html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-    display: none;
-}
+} */
+
 a {
     text-decoration: none;
     color: black;
@@ -104,16 +104,24 @@ textarea:focus {
     margin-right: 0rem;
 }
 .badge {
-    /* background-color: red; */
-    /* position: absolute; */
-    /* top: -20px; */
+    background-color: red;
+    position: absolute;
+    top: -15px;
+    border-radius: 100px;
+    /* padding: 5px 5px; */
+    font-size: 12px;
+}
+.badge3 {
+    /* background-color: red;
+    position: absolute;
+    top: -15px; */
     border-radius: 100px;
     padding: 5px 7px;
     font-size: 12px;
 }
 .name-button {
     padding: 5px 15px;
-    border: 1px solid #e4e4e4;
+    border: unset;
     background-color: white;
     border-radius: 2px;
     margin: 0 15px;
@@ -495,23 +503,36 @@ textarea:focus {
 .custom-file-input:active {
     outline: 0;
 }
-.btn-submit-change-avt,
-.enable {
+
+.btn-group-avt {
+    display: flex;
+    flex-direction: row;
+    bottom: 0;
     position: absolute;
+    flex-wrap: nowrap;
+    right: 0;
+}
+.btn-submit-change-avt,
+.enableCancel,
+.enable {
     padding: 3px 10px !important;
     font-size: 16px !important;
     background: var(--primary-color);
     color: #ccc;
     z-index: 10;
-    right: 0;
-    bottom: 0;
 }
+.enableCancel {
+    z-index: 10;
+    right: 0;
+    background-color: var(--red-color);
+}
+
+.btn-cancel-change-avt,
 .btn-submit-change-avt {
     display: none !important;
 }
 .enable {
     display: block !important;
-    z-index: 10;
 }
 .btn-submit-change-avt:hover {
     color: var(--white-color);
@@ -1206,7 +1227,7 @@ a.popu-cate__item {
     position: fixed;
     bottom: 50px;
     right: 20px;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1214,13 +1235,23 @@ a.popu-cate__item {
     cursor: pointer;
     z-index: 999;
 }
-.active-top .fa-arrow-circle-up{
+.active-top .fa-arrow-circle-up {
     color: var(--primary-color);
     font-size: 42px;
 }
 
 /* footer copyright */
-.footer__copyright{
+.footer__copyright {
     color: #ccc;
     text-align: center;
+}
+
+/* best seller */
+.slick-prev:before {
+    content: '←';
+    color: black !important;
+}
+.slick-next:before {
+    content: '→';
+    color: black !important;
 }

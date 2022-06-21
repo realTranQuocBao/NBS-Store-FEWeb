@@ -1,9 +1,9 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 
 const CustomerReview = () => {
-    const getReviewCustomer = useSelector(state => state.productList);
-    const { products } = getReviewCustomer;
+    // const getReviewCustomer = useSelector(state => state.productList);
+    // const { products } = getReviewCustomer;
 
     return (
         <div className="evaluate">
@@ -26,7 +26,7 @@ const CustomerReview = () => {
                                     <i className="evaluate__content-icon--star fas fa-star"></i>
                                     <i className="evaluate__content-icon--star fas fa-star"></i>
                                 </div>
-                                <h3 className="evaluate__content--name">{products[0]?.reviews[0]?.name}</h3>
+                                <h3 className="evaluate__content--name">Tran Quoc Bao</h3>
                                 <p className="evaluate__content--desc">
                                     The Adidas Stan Smith is one of the shoes of the era that gives me a sense of excitement every time I put my feet on it. If you don't know where to choose shoes, you can refer to Mew Shoes shoes.
                                 </p>
@@ -46,7 +46,7 @@ const CustomerReview = () => {
                                     <i className="evaluate__content-icon--star fas fa-star"></i>
                                     <i className="evaluate__content-icon--star fas fa-star"></i>
                                 </div>
-                                <h3 className="evaluate__content--name">{products[0]?.reviews[1]?.name}</h3>
+                                <h3 className="evaluate__content--name">Pham Xuan Nhut</h3>
                                 <p className="evaluate__content--desc">
                                     Adidas Stan Smith is one of the shoes of the era that gives me a feeling of excitement every time I put my foot on. If you don't know where to choose shoes, you can refer to Mew Shoes shoes.
                                 </p>
@@ -66,7 +66,7 @@ const CustomerReview = () => {
                                     <i className="evaluate__content-icon--star fas fa-star"></i>
                                     <i className="evaluate__content-icon--star fas fa-star"></i>
                                 </div>
-                                <h3 className="evaluate__content--name">{products[0]?.reviews[3]?.name}</h3>
+                                <h3 className="evaluate__content--name">Nguyen Tri Hai</h3>
                                 <p className="evaluate__content--desc">
                                     The Adidas Stan Smith is one of the shoes of the era that gives me a sense of excitement every time I put my feet on it. If you don't know where to choose shoes, you can refer to Mew Shoes shoes.
                                 </p>

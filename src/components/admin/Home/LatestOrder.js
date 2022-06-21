@@ -26,11 +26,11 @@ const LatestOrder = (props) => {
                   <td>${order.totalPrice}</td>
                   <td>
                     {order.isPaid ? (
-                      <span className="badge rounded-pill alert-success">
+                      <span className="badge3 rounded-pill alert-success">
                         Paid At {moment(order.paidAt).format("MMM Do YY")}
                       </span>
                     ) : (
-                      <span className="badge rounded-pill alert-danger">
+                        <span className="badge3 rounded-pill alert-danger">
                         Not Paid
                       </span>
                     )}

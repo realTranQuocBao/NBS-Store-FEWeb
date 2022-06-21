@@ -9,7 +9,7 @@ const CategoryFilterAdmin = ({ category, categoryFilterAdmin, setCategoryFilterA
                 value={categoryFilterAdmin}
                 onChange={(e) => setCategoryFilterAdmin(e.target.value)}
             >
-                <option>All category</option>
+                <option value="">All category</option>
                 {
                     category?.map((itemCategory, index) => (
                         <option
