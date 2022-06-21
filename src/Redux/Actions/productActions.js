@@ -32,7 +32,7 @@ import { PRODUCT_CREATE_REVIEW_REQUEST } from './../Constants/productConstants';
  */
 // product list action
 export const listProducts =
-  (keyword = "", pageNumber = "") =>
+  (keyword = " ", pageNumber = " ") =>
     async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
@@ -49,6 +49,24 @@ export const listProducts =
     });
   }
 };
+// product best seller
+export const listProductsBestSeller = () =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCT_LIST_REQUEST });
+      const { data } = await axios.get(
+        `/api/v1/product?category=All&bestSeller=true`);
+      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 // action details product
 export const detailsProduct = (id) => async (dispatch) => {
   try {

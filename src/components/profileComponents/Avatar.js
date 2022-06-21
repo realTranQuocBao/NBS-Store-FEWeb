@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { updateUserAvatar } from "../../Redux/Actions/userActions";
 import ImageCropper from "./ImageCropper";
 
 const Avatar = () => {
   const dispatch = useDispatch();
+  let history = useHistory();
 
   const userDetails = useSelector(state => state.userDetails);
   const { user } = userDetails;
@@ -37,6 +39,11 @@ const Avatar = () => {
     dispatch(updateUserAvatar({ user, formData }))
 
   }
+  const onCancelAvt = (e) => {
+    e.preventDefault();
+    history.push("/profile");
+  }
+
   return (
     <>
       <div className="col-md-12">
@@ -57,10 +64,15 @@ const Avatar = () => {
               />
             )
           }
-          <button
-            className={`${inputImg}` ? `enable` : "btn-submit-change-avt"}
-            onClick={onSubmitAvt}
-          >Submit</button>
+          <span className="btn-group-avt">
+            <button
+              className={`${inputImg}` ? `enableCancel` : "btn-cancel-change-avt"}
+              onClick={onCancelAvt}>Cancel</button>
+            <button
+              className={`${inputImg}` ? `enable` : "btn-submit-change-avt"}
+              onClick={onSubmitAvt}
+            >Submit</button>
+          </span>
         </div>
       </div>
     </>

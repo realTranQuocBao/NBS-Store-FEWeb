@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deliverOrder,
   getOrderDetails,
+  isPaidOrder,
 } from "./../../../Redux/Actions/orderActions";
 import Loading from "./../../base/LoadingError/Loading";
 import Message from "./../../base/LoadingError/Error";
@@ -21,13 +22,20 @@ const OrderDetailmain = (props) => {
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const { loading: loadingDelivered, success: successDelivered } = orderDeliver;
 
+  const orderIsPaid = useSelector((state) => state.orderIsPaidAdmin);
+  const { loading: loadingIsPaid, success: successIsPaid } = orderIsPaid;
+
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId, successDelivered]);
+  }, [dispatch, orderId, successDelivered, successIsPaid]);
 
   const deliverHandler = () => {
     dispatch(deliverOrder(order));
   };
+
+  const isPaidHandler = () => {
+    dispatch(isPaidOrder(order));
+  }
 
   return (
     <section className="content-main">
@@ -103,6 +111,22 @@ const OrderDetailmain = (props) => {
                       </button>
                     </>
                   )}
+                      {order.isPaid ? (
+                        <button className="btn btn-success col-12">
+                          IS PAID AT ({" "}
+                          {moment(order.isPaidAt).format("MMM Do YY")})
+                        </button>
+                      ) : (
+                        <>
+                          {loadingIsPaid && <Loading />}
+                          <button
+                            onClick={isPaidHandler}
+                            className="btn btn-dark col-12 btn-size"
+                          >
+                            MARK AS IS PAID
+                          </button>
+                        </>
+                      )}
                 </div>
               </div>
             </div>
