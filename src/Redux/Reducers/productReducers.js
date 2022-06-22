@@ -25,6 +25,9 @@ import {
   PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_CREATE_REVIEW_FAIL,
   PRODUCT_CREATE_REVIEW_RESET,
+  PRODUCT_BEST_SELLER_REQUEST,
+  PRODUCT_BEST_SELLER_SUCCESS,
+  PRODUCT_BEST_SELLER_FAIL,
 } from "../Constants/productConstants";
 
 /**
@@ -51,14 +54,14 @@ export const productListReducer = (state = { products: [] }, action) => {
 // PRODUCT LIST BEST SELLER
 export const productListReducerBestSeller = (state = { products: [] }, action) => {
   switch (action.type) {
-    case PRODUCT_LIST_REQUEST:
-      return { loading: true, products: [] };
-    case PRODUCT_LIST_SUCCESS:
+    case PRODUCT_BEST_SELLER_REQUEST:
+      return { loading: true, products: [...state.products] };
+    case PRODUCT_BEST_SELLER_SUCCESS:
       return {
         loading: false,
         products: action.payload.products
       };
-    case PRODUCT_LIST_FAIL:
+    case PRODUCT_BEST_SELLER_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

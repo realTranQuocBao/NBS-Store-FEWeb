@@ -10,8 +10,7 @@ import Rating from '../homeComponents/Rating';
 const BestSellerProduct = () => {
     const dispatch = useDispatch();
     const getBestSellerProduct = useSelector(state => state.productListBestSeller);
-    const { products } = getBestSellerProduct;
-    // console.log("products", products);
+    const { products: productsBestSeller } = getBestSellerProduct;
 
     useEffect(() => {
         dispatch(listProductsBestSeller());
@@ -60,7 +59,7 @@ const BestSellerProduct = () => {
             </div>
             <div className='best-seller-container'>
                 <Slider {...settings}>
-                    {products?.map((product, index) => {
+                    {productsBestSeller?.map((product, index) => {
                         return (
                             <div
                                 className="shop col-lg-3"
@@ -83,6 +82,7 @@ const BestSellerProduct = () => {
                                             value={product.rating}
                                             text={`${product.numReviews} reviews`}
                                         />
+                                        <p>Total Sales <b>{product.totalSales}</b></p>
                                         <h3>${product.price}</h3>
                                     </div>
                                 </div>
