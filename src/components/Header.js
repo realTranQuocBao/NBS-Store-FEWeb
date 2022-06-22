@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { logout } from './../Redux/Actions/userActions';
+// import Sidebar from "./Sidebar_new";
 import Sidebar from "./sidebar/Sidebar";
 
 
@@ -42,7 +43,7 @@ const Header = () => {
           <div className="row">
             <div className="col-md-6 d-flex align-items-center display-none">
               <p>+0909 0009</p>
-              <p>nbs.store@gmail.com</p>
+              <p>contact.nbs.store@gmail.com</p>
             </div>
             <div className=" col-12 col-lg-6 justify-content-center justify-content-lg-end d-flex align-items-center">
               <Link to="">

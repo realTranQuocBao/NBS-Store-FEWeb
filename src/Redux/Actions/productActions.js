@@ -23,6 +23,9 @@ import {
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_CREATE_REVIEW_FAIL,
   PRODUCT_CREATE_REVIEW_SUCCESS,
+  PRODUCT_BEST_SELLER_REQUEST,
+  PRODUCT_BEST_SELLER_SUCCESS,
+  PRODUCT_BEST_SELLER_FAIL,
 } from "../Constants/productConstants";
 import { logout } from "./userActions";
 import { PRODUCT_CREATE_REVIEW_REQUEST } from './../Constants/productConstants';
@@ -37,7 +40,7 @@ export const listProducts =
       try {
         dispatch({ type: PRODUCT_LIST_REQUEST });
         const { data } = await axios.get(
-          `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=All`);
+          `/api/v1/product?dateOrder=newest&keyword=${keyword}&pageNumber=${pageNumber}&pageSize=20`);
         dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
       } catch (error) {
         dispatch({
@@ -53,13 +56,13 @@ export const listProducts =
 export const listProductsBestSeller = () =>
   async (dispatch) => {
     try {
-      dispatch({ type: PRODUCT_LIST_REQUEST });
+      dispatch({ type: PRODUCT_BEST_SELLER_REQUEST });
       const { data } = await axios.get(
-        `/api/v1/product?category=All&bestSeller=true`);
-      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+        `/api/v1/product?bestSeller=true&pageSize=12`);
+      dispatch({ type: PRODUCT_BEST_SELLER_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
-        type: PRODUCT_LIST_FAIL,
+        type: PRODUCT_BEST_SELLER_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
