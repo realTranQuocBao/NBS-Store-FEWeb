@@ -1,11 +1,19 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import Message from "../components/base/LoadingError/Error";
 import Header from "../components/Header";
 import { createOrder } from "../Redux/Actions/orderActions";
 import { ORDER_CREATE_RESET } from "../Redux/Constants/orderConstants";
+import Toast from "../components/base/LoadingError/Toast";
 
+const ToastObjects = {
+  pauseOnFocusLoss: false,
+  draggable: false,
+  pauseOnHover: false,
+  autoClose: 2000,
+};
 const PlaceOrderScreen = ({ history }) => {
   window.scrollTo(0, 0);
 
@@ -36,9 +44,13 @@ const PlaceOrderScreen = ({ history }) => {
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`);
-      dispatch({ type: ORDER_CREATE_RESET });
+      toast.success("Product order success!!!", ToastObjects);
     }
-  }, [history, dispatch, success, order]);
+    if (error) {
+      toast.error(error, ToastObjects);
+    }
+    dispatch({ type: ORDER_CREATE_RESET });
+  }, [history, dispatch, success, order, error]);
 
   const placeOrderHandler = () => {
     dispatch(
@@ -56,6 +68,7 @@ const PlaceOrderScreen = ({ history }) => {
 
   return (
     <>
+      <Toast />
       <Header />
       <div className="container">
         <div className="row  order-detail">
@@ -184,11 +197,11 @@ const PlaceOrderScreen = ({ history }) => {
                 PLACE ORDER
               </button>
             )}
-            {error && (
+            {/* {error && (
               <div className="my-3 col-12">
                 <Message variant="alert-danger">{error}</Message>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>

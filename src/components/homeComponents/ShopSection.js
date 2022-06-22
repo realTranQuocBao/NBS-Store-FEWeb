@@ -17,13 +17,14 @@ const ShopSection = (props) => {
 
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
+  // console.log("products", products);
 
   const categoryList = useSelector((state) => state.categoryList);
   const { category } = categoryList;
   let productsFilter = [];
   const handleCategoryFilter = () => {
     if (categoryFilter !== '') {
-      productsFilter = products.filter(item => item.category._id === categoryFilter)
+      productsFilter = products ? products.filter(item => item.category._id === categoryFilter) : []
     } else {
       productsFilter = products;
     }
@@ -54,7 +55,7 @@ const ShopSection = (props) => {
                       setCategoryFilter={setCategoryFilter}
                     />
                   </div>
-                  <div className="col-8 row product-container">
+                  <div className="col-8 row product-container ">
                     {
                       loading ? (
                         <div className="mb-5 mt-5">

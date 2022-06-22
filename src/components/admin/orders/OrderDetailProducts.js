@@ -59,6 +59,9 @@ const OrderDetailProducts = (props) => {
                 <dt>Shipping cost:</dt> <dd>${order.shippingPrice}</dd>
               </dl>
               <dl className="dlist">
+                <dt>Tax cost:</dt> <dd>${order.taxPrice}</dd>
+              </dl>
+              <dl className="dlist">
                 <dt>Grand total:</dt>
                 <dd>
                   <b className="h5">${order.totalPrice}</b>
@@ -68,11 +71,11 @@ const OrderDetailProducts = (props) => {
                 <dt className="text-muted">Status:</dt>
                 <dd>
                   {order.isPaid ? (
-                    <span className="badge rounded-pill alert alert-success text-success">
+                    <span className="badge3 rounded-pill alert alert-success text-success">
                       Payment done
                     </span>
                   ) : (
-                    <span className="badge rounded-pill alert alert-danger text-danger">
+                      <span className="badge3 rounded-pill alert alert-danger text-danger">
                       Not Paid
                     </span>
                   )}

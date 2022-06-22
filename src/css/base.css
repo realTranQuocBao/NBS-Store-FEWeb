@@ -308,9 +308,32 @@ html {
 }
 
 .shoptext {
-    height: 160px;
+    height: 210px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     flex-wrap: nowrap;
+}
+
+.pagination-group {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+.icon-right i {
+    margin-left: 12px;
+    font-size: 18px;
+}
+.icon-left i {
+    margin-right: 12px;
+    font-size: 18px;
+}
+.icon-right,
+.icon-left {
+    padding: 0 10px;
+}
+.icon-left:hover,
+.icon-right:hover {
+    cursor: pointer;
+    color: var(--primary-color);
 }

@@ -23,6 +23,9 @@ import {
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_CREATE_REVIEW_FAIL,
   PRODUCT_CREATE_REVIEW_SUCCESS,
+  PRODUCT_BEST_SELLER_REQUEST,
+  PRODUCT_BEST_SELLER_SUCCESS,
+  PRODUCT_BEST_SELLER_FAIL,
 } from "../Constants/productConstants";
 import { logout } from "./userActions";
 import { PRODUCT_CREATE_REVIEW_REQUEST } from './../Constants/productConstants';
@@ -32,23 +35,41 @@ import { PRODUCT_CREATE_REVIEW_REQUEST } from './../Constants/productConstants';
  */
 // product list action
 export const listProducts =
-  (keyword = "", pageNumber = "") =>
+  (keyword = " ", pageNumber = " ") =>
     async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCT_LIST_REQUEST });
-    const { data } = await axios.get(
-      `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=All`);
-    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      try {
+        dispatch({ type: PRODUCT_LIST_REQUEST });
+        const { data } = await axios.get(
+          `/api/v1/product?dateOrder=newest&keyword=${keyword}&pageNumber=${pageNumber}&pageSize=20`);
+        dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+      } catch (error) {
+        dispatch({
+          type: PRODUCT_LIST_FAIL,
+          payload:
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message,
+        });
+      }
+    };
+// product best seller
+export const listProductsBestSeller = () =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCT_BEST_SELLER_REQUEST });
+      const { data } = await axios.get(
+        `/api/v1/product?bestSeller=true&pageSize=12`);
+      dispatch({ type: PRODUCT_BEST_SELLER_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_BEST_SELLER_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 // action details product
 export const detailsProduct = (id) => async (dispatch) => {
   try {
@@ -66,26 +87,26 @@ export const detailsProduct = (id) => async (dispatch) => {
   }
 };
 // action create review product
-export const createProductReview = 
-(productId, review) => async (dispatch, getState) => {
-  try {
-    dispatch({type: PRODUCT_CREATE_REVIEW_REQUEST});
-    const {
-      userLogin : { userInfo }
-    } = getState();
+export const createProductReview =
+  (productId, review) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
+      const {
+        userLogin: { userInfo }
+      } = getState();
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        }
       }
-    }
 
-    await axios.post(`/api/v1/product/${productId}/review`, review, config);
-    dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
+      await axios.post(`/api/v1/product/${productId}/review`, review, config);
+      dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
 
-  } catch (error) {
-    const message =
+    } catch (error) {
+      const message =
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message;
@@ -103,7 +124,7 @@ export const createProductReview =
 
 /**
  * ADMIN
-*/ 
+*/
 
 //  GET LIST PRODUCT HAVE BAGINATION
 export const listProductsAdmin = (keyword = "", pageNumber = "") => async (dispatch, getState) => {
@@ -153,7 +174,7 @@ export const listProductsAdminAll = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/v1/product/all`, config);
+    const { data } = await axios.get(`/api/v1/product?status=all`, config);
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {

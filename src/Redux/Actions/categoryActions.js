@@ -56,7 +56,7 @@ export const listCategoryAdmin = () => async (dispatch, getState) => {
             },
         };
 
-        const { data } = await axios.get(`/api/v1/category/all`, config);
+        const { data } = await axios.get(`/api/v1/category`, config);
 
         dispatch({ type: CATEGORY_LIST_SUCCESS, payload: data });
     } catch (error) {

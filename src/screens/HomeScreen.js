@@ -9,6 +9,7 @@ import Policy from "./Policy";
 // import PopularProduct from "./PopularProduct";
 import CustomerReview from "./CustomerReview";
 import Trademark from "./Trademark";
+import BestSellerProduct from "../components/carouselProduct/BestSellerProduct";
 
 const HomeScreen = ({ match }) => {
   window.scrollTo(0, 0);
@@ -17,8 +18,13 @@ const HomeScreen = ({ match }) => {
   return (
     <div>
       <Header />
-      <Slideshow />
-      <Policy />
+      <div style={{ display: `${keyword}` !== `${undefined}` || `${pageNumber}` !== `${undefined}` ? "none" : "block" }}>
+        <Slideshow />
+        <Policy />
+        <div className="container">
+          <BestSellerProduct />
+        </div>
+      </div>
       {/* <PopularProduct /> */}
       <ShopSection keyword={keyword} pageNumber={pageNumber} />
       <CustomerReview />

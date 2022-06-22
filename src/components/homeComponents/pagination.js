@@ -5,7 +5,18 @@ const Pagination = (props) => {
   const { page, pages, keyword = "" } = props;
   return (
     pages > 1 && (
-      <nav>
+      <nav className="pagination-group">
+        <div className="icon-left">
+          <Link
+            to={
+              keyword
+                ? `/search/${keyword}/page/${page > 1 ? page - 1 : page}`
+                : `/page/${page > 1 ? page - 1 : page}`
+            }
+          >
+            <i className="fas fa-chevron-left"></i>
+          </Link>
+        </div>
         <ul className="pagination justify-content-center">
           {[...Array(pages).keys()].map((x) => (
             <li
@@ -25,6 +36,17 @@ const Pagination = (props) => {
             </li>
           ))}
         </ul>
+        <div className="icon-right">
+          <Link
+            to={
+              keyword
+                ? `/search/${keyword}/page/${page < pages ? page + 1 : pages}`
+                : `/page/${page < pages ? page + 1 : pages}`
+            }
+          >
+            <i className="fas fa-chevron-right"></i>
+          </Link>
+        </div>
       </nav>
     )
   );
