@@ -12,7 +12,10 @@ const Header = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
-
+  const onAvatarLoadError = (e) => {
+    e.currentTarget.onerror = null; // prevents looping
+    e.currentTarget.src = "../images/avatar/default.png";
+  };
   useEffect(() => {
     $("[data-trigger]").on("click", function (e) {
       e.preventDefault();
@@ -97,6 +100,7 @@ const Header = () => {
               <img
                 className="img-xs rounded-circle"
                 src={userInfo.avatarUrl}
+                onError={onAvatarLoadError}
                 alt="User"
               />
             </Link>

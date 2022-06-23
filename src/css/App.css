@@ -1255,3 +1255,12 @@ a.popu-cate__item {
     content: '→';
     color: black !important;
 }
+
+.col-8.row.product-container {
+    width: 85% !important;
+}
+.related-product-container{
+    width: 100%;
+}
+
+/* icon menu */
