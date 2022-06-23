@@ -28,14 +28,14 @@ import {
   PRODUCT_BEST_SELLER_FAIL,
 } from "../Constants/productConstants";
 import { logout } from "./userActions";
-import { PRODUCT_CREATE_REVIEW_REQUEST } from './../Constants/productConstants';
+import { PRODUCT_CREATE_REVIEW_REQUEST } from "./../Constants/productConstants";
 
 /**
  * CLIENT
  */
 // product list action
 export const listProducts =
-  (keyword = " ", pageNumber = " ") =>
+    (keyword = "", pageNumber = "") =>
     async (dispatch) => {
       try {
         dispatch({ type: PRODUCT_LIST_REQUEST });
@@ -53,8 +53,7 @@ export const listProducts =
       }
     };
 // product best seller
-export const listProductsBestSeller = () =>
-  async (dispatch) => {
+export const listProductsBestSeller = () => async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_BEST_SELLER_REQUEST });
       const { data } = await axios.get(
@@ -69,22 +68,19 @@ export const listProductsBestSeller = () =>
             : error.message,
       });
     }
-  };
+};
 // action details product
 export const detailsProduct = (id) => async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    const { data } = await axios.get(`/api/v1/product/${id}`);
-    dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
+    try {
+        dispatch({ type: PRODUCT_DETAILS_REQUEST });
+        const { data } = await axios.get(`/api/v1/product/${id}`);
+        dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_DETAILS_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        });
+    }
 };
 // action create review product
 export const createProductReview =
@@ -118,208 +114,188 @@ export const createProductReview =
         payload: message,
       });
     }
-  }
-
-
+};
 
 /**
  * ADMIN
-*/
+ */
 
 //  GET LIST PRODUCT HAVE BAGINATION
-export const listProductsAdmin = (keyword = "", pageNumber = "") => async (dispatch, getState) => {
-  try {
-    dispatch({ type: PRODUCT_LIST_REQUEST });
+export const listProductsAdmin =
+    (keyword = "", pageNumber = "") =>
+    async (dispatch, getState) => {
+        try {
+            dispatch({ type: PRODUCT_LIST_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+            const {
+                userLogin: { userInfo }
+            } = getState();
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            };
+
+            const { data } = await axios.get(
+                `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=All`,
+                config
+            );
+
+            dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+        } catch (error) {
+            const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+            if (message === "Not authorized, token failed") {
+                dispatch(logout());
+            }
+            dispatch({
+                type: PRODUCT_LIST_FAIL,
+                payload: message
+            });
+        }
     };
-
-    const { data } = await axios.get(`/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=All`, config);
-
-    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
-    }
-    dispatch({
-      type: PRODUCT_LIST_FAIL,
-      payload: message,
-    });
-  }
-};
 
 // GET ALL PRODUCTS WITHOUT PAGINATION
 export const listProductsAdminAll = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: PRODUCT_LIST_REQUEST });
+    try {
+        dispatch({ type: PRODUCT_LIST_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+        const {
+            userLogin: { userInfo }
+        } = getState();
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        };
 
-    const { data } = await axios.get(`/api/v1/product?status=all`, config);
+        const { data } = await axios.get(`/api/v1/product?status=all`, config);
 
-    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
+        dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+    } catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+        if (message === "Not authorized, token failed") {
+            dispatch(logout());
+        }
+        dispatch({
+            type: PRODUCT_LIST_FAIL,
+            payload: message
+        });
     }
-    dispatch({
-      type: PRODUCT_LIST_FAIL,
-      payload: message,
-    });
-  }
 };
 
 // DELETE PRODUCT
 export const deleteProductAdmin = (id) => async (dispatch, getState) => {
-  try {
-    dispatch({ type: PRODUCT_DELETE_REQUEST });
+    try {
+        dispatch({ type: PRODUCT_DELETE_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+        const {
+            userLogin: { userInfo }
+        } = getState();
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        };
 
-    await axios.delete(`/api/v1/product/${id}`, config);
+        await axios.delete(`/api/v1/product/${id}`, config);
 
-    dispatch({ type: PRODUCT_DELETE_SUCCESS });
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
+        dispatch({ type: PRODUCT_DELETE_SUCCESS });
+    } catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+        if (message === "Not authorized, token failed") {
+            dispatch(logout());
+        }
+        dispatch({
+            type: PRODUCT_DELETE_FAIL,
+            payload: message
+        });
     }
-    dispatch({
-      type: PRODUCT_DELETE_FAIL,
-      payload: message,
-    });
-  }
 };
 
 // CREATE PRODUCT
 export const createProductAdmin =
-  (name, category, price, description, image, countInStock) =>
-    async (dispatch, getState) => {
-      try {
-        dispatch({ type: PRODUCT_CREATE_REQUEST });
+    (name, category, price, description, image, countInStock) => async (dispatch, getState) => {
+        try {
+            dispatch({ type: PRODUCT_CREATE_REQUEST });
 
-        const {
-          userLogin: { userInfo },
-        } = getState();
+            const {
+                userLogin: { userInfo }
+            } = getState();
 
-        const config = {
-          headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        };
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            };
 
-        const { data } = await axios.post(
-          `/api/v1/product/`,
-          { name, category, price, description, image, countInStock },
-          config
-        );
+            const { data } = await axios.post(
+                `/api/v1/product/`,
+                { name, category, price, description, image, countInStock },
+                config
+            );
 
-        dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data });
-      } catch (error) {
-        const message =
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message;
-        if (message === "Not authorized, token failed") {
-          dispatch(logout());
+            dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data });
+        } catch (error) {
+            const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+            if (message === "Not authorized, token failed") {
+                dispatch(logout());
+            }
+            dispatch({
+                type: PRODUCT_CREATE_FAIL,
+                payload: message
+            });
         }
-        dispatch({
-          type: PRODUCT_CREATE_FAIL,
-          payload: message,
-        });
-      }
     };
 
 // EDIT PRODUCT
 export const editProductAdmin = (id) => async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCT_EDIT_REQUEST });
-    const { data } = await axios.get(`/api/v1/product/${id}`);
-    dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
+    try {
+        dispatch({ type: PRODUCT_EDIT_REQUEST });
+        const { data } = await axios.get(`/api/v1/product/${id}`);
+        dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
+    } catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+        if (message === "Not authorized, token failed") {
+            dispatch(logout());
+        }
+        dispatch({
+            type: PRODUCT_EDIT_FAIL,
+            payload: message
+        });
     }
-    dispatch({
-      type: PRODUCT_EDIT_FAIL,
-      payload: message,
-    });
-  }
 };
 
 // UPDATE PRODUCT
 export const updateProductAdmin = (product) => async (dispatch, getState) => {
-  try {
-    dispatch({ type: PRODUCT_UPDATE_REQUEST });
+    try {
+        dispatch({ type: PRODUCT_UPDATE_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+        const {
+            userLogin: { userInfo }
+        } = getState();
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        };
 
-    const { data } = await axios.put(
-      `/api/v1/product/${product._id}`,
-      product,
-      config
-    );
+        const { data } = await axios.put(`/api/v1/product/${product._id}`, product, config);
 
-    dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
-    dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
+        dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
+        dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
+    } catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+        if (message === "Not authorized, token failed") {
+            dispatch(logout());
+        }
+        dispatch({
+            type: PRODUCT_UPDATE_FAIL,
+            payload: message
+        });
     }
-    dispatch({
-      type: PRODUCT_UPDATE_FAIL,
-      payload: message,
-    });
-  }
 };
