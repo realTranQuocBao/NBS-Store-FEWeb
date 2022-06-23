@@ -6,8 +6,8 @@ import ProductsStatistics from "./ProductsStatistics";
 import { useSelector } from "react-redux";
 
 const Main = () => {
-  const orderList = useSelector((state) => state.orderList);
-  const { loading, error, orders } = orderList;
+  const orderListAdmin = useSelector((state) => state.orderListAdmin);
+  const { loading, error, orders } = orderListAdmin;
   const productList = useSelector((state) => state.productList);
   const { products } = productList;
   return (
@@ -17,7 +17,7 @@ const Main = () => {
           <h2 className="content-title"> Dashboard </h2>
         </div>
         {/* Top Total */}
-        <TopTotal orders={orders} products={products} />
+        <TopTotal orders={orders} products={products} productList={productList} />
 
         <div className="row">
           {/* STATICS */}

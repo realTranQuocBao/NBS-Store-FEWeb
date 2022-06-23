@@ -3,13 +3,14 @@ import Toast from "../../base/LoadingError/Toast";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  editProduct,
-  updateProduct,
+  editProductAdmin,
+  updateProductAdmin,
 } from "./../../../Redux/Actions/productActions";
-import { PRODUCT_UPDATE_RESET } from "../../../Redux/Constants/productConstants";
+import { PRODUCT_CREATE_FAIL, PRODUCT_UPDATE_RESET } from "../../../Redux/Constants/productConstants";
 import { toast } from "react-toastify";
 import Message from "../../base/LoadingError/Error";
 import Loading from "../../base/LoadingError/Loading";
+import { listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -29,8 +30,13 @@ const EditProductMain = (props) => {
 
   const dispatch = useDispatch();
 
-  const productEdit = useSelector((state) => state.productEdit);
-  const { loading, error, product } = productEdit;
+  const productEditAdmin = useSelector((state) => state.productEditAdmin);
+  const { loading, error, product } = productEditAdmin;
+  const [category, setCategory] = useState(product.category);
+  useEffect(() => {
+    setCategory(product.category);
+    return () => { setCategory(product.category) }
+  }, [product._id, product.category]);
 
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
@@ -39,35 +45,50 @@ const EditProductMain = (props) => {
     success: successUpdate,
   } = productUpdate;
 
+  const categoryListAdmin = useSelector((state) => state.categoryListAdmin);
+  const {
+    // loading: loadingCategory,
+    // error: errorCategory,
+    category: categoryEditProduct
+  } = categoryListAdmin;
+
   useEffect(() => {
+    dispatch(listCategoryAdmin());
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
       toast.success("Product Updated", ToastObjects);
     } else {
       if (!product.name || product._id !== productId) {
-        dispatch(editProduct(productId));
-      } else {
+        dispatch(editProductAdmin(productId));
+      }
+      else {
         setName(product.name);
+        // setCategory(category);
         setDescription(product.description);
         setCountInStock(product.countInStock);
         setImage(product.image);
         setPrice(product.price);
       }
     }
-  }, [product, dispatch, productId, successUpdate]);
+  }, [product, dispatch, productId, successUpdate, category]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      updateProduct({
+    if (price >= 0 && countInStock >= 0) {
+      dispatch(
+      updateProductAdmin({
         _id: productId,
         name,
+        category,
         price,
         description,
         image,
         countInStock,
-      })
-    );
+      }));
+    } else {
+      dispatch({ type: PRODUCT_CREATE_FAIL });
+      toast.error("Update product fail!!!", ToastObjects)
+    }
   };
 
   return (
@@ -76,19 +97,19 @@ const EditProductMain = (props) => {
       <section className="content-main" style={{ maxWidth: "1200px" }}>
         <form onSubmit={submitHandler}>
           <div className="content-header">
-            <Link to="/products" className="btn btn-danger text-white">
+            <Link to="/admin/products" className="btn btn-danger text-white btn-size">
               Go to products
             </Link>
             <h2 className="content-title">Update Product</h2>
             <div>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary btn-size">
                 Publish now
               </button>
             </div>
           </div>
 
           <div className="row mb-4">
-            <div className="col-xl-8 col-lg-8">
+            <div className="">
               <div className="card mb-4 shadow-sm">
                 <div className="card-body">
                   {errorUpdate && (
@@ -115,6 +136,31 @@ const EditProductMain = (props) => {
                           onChange={(e) => setName(e.target.value)}
                         />
                       </div>
+                          {/* {errorCategory && <Message variant="alert-danger">{errorCategory}</Message>}
+                          {loadingCategory && <Loading />} */}
+                          <div className="mb-4">
+                            <label htmlFor="category_title" className="form-label">
+                              Category
+                            </label>
+                            <select
+                              id="category_title"
+                              className="form-select"
+                              value={category}
+                              onChange={(e) => setCategory(e.target.value)}
+                            >
+                              {
+                                categoryEditProduct && categoryEditProduct.map((categoryItem, index) => (
+                                  <option
+                                    key={index}
+                                    value={categoryItem?._id}
+                                  >
+                                    {categoryItem?.name}
+                                  </option>
+                                )
+                                )
+                              }
+                            </select>
+                          </div>
                       <div className="mb-4">
                         <label htmlFor="product_price" className="form-label">
                           Price

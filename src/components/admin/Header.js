@@ -1,11 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import $ from "jquery";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../Redux/Actions/userActions";
+import { useHistory } from "react-router-dom";
 
 const Header = () => {
+  const [keyword, setKeyword] = useState();
+  let history = useHistory();
+
   const dispatch = useDispatch();
+  const userLogin = useSelector(state => state.userLogin);
+  const { userInfo } = userLogin;
+  const onAvatarLoadError = (e) => {
+    e.currentTarget.onerror = null; // prevents looping
+    e.currentTarget.src = "../images/avatar/default.png";
+  };
   useEffect(() => {
     $("[data-trigger]").on("click", function (e) {
       e.preventDefault();
@@ -25,6 +35,15 @@ const Header = () => {
     });
   }, []);
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (keyword.trim()) {
+      history.push(`/admin/search/${keyword}`);
+    } else {
+      history.push(`/admin`);
+    }
+  }
+
   const logoutHandler = () => {
     dispatch(logout());
   };
@@ -32,16 +51,17 @@ const Header = () => {
   return (
     <header className="main-header navbar">
       <div className="col-search">
-        <form className="searchform">
-          <div className="input-group">
+        <form className="searchform" onSubmit={submitHandler}>
+          <div className="input-group search-wrap-admin">
             <input
               list="search_terms"
               type="text"
-              className="form-control"
+              className="form-control input-search-admin"
               placeholder="Search term"
+              onChange={e => setKeyword(e.target.value)}
             />
-            <button className="btn btn-light bg" type="button">
-              <i className="far fa-search"></i>
+            <button className="btn btn-light bg btn-search-admin" type="submit">
+              <i className="far fa-search icon-search-admin"></i>
             </button>
           </div>
           <datalist id="search_terms">
@@ -79,12 +99,13 @@ const Header = () => {
             <Link className="dropdown-toggle" data-bs-toggle="dropdown" to="#">
               <img
                 className="img-xs rounded-circle"
-                src="/images/favicon.png"
+                src={userInfo.avatarUrl}
+                onError={onAvatarLoadError}
                 alt="User"
               />
             </Link>
             <div className="dropdown-menu dropdown-menu-end">
-              <Link className="dropdown-item" to="/">
+              <Link className="dropdown-item" to="/profile">
                 My profile
               </Link>
               <Link className="dropdown-item" to="#">

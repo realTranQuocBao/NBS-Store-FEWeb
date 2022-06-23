@@ -1,9 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { deleteOrderAdmin } from "../../../Redux/Actions/orderActions";
 
 const Orders = (props) => {
+  const dispatch = useDispatch();
   const { orders } = props;
+
+  const handleDeleteOrder = (id) => {
+    if (window.confirm(("Are you sure delete order???"))) {
+      dispatch(deleteOrderAdmin(id));
+    }
+  }
+
   return (
     <table className="table">
       <thead>
@@ -20,20 +30,20 @@ const Orders = (props) => {
         </tr>
       </thead>
       <tbody>
-        {orders.map((order) => (
+        {orders && orders.map((order) => (
           <tr key={order._id}>
             <td>
-              <b>{order.user.name}</b>
+              <b>{`${order.user.name.lenght} >=15` ? `${order.user.name.slice(0, 15)}...` : `${order.user.name}`}</b>
             </td>
             <td>{order.user.email}</td>
             <td>${order.totalPrice}</td>
             <td>
               {order.isPaid ? (
-                <span className="badge rounded-pill alert-success">
+                <span className="badge3 rounded-pill alert-success">
                   Paid At {moment(order.paidAt).format("MMM Do YY")}
                 </span>
               ) : (
-                <span className="badge rounded-pill alert-danger">
+                  <span className="badge3 rounded-pill alert-danger">
                   Not Paid
                 </span>
               )}
@@ -41,39 +51,25 @@ const Orders = (props) => {
             <td>{moment(order.createdAt).format("MMM Do YY")}</td>
             <td>
               {order.isDelivered ? (
-                <span className="badge btn-success">Delivered</span>
+                <span className="badge3 btn-success">Delivered</span>
               ) : (
-                <span className="badge btn-dark">Not delivered</span>
+                  <span className="badge3 btn-dark">Not delivered</span>
               )}
             </td>
             <td className="d-flex justify-content-end align-item-center">
-              <Link to={`/order/${order._id}`} className="text-success">
+              <Link to={`/admin/order/${order._id}`} className="text-success">
                 <i className="fas fa-eye"></i>
+              </Link>
+              <Link
+                to="#"
+                className="text-danger ms-3"
+                onClick={() => handleDeleteOrder(order._id)}
+              >
+                <i className="fas fa-trash"></i>
               </Link>
             </td>
           </tr>
         ))}
-
-        {/* Not paid Not delivered */}
-        {/* <tr>
-          <td>
-            <b>Velcro Sneakers For Boys & Girls (Blue)</b>
-          </td>
-          <td>user@example.com</td>
-          <td>$45,789</td>
-          <td>
-            <span className="badge rounded-pill alert-danger">Not paid</span>
-          </td>
-          <td>Dec 12 2021</td>
-          <td>
-            <span className="badge btn-dark">Not Delivered</span>
-          </td>
-          <td className="d-flex justify-content-end align-item-center">
-            <Link to={`/order`} className="text-success">
-              <i className="fas fa-eye"></i>
-            </Link>
-          </td>
-        </tr> */}
       </tbody>
     </table>
   );

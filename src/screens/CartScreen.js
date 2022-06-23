@@ -9,7 +9,6 @@ const CartScreen = ({ match, location, history }) => {
   const dispatch = useDispatch();
   const productId = match.params.id;
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
-  // console.log(qty);
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
@@ -66,9 +65,6 @@ const CartScreen = ({ match, location, history }) => {
                 cartItems && cartItems.map((item, index) => (
 
                   <div className="cart-iterm row" key={index}>
-                    {/* {
-                      console.log(">>>CartScreen - Item show", item)
-                    } */}
                     <div
                       onClick={() => removeFromCartHandler(item.product)}
                       className="remove-button d-flex justify-content-center align-items-center">

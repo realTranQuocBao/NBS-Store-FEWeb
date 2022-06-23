@@ -1,24 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { logout } from './../Redux/Actions/userActions';
+// import Sidebar from "./Sidebar_new";
+import Sidebar from "./sidebar/Sidebar";
+
 
 const Header = () => {
+  const [keyword, setKeyword] = useState();
   const dispatch = useDispatch();
+  let history = useHistory();
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-  }
   const logoutHandler = () => {
-    console.log(">>>Logout success!!!");
     dispatch(logout())
   }
+
+  // search handler
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (keyword.trim()) {
+      history.push(`/search/${keyword}`);
+    } else {
+      history.push("/");
+    }
+  }
+
+  const onAvatarLoadError = (e) => {
+    e.currentTarget.onerror = null; // prevents looping
+    e.currentTarget.src = "../images/avatar/default.png";
+  };
+
   return (
     <div>
       {/* Top Header */}
@@ -27,7 +43,7 @@ const Header = () => {
           <div className="row">
             <div className="col-md-6 d-flex align-items-center display-none">
               <p>+0909 0009</p>
-              <p>nbs.store@gmail.com</p>
+              <p>contact.nbs.store@gmail.com</p>
             </div>
             <div className=" col-12 col-lg-6 justify-content-center justify-content-lg-end d-flex align-items-center">
               <Link to="">
@@ -52,12 +68,16 @@ const Header = () => {
       {/* Header */}
       <div className="header">
         <div className="container">
+
+          {/* Toggle menu */}
+          <Sidebar />
+
           {/* MOBILE HEADER */}
           <div className="mobile-header">
             <div className="container ">
               <div className="row ">
                 <div className="col-6 d-flex align-items-center">
-                  <Link className="navbar-brand" to="/">
+                  <Link className="navbar-brand" to="/profile">
                     <img alt="logo" src="/images/logo.png" />
                   </Link>
                 </div>
@@ -123,6 +143,8 @@ const Header = () => {
                       type="search"
                       className="form-control rounded search"
                       placeholder="Search"
+                      // value={keyword}
+                      onChange={(e) => setKeyword(e.target.value)}
                     />
                     <button type="submit" className="search-button">
                       search
@@ -136,17 +158,19 @@ const Header = () => {
           {/* PC HEADER */}
           <div className="pc-header">
             <div className="row">
+
               <div className="col-md-3 col-4 d-flex align-items-center">
                 <Link className="navbar-brand" to="/">
                   <img alt="logo" src="/images/logo.png" />
                 </Link>
               </div>
               <div className="col-md-6 col-8 d-flex align-items-center">
-                <form className="input-group">
+                <form onSubmit={submitHandler} className="input-group">
                   <input
                     type="search"
                     className="form-control rounded search"
                     placeholder="Search"
+                    onChange={(e) => setKeyword(e.target.value)}
                   />
                   <button type="submit" className="search-button">
                     search
@@ -156,6 +180,12 @@ const Header = () => {
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
                 {userInfo ? (
                   <div className="btn-group">
+                    <img
+                      className="img-xs rounded-circle"
+                      src={userInfo.avatarUrl}
+                      onError={onAvatarLoadError}
+                      alt="User avatar"
+                    />
                     <button
                       type="button"
                       className="name-button dropdown-toggle"
@@ -163,7 +193,8 @@ const Header = () => {
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      Hi, {userInfo.name}
+
+                      Hi, {`${userInfo.name.length} >= 10` ? `  ${userInfo.name.slice(0, 10)}...` : `  ${userInfo.name}`}
                     </button>
                     <div className="dropdown-menu">
                       <Link className="dropdown-item" to="/profile">

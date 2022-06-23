@@ -11,6 +11,10 @@ const UserComponent = () => {
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
 
+  const onAvatarLoadError = (e) => {
+    e.currentTarget.onerror = null; // prevents looping
+    e.currentTarget.src = "/images/avatar/default.png";
+  };
   useEffect(() => {
     dispatch(listUser());
   }, [dispatch]);
@@ -19,7 +23,7 @@ const UserComponent = () => {
       <div className="content-header">
         <h2 className="content-title">Customers</h2>
         <div>
-          <Link to="#" className="btn btn-primary">
+          <Link to="#" className="btn btn-primary btn-size">
             <i className="material-icons md-plus"></i> Create new
           </Link>
         </div>
@@ -61,18 +65,21 @@ const UserComponent = () => {
             <Message variant="alert-danger">{error}</Message>
           ) : (
             <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
-              {users.map((user) => (
+              {users && users.map((user) => (
                 <div className="col" key={user._id}>
                   <div className="card card-user shadow-sm">
                     <div className="card-header">
                       <img
                         className="img-md img-avatar"
-                        src="images/favicon.png"
+                        src={user.avatarUrl}
+                        onError={onAvatarLoadError}
                         alt="User pic"
                       />
                     </div>
                     <div className="card-body">
-                      <h5 className="card-title mt-5">{user.name}</h5>
+                      <h5 className="card-title mt-5" title={user.name}>
+                        {`${user.name.length} >= 15` ? `${user.name.slice(0, 15)}...` : `${user.name}`}
+                      </h5>
                       <div className="card-text text-muted">
                         {user.isAdmin === true ? (
                           <p className="m-0">Admin</p>
@@ -81,7 +88,10 @@ const UserComponent = () => {
                         )}
 
                         <p>
-                          <a href={`mailto:${user.email}`}>{user.email}</a>
+                          <a
+                            href={`mailto:${user.email}`}
+                            title={user.email}
+                          >{`${user.email.length} >= 15` ? `${user.email.slice(0, 20)}...` : `${user.email}`}</a>
                         </p>
                       </div>
                     </div>

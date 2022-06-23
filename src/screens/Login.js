@@ -15,14 +15,13 @@ const Login = ({ location, history }) => {
 
   const dispatch = useDispatch();
   const userLogin = useSelector(state => state.userLogin);
-  console.log(">>>userLogin nek: ", userLogin);
   const { loading, error, userInfo } = userLogin;
 
   useEffect(() => {
     if (userInfo) {
       history.push(redirect);
     }
-  }, [history, location, userInfo]);
+  }, [history, location, userInfo, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();

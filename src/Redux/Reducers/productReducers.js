@@ -21,27 +21,54 @@ import {
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_RESET,
   PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_CREATE_REVIEW_REQUEST,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
+  PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_CREATE_REVIEW_RESET,
+  PRODUCT_BEST_SELLER_REQUEST,
+  PRODUCT_BEST_SELLER_SUCCESS,
+  PRODUCT_BEST_SELLER_FAIL,
 } from "../Constants/productConstants";
 
-// reducer list product
+/**
+ * CLIENT ONLY
+ */
+// PRODUCT LIST
 export const productListReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
       return { loading: true, products: [] };
     case PRODUCT_LIST_SUCCESS:
-      // console.log(">>>check success");
-      return { loading: false, products: action.payload.products };
+      return {
+        loading: false,
+        page: action.payload.page,
+        pages: action.payload.pages,
+        products: action.payload.products
+      };
     case PRODUCT_LIST_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
   }
 };
+// PRODUCT LIST BEST SELLER
+export const productListReducerBestSeller = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_BEST_SELLER_REQUEST:
+      return { loading: true, products: [...state.products] };
+    case PRODUCT_BEST_SELLER_SUCCESS:
+      return {
+        loading: false,
+        products: action.payload.products
+      };
+    case PRODUCT_BEST_SELLER_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 
-/**
- * CLIENT ONLY
- */
-// reducer detail product
+// SINGLE PRODUCT
 export const productDetailsReducer = (
   state = { product: { reviews: [] } },
   action
@@ -50,7 +77,6 @@ export const productDetailsReducer = (
     case PRODUCT_DETAILS_REQUEST:
       return { ...state, loading: true };
     case PRODUCT_DETAILS_SUCCESS:
-      console.log(">>>check success");
       return { loading: false, product: action.payload };
     case PRODUCT_DETAILS_FAIL:
       return { loading: false, error: action.payload };
@@ -59,12 +85,61 @@ export const productDetailsReducer = (
   }
 };
 
+// PRODUCT REVIEW CREATE
+export const productCreateReviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_CREATE_REVIEW_REQUEST:
+      return { loading: true };
+    case PRODUCT_CREATE_REVIEW_SUCCESS:
+      return { loading: false, success: true };
+    case PRODUCT_CREATE_REVIEW_FAIL:
+      return { loading: false, error: action.payload };
+    case PRODUCT_CREATE_REVIEW_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
 /**
  * ADMIN ONLY
  */
-
+// ALL PRODUCTS
+export const productListReducerAdmin = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_LIST_REQUEST:
+      return { loading: true, products: [] };
+    case PRODUCT_LIST_SUCCESS:
+      return {
+        loading: false,
+        page: action.payload.page,
+        pages: action.payload.pages,
+        products: action.payload.products
+      };
+    case PRODUCT_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+// ALL PRODUCTS WITHOUR PAGINATION
+export const productListReducerAdminAll = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_LIST_REQUEST:
+      return { loading: true, products: [] };
+    case PRODUCT_LIST_SUCCESS:
+      return {
+        loading: false,
+        products: action.payload
+      };
+    case PRODUCT_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 // DELETE PRODUCT
-export const productDeleteReducer = (state = {}, action) => {
+export const productDeleteReducerAdmin = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_DELETE_REQUEST:
       return { loading: true };
@@ -77,8 +152,8 @@ export const productDeleteReducer = (state = {}, action) => {
   }
 };
 
-// DELETE PRODUCT
-export const productCreateReducer = (state = {}, action) => {
+// CREATE PRODUCT
+export const productCreateReducerAdmin = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_CREATE_REQUEST:
       return { loading: true };
@@ -94,7 +169,7 @@ export const productCreateReducer = (state = {}, action) => {
 };
 
 // EDIT PRODUCT
-export const productEditReducer = (
+export const productEditReducerAdmin = (
   state = { product: { reviews: [] } },
   action
 ) => {

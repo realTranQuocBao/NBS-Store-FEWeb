@@ -1,24 +1,32 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../components/Header";
 import ProfileTabs from "../components/profileComponents/ProfileTabs";
-import Orders from "../components/profileComponents/Orders";
-import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
 import { getUserDetails } from "../Redux/Actions/userActions";
+import Orders from "./../components/profileComponents/Orders";
+import moment from "moment";
+import { listMyOrders } from "../Redux/Actions/orderActions";
+import Avatar from "../components/profileComponents/Avatar";
 
 const ProfileScreen = () => {
   window.scrollTo(0, 0);
+
   const dispatch = useDispatch();
 
-
-  const userLogin = useSelector(state => state.userLogin);
+  const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-
+  const listMyOrder = useSelector((state) => state.listMyOrders);
+  const { loading, error, orders } = listMyOrder;
 
   useEffect(() => {
+    dispatch(listMyOrders());
     dispatch(getUserDetails("profile"));
+  }, [dispatch]);
 
-  }, [dispatch])
+  const onAvatarLoadError = (e) => {
+    e.currentTarget.onerror = null; // prevents looping
+    e.currentTarget.src = "/images/avatar/default.png";
+  };
 
   return (
     <>
@@ -27,19 +35,25 @@ const ProfileScreen = () => {
         <div className="row align-items-start">
           <div className="col-lg-4 p-0 shadow ">
             <div className="author-card pb-0 pb-md-3">
-              <div className="author-card-cover"></div>
-              <div className="author-card-profile row">
-                <div className="author-card-avatar col-md-5">
-                  <img src="./images/user.png" alt="userprofileimage" />
-                </div>
+              <div className="author-card-cover">
                 <div className="author-card-details col-md-7">
                   <h5 className="author-card-name mb-2">
                     <strong>{userInfo.name}</strong>
                   </h5>
                   <span className="author-card-position">
-                    <>Joined {moment(userInfo.createdAt).format('LLL')}</>
+                    <>Joined {moment(userInfo.createdAt).format("LLL")}</>
                   </span>
                 </div>
+              </div>
+              <div className="author-card-profile row">
+                <div className="author-card-avatar col-md-5">
+                  <img
+                    src={userInfo.avatarUrl}
+                    onError={onAvatarLoadError}
+                    alt="userprofileimage"
+                  />
+                </div>
+                <Avatar />
               </div>
             </div>
             <div className="wizard pt-3 ">
@@ -73,7 +87,7 @@ const ProfileScreen = () => {
                     aria-selected="false"
                   >
                     Orders List
-                    <span className="badge2">3</span>
+                    <span className="badge2">{orders ? orders.length : 0}</span>
                   </button>
                 </div>
               </div>
@@ -99,7 +113,7 @@ const ProfileScreen = () => {
               role="tabpanel"
               aria-labelledby="v-pills-profile-tab"
             >
-              <Orders />
+              <Orders orders={orders} loading={loading} error={error} />
             </div>
           </div>
         </div>

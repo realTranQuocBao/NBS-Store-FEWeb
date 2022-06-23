@@ -1,6 +1,5 @@
 # Done feature in NBS-Client
 
-- CLIENT
 - Get and show all products
 - Get and show single product
 - Create redux
@@ -16,11 +15,30 @@
 - Done logout screen
 - Done register user
 - Done update profile user
+- Done PAYPAL
+- Done review
+- Done search
+- Done pagenumber
+- Done slide UI
+- Done sidebar UI
+- Done policy UI
+- Done popular categories UI
 
 # Done feature in NBS-Admin
 
-- processing
+- Done default UI
+- Done get sale and product statistics
+- Done fix get all products toptotal
 
+- Done get all order
+
+- Done get avatar url admin
+- Done get all user
+
+- Done get all category
+- Done add new category and reload btn
+
+- Done add new product and choose category
 # difference
 
 - admin: jquery

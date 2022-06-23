@@ -14,10 +14,9 @@ const Login = ({ history }) => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { error, loading, userInfo } = userLogin;
-
   useEffect(() => {
     if (userInfo) {
-      history.push("/");
+      history.push("/admin");
     }
   }, [userInfo, history]);
 

@@ -21,32 +21,60 @@ import {
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
+  PRODUCT_BEST_SELLER_REQUEST,
+  PRODUCT_BEST_SELLER_SUCCESS,
+  PRODUCT_BEST_SELLER_FAIL,
 } from "../Constants/productConstants";
 import { logout } from "./userActions";
+import { PRODUCT_CREATE_REVIEW_REQUEST } from './../Constants/productConstants';
 
-// action list product
-export const listProducts = () => async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCT_LIST_REQUEST });
-    const { data } = await axios.get("/api/v1/product");
-    console.log(">>>log data: ", data);
-    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+/**
+ * CLIENT
+ */
+// product list action
+export const listProducts =
+  (keyword = " ", pageNumber = " ") =>
+    async (dispatch) => {
+      try {
+        dispatch({ type: PRODUCT_LIST_REQUEST });
+        const { data } = await axios.get(
+          `/api/v1/product?dateOrder=newest&keyword=${keyword}&pageNumber=${pageNumber}&pageSize=20`);
+        dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+      } catch (error) {
+        dispatch({
+          type: PRODUCT_LIST_FAIL,
+          payload:
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message,
+        });
+      }
+    };
+// product best seller
+export const listProductsBestSeller = () =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCT_BEST_SELLER_REQUEST });
+      const { data } = await axios.get(
+        `/api/v1/product?bestSeller=true&pageSize=12`);
+      dispatch({ type: PRODUCT_BEST_SELLER_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_BEST_SELLER_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 // action details product
 export const detailsProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
     const { data } = await axios.get(`/api/v1/product/${id}`);
-    // console.log(">>>log data: ", data);
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -58,9 +86,48 @@ export const detailsProduct = (id) => async (dispatch) => {
     });
   }
 };
+// action create review product
+export const createProductReview =
+  (productId, review) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
+      const {
+        userLogin: { userInfo }
+      } = getState();
 
-// admin
-export const listProductsAdmin = () => async (dispatch, getState) => {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        }
+      }
+
+      await axios.post(`/api/v1/product/${productId}/review`, review, config);
+      dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
+
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      if (message === "Not authorized, token failed") {
+        dispatch(logout());
+      }
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_FAIL,
+        payload: message,
+      });
+    }
+  }
+
+
+
+/**
+ * ADMIN
+*/
+
+//  GET LIST PRODUCT HAVE BAGINATION
+export const listProductsAdmin = (keyword = "", pageNumber = "") => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
 
@@ -74,7 +141,40 @@ export const listProductsAdmin = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/products/all`, config);
+    const { data } = await axios.get(`/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=All`, config);
+
+    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: PRODUCT_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
+
+// GET ALL PRODUCTS WITHOUT PAGINATION
+export const listProductsAdminAll = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_LIST_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/v1/product?status=all`, config);
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -93,7 +193,7 @@ export const listProductsAdmin = () => async (dispatch, getState) => {
 };
 
 // DELETE PRODUCT
-export const deleteProduct = (id) => async (dispatch, getState) => {
+export const deleteProductAdmin = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_DELETE_REQUEST });
 
@@ -107,7 +207,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`/api/products/${id}`, config);
+    await axios.delete(`/api/v1/product/${id}`, config);
 
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
   } catch (error) {
@@ -126,8 +226,8 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
 };
 
 // CREATE PRODUCT
-export const createProduct =
-  (name, price, description, image, countInStock) =>
+export const createProductAdmin =
+  (name, category, price, description, image, countInStock) =>
     async (dispatch, getState) => {
       try {
         dispatch({ type: PRODUCT_CREATE_REQUEST });
@@ -143,8 +243,8 @@ export const createProduct =
         };
 
         const { data } = await axios.post(
-          `/api/products/`,
-          { name, price, description, image, countInStock },
+          `/api/v1/product/`,
+          { name, category, price, description, image, countInStock },
           config
         );
 
@@ -165,10 +265,10 @@ export const createProduct =
     };
 
 // EDIT PRODUCT
-export const editProduct = (id) => async (dispatch) => {
+export const editProductAdmin = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_EDIT_REQUEST });
-    const { data } = await axios.get(`/api/products/${id}`);
+    const { data } = await axios.get(`/api/v1/product/${id}`);
     dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
   } catch (error) {
     const message =
@@ -186,7 +286,7 @@ export const editProduct = (id) => async (dispatch) => {
 };
 
 // UPDATE PRODUCT
-export const updateProduct = (product) => async (dispatch, getState) => {
+export const updateProductAdmin = (product) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_UPDATE_REQUEST });
 
@@ -202,7 +302,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `/api/products/${product._id}`,
+      `/api/v1/product/${product._id}`,
       product,
       config
     );
