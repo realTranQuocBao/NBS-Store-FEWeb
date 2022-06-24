@@ -1263,4 +1263,7 @@ a.popu-cate__item {
     width: 100%;
 }
 
-/* icon menu */
+.disabled-email{
+    opacity: 0.3;
+    color: #c5c5c5;
+}

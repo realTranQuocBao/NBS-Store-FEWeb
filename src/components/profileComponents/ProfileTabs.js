@@ -87,10 +87,11 @@ const ProfileTabs = () => {
           <div className="form">
             <label htmlFor="account-email">E-mail Address</label>
             <input
-              className="form-control"
+              className="form-control disabled-email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled
             />
           </div>
         </div>

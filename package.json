@@ -2,7 +2,7 @@
     "name": "nbs-store-feweb",
     "version": "1.0.0",
     "private": true,
-    "proxy": "http://localhost:5000",
+    "proxy": "https://nbs-store-be.quocbaoit.com/",
     "dependencies": {
         "@testing-library/jest-dom": "^5.15.0",
         "@testing-library/react": "^11.2.7",
@@ -58,6 +58,7 @@
         ]
     },
     "devDependencies": {
+        "jest": "^26.6.0",
         "react-error-overlay": "^6.0.9"
     }
 }
