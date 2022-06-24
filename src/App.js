@@ -37,15 +37,15 @@ import { listOrders } from "./Redux/Actions/orderActions";
 import NotFound from "./screens/NotFound";
 
 const App = () => {
-  const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-  useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProductsAdmin());
-      dispatch(listOrders());
-    }
-  }, [dispatch, userInfo]);
+    const dispatch = useDispatch();
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
+    useEffect(() => {
+        if (userInfo && userInfo.isAdmin) {
+            dispatch(listProductsAdmin());
+            dispatch(listOrders());
+        }
+    }, [dispatch, userInfo]);
 
   return (
     <Router>
