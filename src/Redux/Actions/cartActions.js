@@ -1,10 +1,14 @@
 import axios from "axios"
 import {
     CART_ADD_ITEM,
+    CART_LIST_MY_FAIL,
+    CART_LIST_MY_REQUEST,
+    CART_LIST_MY_SUCCESS,
     CART_REMOVE_ITEM,
     CART_SAVE_PAYMENT_METHOD,
     CART_SAVE_SHIPPING_ADDRESS
 } from "../Constants/cartConstants";
+import { logout } from "./userActions";
 
 // action add to cart
 export const addToCart = (id, qty) => async (dispatch, getState) => {
@@ -47,3 +51,35 @@ export const savePaymentMethod = (data) => async (dispatch) => {
     });
     localStorage.setItem("paymentMethod", JSON.stringify(data))
 }
+
+// Cart list item
+export const getCartListItem = () => async (dispatch, getState) => {
+    try {
+        dispatch({ type: CART_LIST_MY_REQUEST });
+
+        const {
+            userLogin: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        const { data } = await axios.get(`/api/v1/cart`, config);
+        dispatch({ type: CART_LIST_MY_SUCCESS, payload: data });
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message;
+        if (message === "Not authorized, token failed") {
+            dispatch(logout());
+        }
+        dispatch({
+            type: CART_LIST_MY_FAIL,
+            payload: message,
+        });
+    }
+};

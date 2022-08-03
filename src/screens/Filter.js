@@ -5,7 +5,7 @@ import PriceFilter from '../components/filterClient/PriceFilter'
 
 const Filter = ({ category, categoryFilter, setCategoryFilter }) => {
     return (
-        < >
+        <>
             <div className="filter-menu">
                 <CategoryFilter
                     category={category}

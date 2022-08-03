@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeFromCart } from './../Redux/Actions/cartActions';
+import { addToCart, getCartListItem, removeFromCart } from './../Redux/Actions/cartActions';
 
 const CartScreen = ({ match, location, history }) => {
   window.scrollTo(0, 0);
@@ -10,9 +10,15 @@ const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id;
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
 
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => {
+    console.log("state.cartListItem", state);
+    return state.cartListItem.cart ? state.cartListItem.cart : state.cartListItem
+  });
   const { cartItems } = cart;
-
+  console.log("cartItemsssssssssssssss", cartItems);
+  useEffect(() => {
+    dispatch(getCartListItem())
+  }, [dispatch])
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty))
@@ -20,8 +26,8 @@ const CartScreen = ({ match, location, history }) => {
   }, [dispatch, productId, qty])
 
   // product total handler
-  const totalHandler = cartItems.reduce((pro, item) => (pro + item.qty * item.price), 0).toFixed(2);
-
+  const totalHandler = cartItems?.reduce((pro, item) => (pro + item.qty * item?.product.price), 0).toFixed(2);
+  console.log("totalHandler", totalHandler);
   // checkout handler
   const checkOutHandler = () => {
     history.push("/login?redirect=shipping")
@@ -38,7 +44,7 @@ const CartScreen = ({ match, location, history }) => {
       {/* Cart */}
       <div className="container">
         {
-          cartItems.length === 0 ? (
+          cartItems?.length === 0 ? (
             <div className=" alert alert-info text-center mt-3">
               Your cart is empty
               <Link
@@ -57,7 +63,7 @@ const CartScreen = ({ match, location, history }) => {
               <div className=" alert alert-info text-center mt-3">
                 Total Cart Products
                 <Link className="text-success mx-2" to="/cart">
-                  ({cartItems.length})
+                  ({cartItems?.length})
                 </Link>
               </div>
               {/* cartiterm */}
@@ -66,24 +72,24 @@ const CartScreen = ({ match, location, history }) => {
 
                   <div className="cart-iterm row" key={index}>
                     <div
-                      onClick={() => removeFromCartHandler(item.product)}
+                      onClick={() => removeFromCartHandler(item.product.product)}
                       className="remove-button d-flex justify-content-center align-items-center">
                       <i className="fas fa-times"></i>
                     </div>
                     <div className="cart-image col-md-3">
-                      <img src={item.image} alt={item.name} />
+                      <img src={item.product.image} alt={item.product.name} />
                     </div>
                     <div className="cart-text col-md-5 d-flex align-items-center">
-                      <Link to={`/products/${item.product}`}>
-                        <h4>{item.name}</h4>
+                      <Link to={`/products/${item.product.product}`}>
+                        <h4>{item.product.name}</h4>
                       </Link>
                     </div>
                     <div className="cart-qty col-md-2 col-sm-5 mt-md-5 mt-3 mt-md-0 d-flex flex-column justify-content-center">
                       <h6>QUANTITY</h6>
                       <select
                         value={item.qty}
-                        onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))}>
-                        {[...Array(item.countInStock).keys()].map((x) => (
+                        onChange={(e) => dispatch(addToCart(item.product.product, Number(e.target.value)))}>
+                        {[...Array(item.product.countInStock).keys()].map((x) => (
                           <option key={x + 1} value={x + 1}>
                             {x + 1}
                           </option>
@@ -92,7 +98,7 @@ const CartScreen = ({ match, location, history }) => {
                     </div>
                     <div className="cart-price mt-3 mt-md-0 col-md-2 align-items-sm-end align-items-start  d-flex flex-column justify-content-center col-sm-7">
                       <h6>PRICE</h6>
-                      <h4>${item.price}</h4>
+                      <h4>${item.product.price}</h4>
                     </div>
                   </div>
                 ))

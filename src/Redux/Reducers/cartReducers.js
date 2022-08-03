@@ -1,5 +1,8 @@
 import {
     CART_ADD_ITEM,
+    CART_LIST_MY_FAIL,
+    CART_LIST_MY_REQUEST,
+    CART_LIST_MY_SUCCESS,
     CART_REMOVE_ITEM,
     CART_SAVE_PAYMENT_METHOD,
     CART_SAVE_SHIPPING_ADDRESS
@@ -41,3 +44,19 @@ export const cartReducers = (
             return state;
     }
 }
+// CART LIST ITEM
+export const cartListItemReducers = (
+    state = { cartItems: [], shippingAddress: {} },
+    action
+) => {
+    switch (action.type) {
+        case CART_LIST_MY_REQUEST:
+            return { ...state, loading: true };
+        case CART_LIST_MY_SUCCESS:
+            return { loading: false, cart: action.payload };
+        case CART_LIST_MY_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
