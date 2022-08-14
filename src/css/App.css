@@ -24,6 +24,10 @@ body {
 body::-webkit-scrollbar {
 } */
 
+iframe {
+    pointer-events: none;
+}
+
 a {
     text-decoration: none;
     color: black;
@@ -1248,22 +1252,22 @@ a.popu-cate__item {
 
 /* best seller */
 .slick-prev:before {
-    content: '←';
+    content: "←";
     color: black !important;
 }
 .slick-next:before {
-    content: '→';
+    content: "→";
     color: black !important;
 }
 
 .col-8.row.product-container {
     width: 85% !important;
 }
-.related-product-container{
+.related-product-container {
     width: 100%;
 }
 
-.disabled-email{
+.disabled-email {
     opacity: 0.3;
     color: #c5c5c5;
 }
