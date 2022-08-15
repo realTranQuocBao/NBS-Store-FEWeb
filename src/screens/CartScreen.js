@@ -2,32 +2,40 @@ import React, { useEffect } from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, getCartListItem, removeFromCart } from './../Redux/Actions/cartActions';
+import { getCartListItem, removeFromCartItem } from './../Redux/Actions/cartActions';
+import { toast } from "react-toastify";
+import Toast from "../components/base/LoadingError/Toast";
 
+const ToastObjects = {
+  pauseOnFocusLoss: false,
+  draggable: false,
+  pauseOnHover: false,
+  autoClose: 2000,
+};
 const CartScreen = ({ match, location, history }) => {
   window.scrollTo(0, 0);
   const dispatch = useDispatch();
-  const productId = match.params.id;
-  const qty = location.search ? Number(location.search.split("=")[1]) : 1;
-
+  // const productId = match.params.id;
+  // const qty = location.search ? Number(location.search.split("=")[1]) : 1;
+  // console.log("productIdddd: ", productId, "\n qtyyyy: ", qty);
   const cart = useSelector((state) => {
-    console.log("state.cartListItem", state);
-    return state.cartListItem.cart ? state.cartListItem.cart : state.cartListItem
+    return state.cartListItem.cart ?? state.cartListItem;
   });
   const { cartItems } = cart;
-  console.log("cartItemsssssssssssssss", cartItems);
-  useEffect(() => {
-    dispatch(getCartListItem())
-  }, [dispatch])
-  useEffect(() => {
-    if (productId) {
-      dispatch(addToCart(productId, qty))
-    }
-  }, [dispatch, productId, qty])
 
   // product total handler
   const totalHandler = cartItems?.reduce((pro, item) => (pro + item.qty * item?.product.price), 0).toFixed(2);
-  console.log("totalHandler", totalHandler);
+
+  const addToCartItems = useSelector((state) => state.addToCart);
+  const { success } = addToCartItems;
+
+  const removeCart = useSelector((state) => state.removeCart);
+  const { success: removeCartSuccess, error: removeCartError, message: removeCartMessage } = removeCart;
+
+  useEffect(() => {
+    dispatch(getCartListItem())
+  }, [dispatch, success, removeCartSuccess, removeCartMessage])
+
   // checkout handler
   const checkOutHandler = () => {
     history.push("/login?redirect=shipping")
@@ -35,11 +43,19 @@ const CartScreen = ({ match, location, history }) => {
 
   // remove product from cart handler
   const removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id));
+    if (window.confirm('Are you sure remove cart item???')) {
+      dispatch(removeFromCartItem([id]));
+      if (removeCartSuccess) {
+        toast.success("Remove cart item success", ToastObjects)
+      } else if (removeCartError) {
+        toast.error(removeCartError, ToastObjects)
+      }
+    }
   }
 
   return (
     <>
+      <Toast />
       <Header />
       {/* Cart */}
       <div className="container">
@@ -72,7 +88,7 @@ const CartScreen = ({ match, location, history }) => {
 
                   <div className="cart-iterm row" key={index}>
                     <div
-                      onClick={() => removeFromCartHandler(item.product.product)}
+                      onClick={() => removeFromCartHandler(item.product._id)}
                       className="remove-button d-flex justify-content-center align-items-center">
                       <i className="fas fa-times"></i>
                     </div>
@@ -80,7 +96,7 @@ const CartScreen = ({ match, location, history }) => {
                       <img src={item.product.image} alt={item.product.name} />
                     </div>
                     <div className="cart-text col-md-5 d-flex align-items-center">
-                      <Link to={`/products/${item.product.product}`}>
+                      <Link to={`/products/${item.product._id}`}>
                         <h4>{item.product.name}</h4>
                       </Link>
                     </div>
@@ -88,7 +104,7 @@ const CartScreen = ({ match, location, history }) => {
                       <h6>QUANTITY</h6>
                       <select
                         value={item.qty}
-                        onChange={(e) => dispatch(addToCart(item.product.product, Number(e.target.value)))}>
+                        onChange={(e) => dispatch(addToCartItems(item.product.product, Number(e.target.value)))}>
                         {[...Array(item.product.countInStock).keys()].map((x) => (
                           <option key={x + 1} value={x + 1}>
                             {x + 1}

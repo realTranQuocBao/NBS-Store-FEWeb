@@ -8,6 +8,8 @@ import Loading from './../components/base/LoadingError/Loading';
 import Message from './../components/base/LoadingError/Error';
 import moment from "moment";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../Redux/Constants/productConstants";
+import { addToCartItems } from "../Redux/Actions/cartActions";
+import { ADD_TO_CART_FAIL } from "../Redux/Constants/cartConstants";
 
 const SingleProduct = ({ history, match }) => {
 
@@ -47,7 +49,12 @@ const SingleProduct = ({ history, match }) => {
 
   const handleAddToCart = (e) => {
     e.preventDefault();
-    history.push(`/cart/${productId}?qty=${qty}`);
+    if (qty > 0) {
+      dispatch(addToCartItems(productId, qty));
+      history.push(`/cart/${productId}?qty=${qty}`);
+    } else {
+      dispatch({ type: ADD_TO_CART_FAIL });
+    }
   }
 
   const submitHandler = (e) => {
