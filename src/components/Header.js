@@ -15,14 +15,14 @@ const Header = () => {
   const cart = useSelector((state) => {
     return state.cartListItem.cart ?? state.cartListItem;
   });
-  const { cartItems, success } = cart;
+  const { cartItems } = cart;
 
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
     dispatch(getCartListItem());
-  }, [dispatch, success]);
+  }, [dispatch]);
 
   const logoutHandler = () => {
     dispatch(logout())

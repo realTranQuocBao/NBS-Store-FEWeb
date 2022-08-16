@@ -10,7 +10,10 @@ import {
     CART_REMOVE_REQUEST,
     CART_REMOVE_SUCCESS,
     CART_SAVE_PAYMENT_METHOD,
-    CART_SAVE_SHIPPING_ADDRESS
+    CART_SAVE_SHIPPING_ADDRESS,
+    CART_UPDATE_FAIL,
+    CART_UPDATE_REQUEST,
+    CART_UPDATE_SUCCESS
 } from "../Constants/cartConstants";
 import { logout } from "./userActions";
 
@@ -147,6 +150,35 @@ export const removeFromCartItem = (productIds) => async (dispatch, getState) => 
         }
         dispatch({
             type: CART_REMOVE_FAIL,
+            payload: message
+        });
+    }
+};
+// UPDATE CART
+export const updateCart = (productId, qty) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: CART_UPDATE_REQUEST });
+
+        const {
+            userLogin: { userInfo }
+        } = getState();
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        };
+
+        const { data } = await axios.patch(`/api/v1/cart/update`, { productId, qty }, config);
+
+        dispatch({ type: CART_UPDATE_SUCCESS, payload: data });
+    } catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+        if (message === "Not authorized, token failed") {
+            dispatch(logout());
+        }
+        dispatch({
+            type: CART_UPDATE_FAIL,
             payload: message
         });
     }
