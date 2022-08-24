@@ -13,7 +13,7 @@ const Header = () => {
   let history = useHistory();
 
   const cart = useSelector((state) => {
-    return state.cartListItem.cart ?? state.cartListItem;
+      return state.cartListItem.cartUser ?? state.cartListItem;
   });
   const { cartItems } = cart;
 

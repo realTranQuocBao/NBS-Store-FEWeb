@@ -23,8 +23,8 @@ body {
 /* html::-webkit-scrollbar,
 body::-webkit-scrollbar {
 } */
-iframe {
-    pointer-events: none;
+body > iframe {
+    pointer-events: none !important;
 }
 a {
     text-decoration: none;
