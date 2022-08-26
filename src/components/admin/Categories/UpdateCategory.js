@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { updateCategoryAdmin } from '../../../Redux/Actions/categoryActions';
-import { CATEGORY_UPDATE_RESET } from '../../../Redux/Constants/categoryConstants';
-import Loading from '../../base/LoadingError/Loading';
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { updateCategoryAdmin } from "../../../Redux/Actions/categoryActions";
+import { CATEGORY_UPDATE_RESET } from "../../../Redux/Constants/categoryConstants";
+import Loading from "../../base/LoadingError/Loading";
 
 const ToastObjects = {
     pauseOnFocusLoss: false,
     draggable: false,
     pauseOnHover: false,
-    autoClose: 2000,
+    autoClose: 2000
 };
 const UpdateCategory = ({ currentCategory }) => {
     const [name, setName] = useState("");
@@ -20,16 +20,18 @@ const UpdateCategory = ({ currentCategory }) => {
     const categoryListAdmin = useSelector((state) => state.categoryListAdmin);
     const { category } = categoryListAdmin;
 
-    const categoryUpdateAdmin = useSelector((state) => state.categoryUpdateAdmin);
-    const {
-        loading,
-        success,
-        error
-    } = categoryUpdateAdmin;
+    const categoryUpdateAdmin = useSelector((state) => {
+        console.log(state);
+        return state.categoryUpdateAdmin;
+    });
+    const { loading, success, error } = categoryUpdateAdmin;
 
-    useEffect(() => {
+    const updateCategoryHandler = useCallback(() => {
         setName(category[currentCategory]?.name);
-    }, [dispatch, category, currentCategory]);
+    }, [category, currentCategory]);
+    useEffect(() => {
+        updateCategoryHandler();
+    }, [updateCategoryHandler]);
 
     useEffect(() => {
         if (success) {
@@ -38,15 +40,20 @@ const UpdateCategory = ({ currentCategory }) => {
         if (error) {
             toast.success(error, ToastObjects);
         }
-        dispatch({ type: CATEGORY_UPDATE_RESET })
+        dispatch({ type: CATEGORY_UPDATE_RESET });
     }, [dispatch, success, error]);
 
     const submitHandler = (e) => {
         e.preventdefault();
-        dispatch(updateCategoryAdmin({
-            name
-        }));
-    }
+        dispatch(
+            updateCategoryAdmin({
+                _id: category[currentCategory]?._id,
+                name,
+                slug: "string",
+                status: true
+            })
+        );
+    };
 
     return (
         <>
@@ -63,19 +70,14 @@ const UpdateCategory = ({ currentCategory }) => {
                             className="form-control"
                             id="category_name"
                             value={name}
-                            onChange={e => setName(e.target.value)}
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </div>
                     <div className="d-flex justify-content-between">
-                        <Link
-                            to="/admin/category"
-                            type="submit"
-                            className="btn btn-size btn-secondary">
+                        <Link to="/admin/category" type="submit" className="btn btn-size btn-secondary">
                             Cancel
                         </Link>
-                        <button
-                            type="submit"
-                            className="btn btn-size btn-warning">
+                        <button type="submit" className="btn btn-size btn-warning">
                             Update category
                         </button>
                     </div>
@@ -83,7 +85,6 @@ const UpdateCategory = ({ currentCategory }) => {
             </div>
         </>
     );
+};
 
-}
-
-export default UpdateCategory
+export default UpdateCategory;

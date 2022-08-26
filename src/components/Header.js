@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import { getCartListItem } from "../Redux/Actions/cartActions";
 import { logout } from "./../Redux/Actions/userActions";
-// import Sidebar from "./Sidebar_new";
-import Sidebar from "./sidebar/Sidebar";
+import TrendingSearch from "./searchComponents/TrendingSearch";
+// import Sidebar from "./sidebar/Sidebar";
 
 const Header = () => {
     const [keyword, setKeyword] = useState();
     const dispatch = useDispatch();
     let history = useHistory();
 
-    const cart = useSelector((state) => state.cart);
+    const cart = useSelector((state) => {
+        return state.cartListItem.cartUser ?? state.cartListItem;
+    });
     const { cartItems } = cart;
+
     const userLogin = useSelector((state) => state.userLogin);
     const { userInfo } = userLogin;
+
+    useEffect(() => {
+        dispatch(getCartListItem());
+    }, [dispatch]);
+
     const logoutHandler = () => {
         dispatch(logout());
     };
@@ -67,7 +76,7 @@ const Header = () => {
             <div className="header">
                 <div className="container">
                     {/* Toggle menu */}
-                    <Sidebar />
+                    {/* <Sidebar /> */}
 
                     {/* MOBILE HEADER */}
                     <div className="mobile-header">
@@ -125,7 +134,7 @@ const Header = () => {
 
                                     <Link to="/cart" className="cart-mobile-icon">
                                         <i className="fas fa-shopping-bag"></i>
-                                        <span className="badge">{cartItems.length}</span>
+                                        <span className="badge">{cartItems?.length}</span>
                                     </Link>
                                 </div>
                                 <div className="col-12 d-flex align-items-center">
@@ -154,7 +163,7 @@ const Header = () => {
                                     <img alt="logo" src="/images/logo.png" />
                                 </Link>
                             </div>
-                            <div className="col-md-6 col-8 d-flex align-items-center">
+                            <div className="col-md-6 col-4 d-flex flex-column">
                                 <form onSubmit={submitHandler} className="input-group">
                                     <input
                                         type="search"
@@ -166,6 +175,9 @@ const Header = () => {
                                         search
                                     </button>
                                 </form>
+                                <div className="trending-search">
+                                    <TrendingSearch />
+                                </div>
                             </div>
                             <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
                                 {userInfo ? (
@@ -212,7 +224,7 @@ const Header = () => {
 
                                 <Link to="/cart">
                                     <i className="fas fa-shopping-bag"></i>
-                                    <span className="badge">{cartItems.length}</span>
+                                    <span className="badge">{cartItems?.length}</span>
                                 </Link>
                             </div>
                         </div>

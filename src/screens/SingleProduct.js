@@ -8,6 +8,8 @@ import Loading from "./../components/base/LoadingError/Loading";
 import Message from "./../components/base/LoadingError/Error";
 import moment from "moment";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../Redux/Constants/productConstants";
+import { addToCartItems } from "../Redux/Actions/cartActions";
+import { ADD_TO_CART_FAIL } from "../Redux/Constants/cartConstants";
 
 const SingleProduct = ({ history, match }) => {
     const [qty, setQty] = useState(1);
@@ -25,6 +27,7 @@ const SingleProduct = ({ history, match }) => {
 
     const userLogin = useSelector((state) => state.userLogin);
     const { userInfo } = userLogin;
+    console.log("userInfo", userInfo);
     const productReviewCreate = useSelector((state) => state.productReviewCreate);
     const {
         loading: loadingCreateReview,
@@ -46,7 +49,16 @@ const SingleProduct = ({ history, match }) => {
 
     const handleAddToCart = (e) => {
         e.preventDefault();
-        history.push(`/cart/${productId}?qty=${qty}`);
+        if (userInfo) {
+            if (qty > 0) {
+                dispatch(addToCartItems(productId, qty));
+                history.push(`/cart/${productId}?qty=${qty}`);
+            } else {
+                dispatch({ type: ADD_TO_CART_FAIL });
+            }
+        } else {
+            history.push("/login");
+        }
     };
 
     const submitHandler = (e) => {
