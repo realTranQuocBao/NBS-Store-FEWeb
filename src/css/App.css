@@ -23,9 +23,11 @@ body {
 /* html::-webkit-scrollbar,
 body::-webkit-scrollbar {
 } */
+
 body > iframe {
     pointer-events: none !important;
 }
+
 a {
     text-decoration: none;
     color: black;

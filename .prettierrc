@@ -10,5 +10,6 @@
     "bracketSpacing": true,
     "tabWidth": 4,
     "jsxSingleQuote": false,
-    "jsxBracketSameLine": false
+    "jsxBracketSameLine": false,
+    "insert_final_newline": true
 }
