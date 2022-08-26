@@ -8,6 +8,8 @@ import Loading from './../components/base/LoadingError/Loading';
 import Message from './../components/base/LoadingError/Error';
 import moment from "moment";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../Redux/Constants/productConstants";
+import { addToCartItems } from "../Redux/Actions/cartActions";
+import { ADD_TO_CART_FAIL } from "../Redux/Constants/cartConstants";
 
 const SingleProduct = ({ history, match }) => {
 
@@ -26,29 +28,35 @@ const SingleProduct = ({ history, match }) => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  console.log("userInfo", userInfo);
   const productReviewCreate = useSelector((state) => state.productReviewCreate);
-  const {
-    loading: loadingCreateReview,
-    error: errorCreateReview,
-    success: successCreateReview,
-  } = productReviewCreate;
+  const { loading: loadingCreateReview, error: errorCreateReview, success: successCreateReview } = productReviewCreate;
 
   // handle get single products
   useEffect(() => {
-    if (successCreateReview) {
-      setRating(0);
-      setReviewContent("");
-      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
-    }
+      if (successCreateReview) {
+          setRating(0);
+          setReviewContent("");
+          dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+      }
 
-    dispatch(detailsProduct(productId));
-    dispatch(listProducts());
+      dispatch(detailsProduct(productId));
+      dispatch(listProducts());
   }, [dispatch, productId, successCreateReview]);
 
   const handleAddToCart = (e) => {
-    e.preventDefault();
-    history.push(`/cart/${productId}?qty=${qty}`);
-  }
+      e.preventDefault();
+      if (userInfo) {
+          if (qty > 0) {
+              dispatch(addToCartItems(productId, qty));
+              history.push(`/cart/${productId}?qty=${qty}`);
+          } else {
+              dispatch({ type: ADD_TO_CART_FAIL });
+          }
+      } else {
+          history.push("/login");
+      }
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();

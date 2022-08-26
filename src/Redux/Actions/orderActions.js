@@ -45,7 +45,6 @@ export const createOrder = (order) => async (dispatch, getState) => {
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: data });
     dispatch({ type: CART_CLEAR_ITEMS, payload: data });
 
-    localStorage.removeItem("cartItems");
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -110,7 +109,7 @@ export const payOrder =
         },
       };
 
-      const { data } = await axios.put(
+      const { data } = await axios.patch(
         `/api/v1/order/${orderId}/pay`,
         paymentResult,
         config
