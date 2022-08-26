@@ -1,19 +1,21 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { listProductsBestSeller } from '../../Redux/Actions/productActions';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { listProducts } from "../../Redux/Actions/productActions";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Rating from '../homeComponents/Rating';
+import Rating from "../homeComponents/Rating";
 
-const BestSellerProduct = () => {
+const BestNumViewsProduct = () => {
     const dispatch = useDispatch();
-    const getBestSellerProduct = useSelector(state => state.productListBestSeller);
-    const { products: productsBestSeller } = getBestSellerProduct;
+    const getBestNumViewProduct = useSelector((state) => state.productList);
+    const { products } = getBestNumViewProduct;
+
+    const newProducts = products?.sort((a, b) => b.numViews - a.numViews);
 
     useEffect(() => {
-        dispatch(listProductsBestSeller());
+        dispatch(listProducts());
     }, [dispatch]);
 
     const settings = {
@@ -31,35 +33,35 @@ const BestSellerProduct = () => {
                     slidesToScroll: 4,
                     infinite: true,
                     dots: false,
-                    initialSlide: 0,
-                },
+                    initialSlide: 0
+                }
             },
             {
                 breakpoint: 600,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
-                    initialSlide: 0,
-                },
+                    initialSlide: 0
+                }
             },
             {
                 breakpoint: 480,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
-                    initialSlide: 0,
-                },
-            },
-        ],
+                    initialSlide: 0
+                }
+            }
+        ]
     };
     return (
         <>
             <div className="title-section">
-                <h2 className="heading-section main-effect">Best seller</h2>
+                <h2 className="heading-section main-effect">Most viewed products</h2>
             </div>
-            <div className='best-seller-container'>
+            <div className="best-seller-container">
                 <Slider {...settings}>
-                    {productsBestSeller?.map((product, index) => {
+                    {newProducts?.slice(0, 6).map((product, index) => {
                         return (
                             <div className="shop col-lg-3" key={index}>
                                 <div className="border-product">
@@ -79,7 +81,7 @@ const BestSellerProduct = () => {
                                         </p>
                                         <Rating value={product.rating} text={`${product.numReviews} reviews`} />
                                         <p>
-                                            Total Sales <b>{product.totalSales}</b>
+                                            Total views <b>{product.numViews}</b>
                                         </p>
                                     </div>
                                 </div>
@@ -88,10 +90,8 @@ const BestSellerProduct = () => {
                     })}
                 </Slider>
             </div>
-
         </>
+    );
+};
 
-    )
-}
-
-export default BestSellerProduct
+export default BestNumViewsProduct;

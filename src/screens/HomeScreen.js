@@ -10,30 +10,38 @@ import Policy from "./Policy";
 import CustomerReview from "./CustomerReview";
 import Trademark from "./Trademark";
 import BestSellerProduct from "../components/carouselProduct/BestSellerProduct";
+import BestNumViewsProduct from "../components/carouselProduct/BestNumViewsProduct";
 
 const HomeScreen = ({ match }) => {
-  window.scrollTo(0, 0);
-  const keyword = match.params.keyword;
-  const pageNumber = match.params.pageNumber !== undefined ? match.params.pageNumber : match.params.pagenumber;
-  return (
-    <div>
-      <Header />
-      <div style={{ display: `${keyword}` !== `${undefined}` || `${pageNumber}` !== `${undefined}` ? "none" : "block" }}>
-        <Slideshow />
-        <Policy />
-        <div className="container">
-          <BestSellerProduct />
+    window.scrollTo(0, 0);
+    const keyword = match.params.keyword;
+    const pageNumber = match.params.pageNumber !== undefined ? match.params.pageNumber : match.params.pagenumber;
+    return (
+        <div>
+            <Header />
+            <div
+                style={{
+                    display: `${keyword}` !== `${undefined}` || `${pageNumber}` !== `${undefined}` ? "none" : "block"
+                }}
+            >
+                <Slideshow />
+                <Policy />
+                <div className="container">
+                    <BestSellerProduct />
+                </div>
+                <div className="container">
+                    <BestNumViewsProduct />
+                </div>
+            </div>
+            {/* <PopularProduct /> */}
+            <ShopSection keyword={keyword} pageNumber={pageNumber} />
+            <CustomerReview />
+            <Trademark />
+            <CalltoActionSection />
+            <ContactInfo />
+            <Footer />
         </div>
-      </div>
-      {/* <PopularProduct /> */}
-      <ShopSection keyword={keyword} pageNumber={pageNumber} />
-      <CustomerReview />
-      <Trademark />
-      <CalltoActionSection />
-      <ContactInfo />
-      <Footer />
-    </div>
-  );
+    );
 };
 
 export default HomeScreen;

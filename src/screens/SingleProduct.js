@@ -28,34 +28,35 @@ const SingleProduct = ({ history, match }) => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  console.log("userInfo", userInfo);
   const productReviewCreate = useSelector((state) => state.productReviewCreate);
-  const {
-    loading: loadingCreateReview,
-    error: errorCreateReview,
-    success: successCreateReview,
-  } = productReviewCreate;
+  const { loading: loadingCreateReview, error: errorCreateReview, success: successCreateReview } = productReviewCreate;
 
   // handle get single products
   useEffect(() => {
-    if (successCreateReview) {
-      setRating(0);
-      setReviewContent("");
-      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
-    }
+      if (successCreateReview) {
+          setRating(0);
+          setReviewContent("");
+          dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+      }
 
-    dispatch(detailsProduct(productId));
-    dispatch(listProducts());
+      dispatch(detailsProduct(productId));
+      dispatch(listProducts());
   }, [dispatch, productId, successCreateReview]);
 
   const handleAddToCart = (e) => {
-    e.preventDefault();
-    if (qty > 0) {
-      dispatch(addToCartItems(productId, qty));
-      history.push(`/cart/${productId}?qty=${qty}`);
-    } else {
-      dispatch({ type: ADD_TO_CART_FAIL });
-    }
-  }
+      e.preventDefault();
+      if (userInfo) {
+          if (qty > 0) {
+              dispatch(addToCartItems(productId, qty));
+              history.push(`/cart/${productId}?qty=${qty}`);
+          } else {
+              dispatch({ type: ADD_TO_CART_FAIL });
+          }
+      } else {
+          history.push("/login");
+      }
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();

@@ -59,7 +59,7 @@ textarea:focus {
 }
 .Announcement {
     background-color: var(--primary-color);
-    padding: 10px 0px 6px 0px;
+    padding: 3px 0px 3px 0px;
 }
 .Announcement .col-md-6 p {
     color: white;
@@ -73,7 +73,7 @@ textarea:focus {
 }
 /* Header */
 .header {
-    padding: 10px 0px 10px 0px;
+    padding: 10px 0px 3px 0px;
 }
 .navbar-brand img {
     width: 60%;
@@ -95,7 +95,12 @@ textarea:focus {
     font-weight: 800;
     transition: 0.2s ease-in-out;
 }
-
+.trending-search > a{
+    font-size: 14px;
+}
+.trending-search > a:hover {
+    transition: 0.2s ease-in-out;
+}
 .Login-Register a {
     text-transform: uppercase;
     font-size: 15px;
