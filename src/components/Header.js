@@ -39,7 +39,7 @@ const Header = () => {
 
     const onAvatarLoadError = (e) => {
         e.currentTarget.onerror = null; // prevents looping
-        e.currentTarget.src = "../images/avatar/default.png";
+        e.currentTarget.src = `${window.location.origin}/images/avatar/default.png`;
     };
 
     return (
