@@ -21,7 +21,6 @@ const UpdateCategory = ({ currentCategory }) => {
     const { category } = categoryListAdmin;
 
     const categoryUpdateAdmin = useSelector((state) => {
-        console.log(state);
         return state.categoryUpdateAdmin;
     });
     const { loading, success, error } = categoryUpdateAdmin;

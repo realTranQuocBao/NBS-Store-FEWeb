@@ -18,7 +18,6 @@ const Footer = () => {
   return (
     <>
       <footer className="footer">
-
         <div className="footer__information">
           <div className="grid wide">
             <div className="row">
@@ -54,11 +53,31 @@ const Footer = () => {
                 <div className="footer__infomation-content">
                   <h3 className="footer__infomation--heading">SALES CHANNEL</h3>
                   <ul className="footer__infomation--list">
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Shoope</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Sendo</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Zalo</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Lazada</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Tiki</Link></li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Shopee
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Sendo
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Zalo
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Lazada
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Tiki
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -66,11 +85,31 @@ const Footer = () => {
                 <div className="footer__infomation-content">
                   <h3 className="footer__infomation--heading">MORE INFORMATION</h3>
                   <ul className="footer__infomation--list">
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">About Mew Shoes</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Promotions</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Ordering guide</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Guide to choose size</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">News</Link></li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        About New Shoes
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Promotions
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Ordering guide
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Guide to choose size
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        News
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -78,11 +117,31 @@ const Footer = () => {
                 <div className="footer__infomation-content">
                   <h3 className="footer__infomation--heading">POLICY ONLY</h3>
                   <ul className="footer__infomation--list">
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Sales policy</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Return Policy</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Shipping Policy</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Contributor policy</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Warranty Policy</Link></li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Sales policy
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Return Policy
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Shipping Policy
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Contributor policy
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Warranty Policy
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -90,11 +149,31 @@ const Footer = () => {
                 <div className="footer__infomation-content">
                   <h3 className="footer__infomation--heading">PRODUCT</h3>
                   <ul className="footer__infomation--list">
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Featured products</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">New collection</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Collection 2022</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Selling products</Link></li>
-                    <li className="footer__infomation--item"><Link to="#" className="footer__infomation--link">Promotional products</Link></li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Featured products
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        New collection
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Collection 2022
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Selling products
+                      </Link>
+                    </li>
+                    <li className="footer__infomation--item">
+                      <Link to="#" className="footer__infomation--link">
+                        Promotional products
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -103,11 +182,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <Link
-        to="#"
-        className="active-top"
-        style={{ display: visible ? "inline" : "none" }}
-      >
+      <Link to="#" className="active-top" style={{ display: visible ? "inline" : "none" }}>
         <i className="fas fa-arrow-circle-up"></i>
       </Link>
     </>

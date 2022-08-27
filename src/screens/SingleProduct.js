@@ -12,15 +12,13 @@ import { addToCartItems } from "../Redux/Actions/cartActions";
 import { ADD_TO_CART_FAIL } from "../Redux/Constants/cartConstants";
 
 const SingleProduct = ({ history, match }) => {
-    const [qty, setQty] = useState(1);
-    const [rating, setRating] = useState(5);
-    const [reviewContent, setReviewContent] = useState("");
 
-    const productId = match.params.id;
-    const dispatch = useDispatch();
+  const [qty, setQty] = useState(1);
+  const [rating, setRating] = useState(5);
+  const [reviewContent, setReviewContent] = useState("");
 
-    const productList = useSelector((state) => state.productList);
-    const { products } = productList;
+  const productId = match.params.id;
+  const dispatch = useDispatch();
 
     const productDetails = useSelector((state) => state.productDetails);
     const { loading, error, product } = productDetails;
@@ -34,6 +32,15 @@ const SingleProduct = ({ history, match }) => {
         error: errorCreateReview,
         success: successCreateReview
     } = productReviewCreate;
+
+
+  const relatedProducts = products?.filter((item) => item.category._id === product.category);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const productReviewCreate = useSelector((state) => state.productReviewCreate);
+  const { loading: loadingCreateReview, error: errorCreateReview, success: successCreateReview } = productReviewCreate;
 
     // handle get single products
     useEffect(() => {

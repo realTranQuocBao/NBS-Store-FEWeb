@@ -1,31 +1,34 @@
 import axios from "axios";
 
 import {
-    PRODUCT_LIST_FAIL,
-    PRODUCT_LIST_REQUEST,
-    PRODUCT_LIST_SUCCESS,
-    //client
-    PRODUCT_DETAILS_FAIL,
-    PRODUCT_DETAILS_REQUEST,
-    PRODUCT_DETAILS_SUCCESS,
-    //admin
-    PRODUCT_CREATE_FAIL,
-    PRODUCT_CREATE_REQUEST,
-    PRODUCT_CREATE_SUCCESS,
-    PRODUCT_DELETE_FAIL,
-    PRODUCT_DELETE_REQUEST,
-    PRODUCT_DELETE_SUCCESS,
-    PRODUCT_EDIT_FAIL,
-    PRODUCT_EDIT_REQUEST,
-    PRODUCT_EDIT_SUCCESS,
-    PRODUCT_UPDATE_FAIL,
-    PRODUCT_UPDATE_REQUEST,
-    PRODUCT_UPDATE_SUCCESS,
-    PRODUCT_CREATE_REVIEW_FAIL,
-    PRODUCT_CREATE_REVIEW_SUCCESS,
-    PRODUCT_BEST_SELLER_REQUEST,
-    PRODUCT_BEST_SELLER_SUCCESS,
-    PRODUCT_BEST_SELLER_FAIL,
+  PRODUCT_LIST_FAIL,
+  PRODUCT_LIST_REQUEST,
+  PRODUCT_LIST_SUCCESS,
+  //client
+  PRODUCT_DETAILS_FAIL,
+  PRODUCT_DETAILS_REQUEST,
+  PRODUCT_DETAILS_SUCCESS,
+  //admin
+  PRODUCT_CREATE_FAIL,
+  PRODUCT_CREATE_REQUEST,
+  PRODUCT_CREATE_SUCCESS,
+  PRODUCT_DELETE_FAIL,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_EDIT_FAIL,
+  PRODUCT_EDIT_REQUEST,
+  PRODUCT_EDIT_SUCCESS,
+  PRODUCT_UPDATE_FAIL,
+  PRODUCT_UPDATE_REQUEST,
+  PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
+  PRODUCT_BEST_SELLER_REQUEST,
+  PRODUCT_BEST_SELLER_SUCCESS,
+  PRODUCT_BEST_SELLER_FAIL,
+  PRODUCT_BEST_NUM_VIEW_FAIL,
+  PRODUCT_BEST_NUM_VIEW_SUCCESS,
+  PRODUCT_BEST_NUM_VIEW_REQUEST
 } from "../Constants/productConstants";
 import { logout } from "./userActions";
 import { PRODUCT_CREATE_REVIEW_REQUEST } from "./../Constants/productConstants";
@@ -35,39 +38,46 @@ import { PRODUCT_CREATE_REVIEW_REQUEST } from "./../Constants/productConstants";
  */
 // product list action
 export const listProducts =
-    (keyword = "", pageNumber = "") =>
-        async (dispatch) => {
-            try {
-                dispatch({ type: PRODUCT_LIST_REQUEST });
-                const { data } = await axios.get(
-                    `/api/v1/product?dateOrder=newest&keyword=${keyword}&pageNumber=${pageNumber}&pageSize=20`);
-                dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
-            } catch (error) {
-                dispatch({
-                    type: PRODUCT_LIST_FAIL,
-                    payload:
-                        error.response && error.response.data.message
-                            ? error.response.data.message
-                            : error.message,
-                });
-            }
-        };
+  (keyword = "", pageNumber = "", category = "", priceOrder = "", dateOrder = "") =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCT_LIST_REQUEST });
+      const { data } = await axios.get(
+        `/api/v1/product?priceOrder=${priceOrder}&dateOrder=${dateOrder}&category=${category}&keyword=${keyword}&pageNumber=${pageNumber}&pageSize=20`
+      );
+      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_LIST_FAIL,
+        payload: error.response && error.response.data.message ? error.response.data.message : error.message
+      });
+    }
+  };
 // product best seller
 export const listProductsBestSeller = () => async (dispatch) => {
-    try {
-        dispatch({ type: PRODUCT_BEST_SELLER_REQUEST });
-        const { data } = await axios.get(
-            `/api/v1/product?bestSeller=true&pageSize=12`);
-        dispatch({ type: PRODUCT_BEST_SELLER_SUCCESS, payload: data });
-    } catch (error) {
-        dispatch({
-            type: PRODUCT_BEST_SELLER_FAIL,
-            payload:
-                error.response && error.response.data.message
-                    ? error.response.data.message
-                    : error.message,
-        });
-    }
+  try {
+    dispatch({ type: PRODUCT_BEST_SELLER_REQUEST });
+    const { data } = await axios.get(`/api/v1/product?bestSeller=true&pageSize=12`);
+    dispatch({ type: PRODUCT_BEST_SELLER_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_BEST_SELLER_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
+};
+// product best num view
+export const listProductsBestNumView = () => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_BEST_NUM_VIEW_REQUEST });
+    const { data } = await axios.get(`/api/v1/product?pageSize=12`);
+    dispatch({ type: PRODUCT_BEST_NUM_VIEW_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_BEST_NUM_VIEW_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
 };
 // action details product
 export const detailsProduct = (id) => async (dispatch) => {
