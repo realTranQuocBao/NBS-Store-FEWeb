@@ -106,7 +106,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_DETAILS_RESET });
   // dispatch({ type: USER_LIST_RESET });
   document.location.href = "/login";
-  localStorage.setItem("cartItems", JSON.stringify([]));
+  // localStorage.setItem("cartItems", JSON.stringify([]));
 };
 
 // REGISTER

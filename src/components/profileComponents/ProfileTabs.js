@@ -67,16 +67,14 @@ const ProfileTabs = () => {
       {error && <Message variant="alert-danger">{error}</Message>}
       {loading && <Loading />}
       {updateLoading && <Loading />}
-      <form
-        className="row  form-container"
-        onSubmit={submitHandler}
-        encType='multipart/form-data'>
+      <form className="row  form-container" onSubmit={submitHandler} encType="multipart/form-data">
         <div className="col-md-6">
           <div className="form">
             <label htmlFor="account-fn">UserName</label>
             <input
               className="form-control"
-              type="text" required
+              type="text"
+              required
               value={name}
               onChange={(e) => setName(e.target.value)}
             />

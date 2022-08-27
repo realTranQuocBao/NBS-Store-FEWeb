@@ -28,6 +28,9 @@ import {
   PRODUCT_BEST_SELLER_REQUEST,
   PRODUCT_BEST_SELLER_SUCCESS,
   PRODUCT_BEST_SELLER_FAIL,
+  PRODUCT_BEST_NUM_VIEW_FAIL,
+  PRODUCT_BEST_NUM_VIEW_SUCCESS,
+  PRODUCT_BEST_NUM_VIEW_REQUEST
 } from "../Constants/productConstants";
 
 /**
@@ -67,12 +70,25 @@ export const productListReducerBestSeller = (state = { products: [] }, action) =
       return state;
   }
 };
+// PRODUCT LIST BEST NUM VIEW
+export const productListReducerBestNumView = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_BEST_NUM_VIEW_REQUEST:
+      return { loading: true, products: [...state.products] };
+    case PRODUCT_BEST_NUM_VIEW_SUCCESS:
+      return {
+        loading: false,
+        products: action.payload.products
+      };
+    case PRODUCT_BEST_NUM_VIEW_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 
 // SINGLE PRODUCT
-export const productDetailsReducer = (
-  state = { product: { reviews: [] } },
-  action
-) => {
+export const productDetailsReducer = (state = { product: { reviews: [] } }, action) => {
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
       return { ...state, loading: true };
@@ -169,10 +185,7 @@ export const productCreateReducerAdmin = (state = {}, action) => {
 };
 
 // EDIT PRODUCT
-export const productEditReducerAdmin = (
-  state = { product: { reviews: [] } },
-  action
-) => {
+export const productEditReducerAdmin = (state = { product: { reviews: [] } }, action) => {
   switch (action.type) {
     case PRODUCT_EDIT_REQUEST:
       return { ...state, loading: true };
