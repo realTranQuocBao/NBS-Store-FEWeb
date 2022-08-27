@@ -19,22 +19,19 @@ const SingleProduct = ({ history, match }) => {
   const productId = match.params.id;
   const dispatch = useDispatch();
 
+  const productList = useSelector((state) => state.productList);
+  const { products } = productList;
+
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-  console.log("userInfo", userInfo);
-  const productReviewCreate = useSelector((state) => state.productReviewCreate);
-  const { loading: loadingCreateReview, error: errorCreateReview, success: successCreateReview } = productReviewCreate;
-
   const relatedProducts = products?.filter((item) => item.category._id === product.category);
 
-  //   const userLogin = useSelector((state) => state.userLogin);
-  //   const { userInfo } = userLogin;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
-  //   const productReviewCreate = useSelector((state) => state.productReviewCreate);
-  //   const { loading: loadingCreateReview, error: errorCreateReview, success: successCreateReview } = productReviewCreate;
+  const productReviewCreate = useSelector((state) => state.productReviewCreate);
+  const { loading: loadingCreateReview, error: errorCreateReview, success: successCreateReview } = productReviewCreate;
 
   // handle get single products
   useEffect(() => {
@@ -73,7 +70,7 @@ const SingleProduct = ({ history, match }) => {
   };
   const onAvatarLoadError = (e) => {
     e.currentTarget.onerror = null; // prevents looping
-    e.currentTarget.src = `${window.location.origin}/images/avatar/default.png`;
+    e.currentTarget.src = "../images/avatar/default.png";
   };
   return (
     <>
@@ -211,7 +208,7 @@ const SingleProduct = ({ history, match }) => {
                 )}
               </div>
             </div>
-            <h3>Related products</h3>
+            <h3>Related products category</h3>
             <div className="col-8 row related-product-container">
               {loading ? (
                 <div className="mb-5 mt-5">
@@ -220,7 +217,7 @@ const SingleProduct = ({ history, match }) => {
               ) : error ? (
                 <Message variant="alert-danger">{error}</Message>
               ) : (
-                products?.map((product) => (
+                relatedProducts?.map((product) => (
                   <div className="shop col-lg-3 " key={product._id}>
                     <div className="border-product">
                       <Link to={`/products/${product._id}`}>
@@ -232,10 +229,7 @@ const SingleProduct = ({ history, match }) => {
                       <div className="shoptext">
                         <p>
                           <Link to={`/products/${product._id}`}>
-                            {`${product.name.length} >= 30`
-                              ? `  
-                                    ${product.name.slice(0, 30)}...`
-                              : ` ${product.name}}`}
+                            {`${product.name.length} >= 30` ? ` ${product.name.slice(0, 30)}...` : ` ${product.name}}`}
                           </Link>
                         </p>
 
