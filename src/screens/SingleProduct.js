@@ -7,10 +7,25 @@ import { createProductReview, detailsProduct, listProducts } from "../Redux/Acti
 import Loading from "./../components/base/LoadingError/Loading";
 import Message from "./../components/base/LoadingError/Error";
 import moment from "moment";
-import { PRODUCT_CREATE_REVIEW_RESET } from "../Redux/Constants/productConstants";
+import {
+  PRODUCT_CREATE_COMMENT_FAIL,
+  PRODUCT_CREATE_COMMENT_REPLY_FAIL,
+  PRODUCT_CREATE_COMMENT_REPLY_RESET,
+  PRODUCT_CREATE_COMMENT_RESET,
+  PRODUCT_CREATE_REVIEW_RESET
+} from "../Redux/Constants/productConstants";
 import { addToCartItems } from "../Redux/Actions/cartActions";
 import { ADD_TO_CART_FAIL } from "../Redux/Constants/cartConstants";
+import ProductComment from "../components/singleProduct/ProductComment";
+import { toast } from "react-toastify";
+import Toast from "../components/base/LoadingError/Toast";
 
+const ToastObjects = {
+  pauseOnFocusLoss: false,
+  draggable: false,
+  pauseOnHover: false,
+  autoClose: 2000
+};
 const SingleProduct = ({ history, match }) => {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(5);
@@ -33,17 +48,35 @@ const SingleProduct = ({ history, match }) => {
   const productReviewCreate = useSelector((state) => state.productReviewCreate);
   const { loading: loadingCreateReview, error: errorCreateReview, success: successCreateReview } = productReviewCreate;
 
+  const notifiCreateProductComment = useSelector((state) => state.productCreateComment);
+  const { success: successCreateComment, error: errorCreateComment } = notifiCreateProductComment;
+
+  const notifiCreateProductCommentReply = useSelector((state) => state.productCreateCommentReply);
+  const { success: successCreateCommentReply, error: errorCreateCommentReply } = notifiCreateProductCommentReply;
+
   // handle get single products
   useEffect(() => {
     if (successCreateReview) {
-      setRating(0);
       setReviewContent("");
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
-
     dispatch(detailsProduct(productId));
     dispatch(listProducts());
   }, [dispatch, productId, successCreateReview]);
+
+  // handle show noti create comment
+  useEffect(() => {
+    if (successCreateComment || successCreateCommentReply) {
+      toast.success("Create product comment success!", ToastObjects);
+      dispatch({ type: PRODUCT_CREATE_COMMENT_RESET });
+      dispatch({ type: PRODUCT_CREATE_COMMENT_REPLY_RESET });
+    }
+    if (errorCreateComment || errorCreateCommentReply) {
+      toast.error(errorCreateComment, ToastObjects);
+      dispatch({ type: PRODUCT_CREATE_COMMENT_FAIL });
+      dispatch({ type: PRODUCT_CREATE_COMMENT_REPLY_FAIL });
+    }
+  }, [dispatch, successCreateComment, errorCreateComment, successCreateCommentReply, errorCreateCommentReply]);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -74,6 +107,7 @@ const SingleProduct = ({ history, match }) => {
   };
   return (
     <>
+      <Toast />
       <Header />
       <div className="container single-product">
         {loading ? (
@@ -208,39 +242,46 @@ const SingleProduct = ({ history, match }) => {
                 )}
               </div>
             </div>
-            <h3>Related products category</h3>
-            <div className="col-8 row related-product-container">
-              {loading ? (
-                <div className="mb-5 mt-5">
-                  <Loading />
-                </div>
-              ) : error ? (
-                <Message variant="alert-danger">{error}</Message>
-              ) : (
-                relatedProducts?.map((product) => (
-                  <div className="shop col-lg-3 " key={product._id}>
-                    <div className="border-product">
-                      <Link to={`/products/${product._id}`}>
-                        <div className="shopBack main-effect">
-                          <img className="main-scale" src={product.image} alt={product.name} />
+            {/* Related products */}
+            <div>
+              <h3>Related products category</h3>
+              <div className="col-8 row related-product-container">
+                {loading ? (
+                  <div className="mb-5 mt-5">
+                    <Loading />
+                  </div>
+                ) : error ? (
+                  <Message variant="alert-danger">{error}</Message>
+                ) : (
+                  relatedProducts?.map((product) => (
+                    <div className="shop col-lg-3 " key={product._id}>
+                      <div className="border-product">
+                        <Link to={`/products/${product._id}`}>
+                          <div className="shopBack main-effect">
+                            <img className="main-scale" src={product.image} alt={product.name} />
+                          </div>
+                        </Link>
+
+                        <div className="shoptext">
+                          <p>
+                            <Link to={`/products/${product._id}`}>
+                              {`${product.name.length} >= 30`
+                                ? ` ${product.name.slice(0, 30)}...`
+                                : ` ${product.name}}`}
+                            </Link>
+                          </p>
+
+                          <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                          <h3>${product.price}</h3>
                         </div>
-                      </Link>
-
-                      <div className="shoptext">
-                        <p>
-                          <Link to={`/products/${product._id}`}>
-                            {`${product.name.length} >= 30` ? ` ${product.name.slice(0, 30)}...` : ` ${product.name}}`}
-                          </Link>
-                        </p>
-
-                        <Rating value={product.rating} text={`${product.numReviews} reviews`} />
-                        <h3>${product.price}</h3>
                       </div>
                     </div>
-                  </div>
-                ))
-              )}
+                  ))
+                )}
+              </div>
             </div>
+            {/* Product comment */}
+            <ProductComment userInfo={userInfo} match={match} />
           </>
         )}
       </div>

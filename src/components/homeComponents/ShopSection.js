@@ -23,8 +23,8 @@ const ShopSection = (props) => {
   const categoryList = useSelector((state) => state.categoryList);
   const { category } = categoryList;
 
-  const checkNameCategory = (item) => item._id === categoryFilter;
-  const nameCate = category?.find(checkNameCategory)?.name;
+  // const checkNameCategory = (item) => item.name === categoryFilter;
+  // const nameCate = category?.find(checkNameCategory)?.name;
   const checkIsFilter = useCallback(() => {
     if (categoryFilter !== "" || priceFilter !== "" || dateFilter !== "") {
       setIsFilter(true);
@@ -34,7 +34,7 @@ const ShopSection = (props) => {
   }, [categoryFilter, isFilter, setIsFilter, priceFilter, dateFilter]);
 
   const loadData = useCallback(() => {
-    dispatch(listProducts(keyword, pageNumber, nameCate, priceFilter, dateFilter));
+    dispatch(listProducts(keyword, pageNumber, categoryFilter, priceFilter, dateFilter));
     dispatch(listCategory());
   }, [dispatch, keyword, pageNumber, categoryFilter, priceFilter, dateFilter]);
 

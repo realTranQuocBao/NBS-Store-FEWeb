@@ -28,7 +28,16 @@ import {
   PRODUCT_BEST_SELLER_FAIL,
   PRODUCT_BEST_NUM_VIEW_FAIL,
   PRODUCT_BEST_NUM_VIEW_SUCCESS,
-  PRODUCT_BEST_NUM_VIEW_REQUEST
+  PRODUCT_BEST_NUM_VIEW_REQUEST,
+  PRODUCT_COMMENT_REQUEST,
+  PRODUCT_COMMENT_SUCCESS,
+  PRODUCT_COMMENT_FAIL,
+  PRODUCT_CREATE_COMMENT_REQUEST,
+  PRODUCT_CREATE_COMMENT_SUCCESS,
+  PRODUCT_CREATE_COMMENT_FAIL,
+  PRODUCT_CREATE_COMMENT_REPLY_REQUEST,
+  PRODUCT_CREATE_COMMENT_REPLY_SUCCESS,
+  PRODUCT_CREATE_COMMENT_REPLY_FAIL
 } from "../Constants/productConstants";
 import { logout } from "./userActions";
 import { PRODUCT_CREATE_REVIEW_REQUEST } from "./../Constants/productConstants";
@@ -81,16 +90,85 @@ export const listProductsBestNumView = () => async (dispatch) => {
 };
 // action details product
 export const detailsProduct = (id) => async (dispatch) => {
-    try {
-        dispatch({ type: PRODUCT_DETAILS_REQUEST });
-        const { data } = await axios.get(`/api/v1/product/${id}`);
-        dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
-    } catch (error) {
-        dispatch({
-            type: PRODUCT_DETAILS_FAIL,
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message
-        });
+  try {
+    dispatch({ type: PRODUCT_DETAILS_REQUEST });
+    const { data } = await axios.get(`/api/v1/product/${id}`);
+    dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_DETAILS_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
+};
+// action comment product
+export const listCommentProduct = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_COMMENT_REQUEST });
+    const { data } = await axios.get(`/api/v1/product/${id}/comments`);
+    dispatch({ type: PRODUCT_COMMENT_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_COMMENT_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
+};
+// action create comment product
+export const createProductComment = (data) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_CREATE_COMMENT_REQUEST });
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    await axios.post(`/api/v1/comment`, data, config);
+    dispatch({ type: PRODUCT_CREATE_COMMENT_SUCCESS });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
     }
+    dispatch({
+      type: PRODUCT_CREATE_COMMENT_FAIL,
+      payload: message
+    });
+  }
+};
+// action create comment product
+export const createProductCommentReply = (data) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_CREATE_COMMENT_REPLY_REQUEST });
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    await axios.post(`/api/v1/comment`, data, config);
+    dispatch({ type: PRODUCT_CREATE_COMMENT_REPLY_SUCCESS });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: PRODUCT_CREATE_COMMENT_REPLY_FAIL,
+      payload: message
+    });
+  }
 };
 // action create review product
 export const createProductReview =

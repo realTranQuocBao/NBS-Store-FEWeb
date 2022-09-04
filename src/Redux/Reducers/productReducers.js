@@ -30,7 +30,18 @@ import {
   PRODUCT_BEST_SELLER_FAIL,
   PRODUCT_BEST_NUM_VIEW_FAIL,
   PRODUCT_BEST_NUM_VIEW_SUCCESS,
-  PRODUCT_BEST_NUM_VIEW_REQUEST
+  PRODUCT_BEST_NUM_VIEW_REQUEST,
+  PRODUCT_COMMENT_REQUEST,
+  PRODUCT_COMMENT_SUCCESS,
+  PRODUCT_COMMENT_FAIL,
+  PRODUCT_CREATE_COMMENT_REQUEST,
+  PRODUCT_CREATE_COMMENT_SUCCESS,
+  PRODUCT_CREATE_COMMENT_FAIL,
+  PRODUCT_CREATE_COMMENT_RESET,
+  PRODUCT_CREATE_COMMENT_REPLY_REQUEST,
+  PRODUCT_CREATE_COMMENT_REPLY_SUCCESS,
+  PRODUCT_CREATE_COMMENT_REPLY_FAIL,
+  PRODUCT_CREATE_COMMENT_REPLY_RESET
 } from "../Constants/productConstants";
 
 /**
@@ -101,6 +112,55 @@ export const productDetailsReducer = (state = { product: { reviews: [] } }, acti
   }
 };
 
+// SINGLE PRODUCT
+export const productCommentReducer = (
+  state = {
+    comments: []
+  },
+  action
+) => {
+  switch (action.type) {
+    case PRODUCT_COMMENT_REQUEST:
+      return { ...state, loading: true };
+    case PRODUCT_COMMENT_SUCCESS:
+      return { loading: false, success: true, comments: action.payload };
+    case PRODUCT_COMMENT_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+// PRODUCT COMMENT CREATE
+export const productCreateCommentReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_CREATE_COMMENT_REQUEST:
+      return { loading: true };
+    case PRODUCT_CREATE_COMMENT_SUCCESS:
+      return { loading: false, success: true };
+    case PRODUCT_CREATE_COMMENT_FAIL:
+      return { loading: false, error: action.payload };
+    case PRODUCT_CREATE_COMMENT_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+// PRODUCT COMMENT CREATE
+export const productCreateCommentReplyReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_CREATE_COMMENT_REPLY_REQUEST:
+      return { loading: true };
+    case PRODUCT_CREATE_COMMENT_REPLY_SUCCESS:
+      return { loading: false, success: true };
+    case PRODUCT_CREATE_COMMENT_REPLY_FAIL:
+      return { loading: false, error: action.payload };
+    case PRODUCT_CREATE_COMMENT_REPLY_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
 // PRODUCT REVIEW CREATE
 export const productCreateReviewReducer = (state = {}, action) => {
   switch (action.type) {
