@@ -22,15 +22,15 @@ const BestNumViewsProduct = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 6,
+    slidesToShow: 5,
+    slidesToScroll: 4,
     initialSlide: 0,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 4,
-          slidesToScroll: 4,
+          slidesToShow: 3,
+          slidesToScroll: 3,
           infinite: true,
           dots: false,
           initialSlide: 0
@@ -61,10 +61,10 @@ const BestNumViewsProduct = () => {
       </div>
       <div className="best-seller-container">
         <Slider {...settings}>
-          {newProducts?.slice(0, 6).map((product, index) => {
+          {newProducts?.map((product, index) => {
             return (
-              <div className="shop col-lg-3" key={index}>
-                <div className="border-product">
+              <div className="mb-4 col-lg-3" key={index}>
+                <div className="shadow p-3 mb-4 me-2 rounded">
                   <Link to={`/products/${product._id}`}>
                     <div className="shopBack main-effect">
                       <img className="main-scale" src={product.image} alt={product.name} />

@@ -37,7 +37,10 @@ import {
   PRODUCT_CREATE_COMMENT_FAIL,
   PRODUCT_CREATE_COMMENT_REPLY_REQUEST,
   PRODUCT_CREATE_COMMENT_REPLY_SUCCESS,
-  PRODUCT_CREATE_COMMENT_REPLY_FAIL
+  PRODUCT_CREATE_COMMENT_REPLY_FAIL,
+  PRODUCT_DELETE_COMMENT_REQUEST,
+  PRODUCT_DELETE_COMMENT_SUCCESS,
+  PRODUCT_DELETE_COMMENT_FAIL
 } from "../Constants/productConstants";
 import { logout } from "./userActions";
 import { PRODUCT_CREATE_REVIEW_REQUEST } from "./../Constants/productConstants";
@@ -79,7 +82,7 @@ export const listProductsBestSeller = () => async (dispatch) => {
 export const listProductsBestNumView = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_BEST_NUM_VIEW_REQUEST });
-    const { data } = await axios.get(`/api/v1/product?pageSize=12`);
+    const { data } = await axios.get(`/api/v1/product?pageSize=15`);
     dispatch({ type: PRODUCT_BEST_NUM_VIEW_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -142,7 +145,36 @@ export const createProductComment = (data) => async (dispatch, getState) => {
     });
   }
 };
-// action create comment product
+// DELETE COMMENT
+export const deleteProductComment = (id) => async (dispatch, getState) => {
+  try {
+      dispatch({ type: PRODUCT_DELETE_COMMENT_REQUEST });
+
+      const {
+          userLogin: { userInfo }
+      } = getState();
+
+      const config = {
+          headers: {
+              Authorization: `Bearer ${userInfo.token}`
+          }
+      };
+
+      await axios.delete(`/api/v1/comment/${id}`, config);
+
+      dispatch({ type: PRODUCT_DELETE_COMMENT_SUCCESS });
+  } catch (error) {
+      const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+      if (message === "Not authorized, token failed") {
+          dispatch(logout());
+      }
+      dispatch({
+          type: PRODUCT_DELETE_COMMENT_FAIL,
+          payload: message
+      });
+  }
+};
+// action create comment reply product
 export const createProductCommentReply = (data) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_CREATE_COMMENT_REPLY_REQUEST });

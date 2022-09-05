@@ -73,8 +73,8 @@ const ShopSection = (props) => {
                       <Message variant="alert-danger">{error}</Message>
                     ) : (
                       products?.map((product) => (
-                        <div className="shop col-lg-3 " key={product._id}>
-                          <div className="border-product">
+                        <div className="col-lg-3" key={product._id}>
+                          <div className="shadow p-3 mb-4 bg-body rounded">
                             <Link to={`/products/${product._id}`}>
                               <div className="shopBack main-effect">
                                 <img className="main-scale" src={product.image} alt={product.name} />

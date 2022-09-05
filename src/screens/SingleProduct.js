@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Header from "../components/Header";
 import Rating from "../components/homeComponents/Rating";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createProductReview, detailsProduct, listProducts } from "../Redux/Actions/productActions";
+import { createProductReview, detailsProduct, listCommentProduct, listProducts } from "../Redux/Actions/productActions";
 import Loading from "./../components/base/LoadingError/Loading";
 import Message from "./../components/base/LoadingError/Error";
 import moment from "moment";
@@ -12,7 +12,10 @@ import {
   PRODUCT_CREATE_COMMENT_REPLY_FAIL,
   PRODUCT_CREATE_COMMENT_REPLY_RESET,
   PRODUCT_CREATE_COMMENT_RESET,
-  PRODUCT_CREATE_REVIEW_RESET
+  PRODUCT_CREATE_REVIEW_RESET,
+  PRODUCT_DELETE_COMMENT_FAIL,
+  PRODUCT_DELETE_COMMENT_RESET,
+  PRODUCT_DELETE_COMMENT_SUCCESS
 } from "../Redux/Constants/productConstants";
 import { addToCartItems } from "../Redux/Actions/cartActions";
 import { ADD_TO_CART_FAIL } from "../Redux/Constants/cartConstants";
@@ -54,6 +57,13 @@ const SingleProduct = ({ history, match }) => {
   const notifiCreateProductCommentReply = useSelector((state) => state.productCreateCommentReply);
   const { success: successCreateCommentReply, error: errorCreateCommentReply } = notifiCreateProductCommentReply;
 
+  const notifiDeleteProductComment = useSelector((state) => state.productDeleteComment);
+  const { success: successDeleteComment, error: errorDeleteComment } = notifiDeleteProductComment;
+
+  const loadListCommentProduct = useCallback(() => {
+    dispatch(listCommentProduct(productId));
+  }, [dispatch, productId]);
+
   // handle get single products
   useEffect(() => {
     if (successCreateReview) {
@@ -77,6 +87,19 @@ const SingleProduct = ({ history, match }) => {
       dispatch({ type: PRODUCT_CREATE_COMMENT_REPLY_FAIL });
     }
   }, [dispatch, successCreateComment, errorCreateComment, successCreateCommentReply, errorCreateCommentReply]);
+  // handle show noti delete comment
+  useEffect(() => {
+    if (successDeleteComment) {
+      toast.success("Delete comment success!!!", ToastObjects);
+      loadListCommentProduct();
+      dispatch({ type: PRODUCT_DELETE_COMMENT_SUCCESS });
+      dispatch({ type: PRODUCT_DELETE_COMMENT_RESET });
+    }
+    if (errorDeleteComment) {
+      toast.error(errorDeleteComment, ToastObjects);
+      dispatch({ type: PRODUCT_DELETE_COMMENT_FAIL });
+    }
+  }, [dispatch, successDeleteComment, errorDeleteComment, loadListCommentProduct]);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -244,7 +267,7 @@ const SingleProduct = ({ history, match }) => {
             </div>
             {/* Related products */}
             <div>
-              <h3>Related products category</h3>
+              {relatedProducts?.length > 0 && <h3>Related products category</h3>}
               <div className="col-8 row related-product-container">
                 {loading ? (
                   <div className="mb-5 mt-5">

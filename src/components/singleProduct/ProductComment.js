@@ -6,6 +6,7 @@ import Message from "../base/LoadingError/Error";
 import {
   createProductComment,
   createProductCommentReply,
+  deleteProductComment,
   listCommentProduct
 } from "../../Redux/Actions/productActions";
 import {
@@ -22,14 +23,8 @@ const ProductComment = (props) => {
 
   const [content, setContent] = useState("");
   const [usernameComment, setUsernameComment] = useState("");
-  console.log("usernameComment: ", usernameComment);
   const [contentFirstReply, setContentFirstReply] = useState("");
-  console.log("contentFirstReply: ", contentFirstReply);
   const [checkIdReplyComment, setCheckIdReplyComment] = useState(null);
-  console.log("checkIdReplyComment", checkIdReplyComment);
-
-  // const productDetail = useSelector((state) => state.productDetails);
-  // const { product } = productDetail;
 
   const getCommentProduct = useSelector((state) => state.productComment);
   const { comments } = getCommentProduct;
@@ -104,6 +99,15 @@ const ProductComment = (props) => {
       })
     );
   };
+
+  const onDeleteCommentHandler = useCallback(
+    (id) => {
+      if (window.confirm("Are you sure delete comment?")) {
+        dispatch(deleteProductComment(id));
+      }
+    },
+    [dispatch]
+  );
 
   useEffect(() => loadListCommentProduct(), [loadListCommentProduct]);
   useEffect(() => loadNotifiCreateProductComment(), [loadNotifiCreateProductComment]);
@@ -187,16 +191,37 @@ const ProductComment = (props) => {
                         </div>
                       )
                     ) : (
-                      <b
-                        value={checkIdReplyComment}
-                        className="text-primary cursor-pointer"
-                        onClick={() => {
-                          setUsernameComment(item.user.name);
-                          setCheckIdReplyComment(item._id);
-                        }}
-                      >
-                        Reply
-                      </b>
+                      <>
+                        <b
+                          value={checkIdReplyComment}
+                          className="text-primary cursor-pointer"
+                          onClick={() => {
+                            setUsernameComment(item.user.name);
+                            setCheckIdReplyComment(item._id);
+                          }}
+                        >
+                          Reply
+                        </b>
+                        <div className="dropdown float-end">
+                          <Link to="#" data-bs-toggle="dropdown" className="">
+                            <i className="fas fa-ellipsis-h text-primary"></i>
+                          </Link>
+                          <div className="dropdown-menu">
+                            {(userInfo?.isAdmin === true || userInfo?._id === item.user._id) && (
+                              <Link
+                                to="#"
+                                className="dropdown-item btn-size"
+                                onClick={() => onDeleteCommentHandler(item._id)}
+                              >
+                                Delete
+                              </Link>
+                            )}
+                            <Link to="#" className="dropdown-item btn-size">
+                              Report
+                            </Link>
+                          </div>
+                        </div>
+                      </>
                     )}
                   </div>
 
@@ -247,16 +272,37 @@ const ProductComment = (props) => {
                               </div>
                             )
                           ) : (
-                            <b
-                              value={checkIdReplyComment}
-                              className="text-primary cursor-pointer"
-                              onClick={() => {
-                                setUsernameComment(reply.user.name);
-                                setCheckIdReplyComment(reply._id);
-                              }}
-                            >
-                              Reply
-                            </b>
+                            <>
+                              <b
+                                value={checkIdReplyComment}
+                                className="text-primary cursor-pointer"
+                                onClick={() => {
+                                  setUsernameComment(reply.user.name);
+                                  setCheckIdReplyComment(reply._id);
+                                }}
+                              >
+                                Reply
+                              </b>
+                              <div className="dropdown float-end">
+                                <Link to="#" data-bs-toggle="dropdown" className="">
+                                  <i className="fas fa-ellipsis-h text-primary"></i>
+                                </Link>
+                                <div className="dropdown-menu">
+                                  {(userInfo?.isAdmin === true || userInfo?._id === reply.user._id) && (
+                                    <Link
+                                      to="#"
+                                      className="dropdown-item btn-size"
+                                      onClick={() => onDeleteCommentHandler(reply._id)}
+                                    >
+                                      Delete
+                                    </Link>
+                                  )}
+                                  <Link to="#" className="dropdown-item btn-size">
+                                    Report
+                                  </Link>
+                                </div>
+                              </div>
+                            </>
                           )}
                         </div>
                       </div>

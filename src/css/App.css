@@ -12,7 +12,8 @@
 
 body {
   margin: 0;
-  font-family: "Quicksand", sans-serif;
+  font-family: "Roboto",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  /* font-family: "Quicksand", sans-serif; */
   /* font-family: 'Open Sans', sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -201,15 +202,15 @@ textarea:focus {
   border-radius: 10px;
 }
 .shopBack {
-  height: 250px;
+  height: 200px;
   position: relative;
   overflow: hidden;
   width: 100%;
-  background-color: #f3fbf7;
+  background-color: val(--white-color);
 }
 .shopBack img {
   width: 100%;
-  height: 250px;
+  height: 200px;
   object-fit: contain;
 }
 .shoptext {
