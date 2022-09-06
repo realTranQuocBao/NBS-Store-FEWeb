@@ -45,7 +45,11 @@ import {
   PRODUCT_DELETE_COMMENT_REQUEST,
   PRODUCT_DELETE_COMMENT_SUCCESS,
   PRODUCT_DELETE_COMMENT_FAIL,
-  PRODUCT_DELETE_COMMENT_RESET
+  PRODUCT_DELETE_COMMENT_RESET,
+  PRODUCT_UPDATE_COMMENT_REQUEST,
+  PRODUCT_UPDATE_COMMENT_SUCCESS,
+  PRODUCT_UPDATE_COMMENT_FAIL,
+  PRODUCT_UPDATE_COMMENT_RESET
 } from "../Constants/productConstants";
 
 /**
@@ -176,6 +180,21 @@ export const productCreateCommentReplyReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case PRODUCT_CREATE_COMMENT_REPLY_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+// UPDATE COMMENT
+export const productUpdateCommentReducer = (state = { comment: {} }, action) => {
+  switch (action.type) {
+    case PRODUCT_UPDATE_COMMENT_REQUEST:
+      return { loading: true };
+    case PRODUCT_UPDATE_COMMENT_SUCCESS:
+      return { loading: false, success: true, comment: action.payload };
+    case PRODUCT_UPDATE_COMMENT_FAIL:
+      return { loading: false, error: action.payload };
+    case PRODUCT_UPDATE_COMMENT_RESET:
+      return { comment: {} };
     default:
       return state;
   }

@@ -15,13 +15,17 @@ import {
   PRODUCT_CREATE_REVIEW_RESET,
   PRODUCT_DELETE_COMMENT_FAIL,
   PRODUCT_DELETE_COMMENT_RESET,
-  PRODUCT_DELETE_COMMENT_SUCCESS
+  PRODUCT_DELETE_COMMENT_SUCCESS,
+  PRODUCT_UPDATE_COMMENT_FAIL,
+  PRODUCT_UPDATE_COMMENT_RESET,
+  PRODUCT_UPDATE_COMMENT_SUCCESS
 } from "../Redux/Constants/productConstants";
 import { addToCartItems } from "../Redux/Actions/cartActions";
 import { ADD_TO_CART_FAIL } from "../Redux/Constants/cartConstants";
 import ProductComment from "../components/singleProduct/ProductComment";
 import { toast } from "react-toastify";
 import Toast from "../components/base/LoadingError/Toast";
+import Slider from "react-slick";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -60,6 +64,9 @@ const SingleProduct = ({ history, match }) => {
   const notifiDeleteProductComment = useSelector((state) => state.productDeleteComment);
   const { success: successDeleteComment, error: errorDeleteComment } = notifiDeleteProductComment;
 
+  const notifiUpdateProductComment = useSelector((state) => state.productUpdateComment);
+  const { success: successUpdateComment, error: errorUpdateComment } = notifiUpdateProductComment;
+
   const loadListCommentProduct = useCallback(() => {
     dispatch(listCommentProduct(productId));
   }, [dispatch, productId]);
@@ -87,6 +94,7 @@ const SingleProduct = ({ history, match }) => {
       dispatch({ type: PRODUCT_CREATE_COMMENT_REPLY_FAIL });
     }
   }, [dispatch, successCreateComment, errorCreateComment, successCreateCommentReply, errorCreateCommentReply]);
+
   // handle show noti delete comment
   useEffect(() => {
     if (successDeleteComment) {
@@ -100,6 +108,20 @@ const SingleProduct = ({ history, match }) => {
       dispatch({ type: PRODUCT_DELETE_COMMENT_FAIL });
     }
   }, [dispatch, successDeleteComment, errorDeleteComment, loadListCommentProduct]);
+
+  // handle show noti update comment
+  useEffect(() => {
+    if (successUpdateComment) {
+      toast.success("Update comment success!!!", ToastObjects);
+      loadListCommentProduct();
+      dispatch({ type: PRODUCT_UPDATE_COMMENT_SUCCESS });
+      dispatch({ type: PRODUCT_UPDATE_COMMENT_RESET });
+    }
+    if (errorUpdateComment) {
+      toast.error(errorUpdateComment, ToastObjects);
+      dispatch({ type: PRODUCT_UPDATE_COMMENT_FAIL });
+    }
+  }, [dispatch, successUpdateComment, errorUpdateComment, loadListCommentProduct]);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -128,6 +150,44 @@ const SingleProduct = ({ history, match }) => {
     e.currentTarget.onerror = null; // prevents looping
     e.currentTarget.src = "../images/avatar/default.png";
   };
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 4,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: false,
+          dots: false,
+          initialSlide: 0
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 0
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 0
+        }
+      }
+    ]
+  };
+
   return (
     <>
       <Toast />
@@ -267,7 +327,7 @@ const SingleProduct = ({ history, match }) => {
             </div>
             {/* Related products */}
             <div>
-              {relatedProducts?.length > 0 && <h3>Related products category</h3>}
+              {relatedProducts?.length > 0 && <h3 className="mb-3">Related products category</h3>}
               <div className="col-8 row related-product-container">
                 {loading ? (
                   <div className="mb-5 mt-5">
@@ -276,30 +336,32 @@ const SingleProduct = ({ history, match }) => {
                 ) : error ? (
                   <Message variant="alert-danger">{error}</Message>
                 ) : (
-                  relatedProducts?.map((product) => (
-                    <div className="shop col-lg-3 " key={product._id}>
-                      <div className="border-product">
-                        <Link to={`/products/${product._id}`}>
-                          <div className="shopBack main-effect">
-                            <img className="main-scale" src={product.image} alt={product.name} />
+                  <Slider {...settings}>
+                    {relatedProducts?.map((product) => (
+                      <div className="shop col-lg-3 " key={product._id}>
+                        <div className="border-product me-3">
+                          <Link to={`/products/${product._id}`}>
+                            <div className="shopBack main-effect">
+                              <img className="main-scale" src={product.image} alt={product.name} />
+                            </div>
+                          </Link>
+
+                          <div className="shoptext">
+                            <p>
+                              <Link to={`/products/${product._id}`}>
+                                {`${product.name.length} >= 30`
+                                  ? ` ${product.name.slice(0, 30)}...`
+                                  : ` ${product.name}}`}
+                              </Link>
+                            </p>
+
+                            <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                            <h3>${product.price}</h3>
                           </div>
-                        </Link>
-
-                        <div className="shoptext">
-                          <p>
-                            <Link to={`/products/${product._id}`}>
-                              {`${product.name.length} >= 30`
-                                ? ` ${product.name.slice(0, 30)}...`
-                                : ` ${product.name}}`}
-                            </Link>
-                          </p>
-
-                          <Rating value={product.rating} text={`${product.numReviews} reviews`} />
-                          <h3>${product.price}</h3>
                         </div>
                       </div>
-                    </div>
-                  ))
+                    ))}
+                  </Slider>
                 )}
               </div>
             </div>

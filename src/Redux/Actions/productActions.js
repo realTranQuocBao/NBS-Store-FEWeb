@@ -40,7 +40,10 @@ import {
   PRODUCT_CREATE_COMMENT_REPLY_FAIL,
   PRODUCT_DELETE_COMMENT_REQUEST,
   PRODUCT_DELETE_COMMENT_SUCCESS,
-  PRODUCT_DELETE_COMMENT_FAIL
+  PRODUCT_DELETE_COMMENT_FAIL,
+  PRODUCT_UPDATE_COMMENT_REQUEST,
+  PRODUCT_UPDATE_COMMENT_SUCCESS,
+  PRODUCT_UPDATE_COMMENT_FAIL
 } from "../Constants/productConstants";
 import { logout } from "./userActions";
 import { PRODUCT_CREATE_REVIEW_REQUEST } from "./../Constants/productConstants";
@@ -148,30 +151,30 @@ export const createProductComment = (data) => async (dispatch, getState) => {
 // DELETE COMMENT
 export const deleteProductComment = (id) => async (dispatch, getState) => {
   try {
-      dispatch({ type: PRODUCT_DELETE_COMMENT_REQUEST });
+    dispatch({ type: PRODUCT_DELETE_COMMENT_REQUEST });
 
-      const {
-          userLogin: { userInfo }
-      } = getState();
+    const {
+      userLogin: { userInfo }
+    } = getState();
 
-      const config = {
-          headers: {
-              Authorization: `Bearer ${userInfo.token}`
-          }
-      };
-
-      await axios.delete(`/api/v1/comment/${id}`, config);
-
-      dispatch({ type: PRODUCT_DELETE_COMMENT_SUCCESS });
-  } catch (error) {
-      const message = error.response && error.response.data.message ? error.response.data.message : error.message;
-      if (message === "Not authorized, token failed") {
-          dispatch(logout());
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
       }
-      dispatch({
-          type: PRODUCT_DELETE_COMMENT_FAIL,
-          payload: message
-      });
+    };
+
+    await axios.delete(`/api/v1/comment/${id}`, config);
+
+    dispatch({ type: PRODUCT_DELETE_COMMENT_SUCCESS });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: PRODUCT_DELETE_COMMENT_FAIL,
+      payload: message
+    });
   }
 };
 // action create comment reply product
@@ -198,6 +201,40 @@ export const createProductCommentReply = (data) => async (dispatch, getState) =>
     }
     dispatch({
       type: PRODUCT_CREATE_COMMENT_REPLY_FAIL,
+      payload: message
+    });
+  }
+};
+// UPDATE PRODUCT
+export const updateCommentProduct = (comment) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_UPDATE_COMMENT_REQUEST });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    const { data } = await axios.patch(
+      `/api/v1/comment/${comment.commentId}/content`,
+      { content: comment.content },
+      config
+    );
+
+    dispatch({ type: PRODUCT_UPDATE_COMMENT_SUCCESS, payload: data });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: PRODUCT_UPDATE_COMMENT_FAIL,
       payload: message
     });
   }

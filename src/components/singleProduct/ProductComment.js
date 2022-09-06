@@ -7,7 +7,8 @@ import {
   createProductComment,
   createProductCommentReply,
   deleteProductComment,
-  listCommentProduct
+  listCommentProduct,
+  updateCommentProduct
 } from "../../Redux/Actions/productActions";
 import {
   PRODUCT_CREATE_COMMENT_FAIL,
@@ -25,6 +26,7 @@ const ProductComment = (props) => {
   const [usernameComment, setUsernameComment] = useState("");
   const [contentFirstReply, setContentFirstReply] = useState("");
   const [checkIdReplyComment, setCheckIdReplyComment] = useState(null);
+  const [isEditComment, setIsEditComment] = useState(false);
 
   const getCommentProduct = useSelector((state) => state.productComment);
   const { comments } = getCommentProduct;
@@ -38,12 +40,6 @@ const ProductComment = (props) => {
   const loadListCommentProduct = useCallback(() => {
     dispatch(listCommentProduct(productId));
   }, [dispatch, productId]);
-
-  const onCancelReplyHandler = () => {
-    setCheckIdReplyComment(null);
-    setContent("");
-    setContentFirstReply(`@${usernameComment} `);
-  };
 
   useEffect(() => {
     if (usernameComment !== "") {
@@ -89,15 +85,48 @@ const ProductComment = (props) => {
     );
   };
 
+  const onEditCommentHandler = (id) => {
+    let contentFirstReplyEdit = comments?.find((idContentFirst) => idContentFirst._id === id);
+    setIsEditComment(true);
+    setCheckIdReplyComment(id);
+    setContentFirstReply(contentFirstReplyEdit?.content);
+  };
+
+  const onEditCommentReplyHandler = (reply) => {
+    let contentFirstReply = comments
+      ?.find((idContent) => idContent._id === reply.parentComment)
+      ?.replies.find((idContentFirstReply) => idContentFirstReply._id === reply._id);
+    setIsEditComment(true);
+    setCheckIdReplyComment(contentFirstReply?._id);
+    setContentFirstReply(contentFirstReply?.content);
+  };
+
   const submitReplyFirstLevelHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      createProductCommentReply({
-        productId,
-        content: contentFirstReply,
-        parentCommentId: checkIdReplyComment
-      })
-    );
+    if (isEditComment === true) {
+      dispatch(
+        updateCommentProduct({
+          commentId: checkIdReplyComment,
+          content: contentFirstReply
+        })
+      );
+      setCheckIdReplyComment(null);
+    } else {
+      dispatch(
+        createProductCommentReply({
+          productId,
+          content: contentFirstReply,
+          parentCommentId: checkIdReplyComment
+        })
+      );
+    }
+  };
+
+  const onCancelReplyHandler = () => {
+    setCheckIdReplyComment(null);
+    setContent("");
+    setIsEditComment(false);
+    setContentFirstReply(`@${usernameComment} `);
   };
 
   const onDeleteCommentHandler = useCallback(
@@ -174,9 +203,15 @@ const ProductComment = (props) => {
                             >
                               Cancel reply
                             </b>
-                            <button type="submit" className="p-1 mt-2 btn btn-primary btn-size">
-                              Send reply
-                            </button>
+                            {isEditComment === true ? (
+                              <button type="submit" className="p-1 mt-2 btn btn-warning btn-size">
+                                Update comment
+                              </button>
+                            ) : (
+                              <button type="submit" className="p-1 mt-2 btn btn-primary btn-size">
+                                Send reply
+                              </button>
+                            )}
                           </div>
                         </form>
                       ) : (
@@ -208,13 +243,22 @@ const ProductComment = (props) => {
                           </Link>
                           <div className="dropdown-menu">
                             {(userInfo?.isAdmin === true || userInfo?._id === item.user._id) && (
-                              <Link
-                                to="#"
-                                className="dropdown-item btn-size"
-                                onClick={() => onDeleteCommentHandler(item._id)}
-                              >
-                                Delete
-                              </Link>
+                              <>
+                                <Link
+                                  to="#"
+                                  className="dropdown-item btn-size"
+                                  onClick={() => onEditCommentHandler(item._id)}
+                                >
+                                  Edit info
+                                </Link>
+                                <Link
+                                  to="#"
+                                  className="dropdown-item btn-size"
+                                  onClick={() => onDeleteCommentHandler(item._id)}
+                                >
+                                  Delete
+                                </Link>
+                              </>
                             )}
                             <Link to="#" className="dropdown-item btn-size">
                               Report
@@ -255,9 +299,15 @@ const ProductComment = (props) => {
                                   >
                                     Cancel reply
                                   </b>
-                                  <button type="submit" className="p-1 mt-2 btn btn-primary btn-size">
-                                    Send reply
-                                  </button>
+                                  {isEditComment === true ? (
+                                    <button type="submit" className="p-1 mt-2 btn btn-warning btn-size">
+                                      Update comment
+                                    </button>
+                                  ) : (
+                                    <button type="submit" className="p-1 mt-2 btn btn-primary btn-size">
+                                      Send reply
+                                    </button>
+                                  )}
                                 </div>
                               </form>
                             ) : (
@@ -289,13 +339,22 @@ const ProductComment = (props) => {
                                 </Link>
                                 <div className="dropdown-menu">
                                   {(userInfo?.isAdmin === true || userInfo?._id === reply.user._id) && (
-                                    <Link
-                                      to="#"
-                                      className="dropdown-item btn-size"
-                                      onClick={() => onDeleteCommentHandler(reply._id)}
-                                    >
-                                      Delete
-                                    </Link>
+                                    <>
+                                      <Link
+                                        to="#"
+                                        className="dropdown-item btn-size"
+                                        onClick={() => onEditCommentReplyHandler(reply)}
+                                      >
+                                        Edit info
+                                      </Link>
+                                      <Link
+                                        to="#"
+                                        className="dropdown-item btn-size"
+                                        onClick={() => onDeleteCommentHandler(reply._id)}
+                                      >
+                                        Delete
+                                      </Link>
+                                    </>
                                   )}
                                   <Link to="#" className="dropdown-item btn-size">
                                     Report
