@@ -6,11 +6,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Rating from "../homeComponents/Rating";
+import CardProductLoading from "../base/LoadingError/CardProductLoading";
 
 const BestNumViewsProduct = () => {
   const dispatch = useDispatch();
   const getBestNumViewProduct = useSelector((state) => state.productListBestNumView);
-  const { products } = getBestNumViewProduct;
+  const { loading, products } = getBestNumViewProduct;
 
   const newProducts = products?.sort((a, b) => b.numViews - a.numViews);
 
@@ -61,31 +62,41 @@ const BestNumViewsProduct = () => {
       </div>
       <div className="best-seller-container">
         <Slider {...settings}>
-          {newProducts?.map((product, index) => {
-            return (
-              <div className="mb-4 col-lg-3" key={index}>
-                <div className="shadow p-3 mb-4 me-2 rounded">
-                  <Link to={`/products/${product._id}`}>
-                    <div className="shopBack main-effect">
-                      <img className="main-scale" src={product.image} alt={product.name} />
+          {loading
+            ? newProducts?.map((product) => {
+                return (
+                  <div className="mb-4 col-lg-3" key={product._id}>
+                    <div className="shadow p-3 mb-4 me-2 rounded">
+                      <CardProductLoading />
                     </div>
-                  </Link>
-
-                  <div className="shoptext">
-                    <p>
-                      <Link to={`/products/${product._id}`}>
-                        {`${product.name.length} >= 20` ? `${product.name.slice(0, 20)}...` : ` ${product.name}}`}
-                      </Link>
-                    </p>
-                    <Rating value={product.rating} text={`${product.numReviews} reviews`} />
-                    <p>
-                      Total views <b>{product.numViews}</b>
-                    </p>
                   </div>
-                </div>
-              </div>
-            );
-          })}
+                );
+              })
+            : newProducts?.map((product, index) => {
+                return (
+                  <div className="mb-4 col-lg-3" key={index}>
+                    <div className="shadow p-3 mb-4 me-2 rounded">
+                      <Link to={`/products/${product._id}`}>
+                        <div className="shopBack main-effect">
+                          <img className="main-scale" src={product.image} alt={product.name} />
+                        </div>
+                      </Link>
+
+                      <div className="shoptext">
+                        <p>
+                          <Link to={`/products/${product._id}`}>
+                            {`${product.name.length} >= 20` ? `${product.name.slice(0, 20)}...` : ` ${product.name}}`}
+                          </Link>
+                        </p>
+                        <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                        <p>
+                          Total views <b>{product.numViews}</b>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
         </Slider>
       </div>
     </>

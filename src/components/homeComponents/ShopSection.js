@@ -4,10 +4,10 @@ import Rating from "./Rating";
 import Pagination from "./pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../Redux/Actions/productActions";
-import Loading from "./../base/LoadingError/Loading";
 import Message from "./../base/LoadingError/Error";
 import Filter from "../../screens/Filter";
 import { listCategory } from "../../Redux/Actions/categoryActions";
+import CardProductLoading from "../base/LoadingError/CardProductLoading";
 
 const ShopSection = (props) => {
   const { keyword, pageNumber, isFilter, setIsFilter } = props;
@@ -66,9 +66,15 @@ const ShopSection = (props) => {
                   </div>
                   <div className="col-8 row product-container ">
                     {loading ? (
-                      <div className="mb-5 mt-5">
-                        <Loading />
-                      </div>
+                      products?.map((product) => {
+                        return (
+                          <div className="col-lg-3" aria-hidden="true" key={product._id}>
+                            <div className="shadow p-3 mb-4 bg-body rounded">
+                              <CardProductLoading />
+                            </div>
+                          </div>
+                        );
+                      })
                     ) : error ? (
                       <Message variant="alert-danger">{error}</Message>
                     ) : (

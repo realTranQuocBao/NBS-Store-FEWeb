@@ -4,19 +4,17 @@ import { listProductsAdminAll } from "../../../Redux/Actions/productActions";
 
 const TopTotal = (props) => {
   const dispatch = useDispatch();
-  const productListAdminAll = useSelector(state => state.productListAdminAll);
+  const productListAdminAll = useSelector((state) => state.productListAdminAll);
   const { products } = productListAdminAll;
 
   useEffect(() => {
-    dispatch(listProductsAdminAll())
-  }, [dispatch])
+    dispatch(listProductsAdminAll());
+  }, [dispatch]);
 
   const { orders } = props;
   let totalSale = 0;
   if (orders) {
-    orders.map((order) =>
-      order.isPaid === true ? (totalSale = totalSale + order.totalPrice) : null
-    );
+    orders.map((order) => (order.isPaid === true ? (totalSale = totalSale + order.totalPrice) : null));
   }
   return (
     <div className="row">
@@ -27,8 +25,7 @@ const TopTotal = (props) => {
               <i className="text-primary fas fa-usd-circle"></i>
             </span>
             <div className="text">
-              <h6 className="mb-1">Total Sales</h6>{" "}
-              <span>${totalSale.toFixed(2)}</span>
+              <h6 className="mb-1">Total Sales</h6> <span>${totalSale.toFixed(2)}</span>
             </div>
           </article>
         </div>
@@ -54,7 +51,7 @@ const TopTotal = (props) => {
             </span>
             <div className="text">
               <h6 className="mb-1">Total Products</h6>
-              {products.total ? <span>{products.total}</span> : <span>0</span>}
+              <span>{products?.total ?? 0}</span>
             </div>
           </article>
         </div>

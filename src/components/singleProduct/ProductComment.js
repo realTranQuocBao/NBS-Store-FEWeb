@@ -182,7 +182,7 @@ const ProductComment = (props) => {
                     alt="User avatar"
                   />
                   <strong className="ms-2">{item.user.name}</strong>
-                  <p className="fs-6">Question: {moment(item.createdAt).calendar()}</p>
+                  <p className="fs-6 fst-italic">Question: {moment(item.createdAt).calendar()}</p>
                   <div className="alert alert-info p-2">{item.content}</div>
 
                   <div className="action-user">
@@ -233,6 +233,7 @@ const ProductComment = (props) => {
                           onClick={() => {
                             setUsernameComment(item.user.name);
                             setCheckIdReplyComment(item._id);
+                            setIsEditComment(false);
                           }}
                         >
                           Reply
@@ -279,7 +280,7 @@ const ProductComment = (props) => {
                           alt="User avatar"
                         />
                         <strong className="ms-2">{reply.user.name}</strong>
-                        <div>Reply: {moment(reply.createdAt).calendar()}</div>
+                        <div className="fs-6 fst-italic">Reply: {moment(reply.createdAt).calendar()}</div>
                         <div className="alert alert-info p-2">{reply.content}</div>
                         <div className="action-user">
                           {checkIdReplyComment === reply._id ? (

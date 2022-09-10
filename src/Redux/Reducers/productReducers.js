@@ -49,7 +49,10 @@ import {
   PRODUCT_UPDATE_COMMENT_REQUEST,
   PRODUCT_UPDATE_COMMENT_SUCCESS,
   PRODUCT_UPDATE_COMMENT_FAIL,
-  PRODUCT_UPDATE_COMMENT_RESET
+  PRODUCT_UPDATE_COMMENT_RESET,
+  PRODUCT_LIST_COMMENT_REQUEST,
+  PRODUCT_LIST_COMMENT_SUCCESS,
+  PRODUCT_LIST_COMMENT_FAIL
 } from "../Constants/productConstants";
 
 /**
@@ -307,6 +310,23 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
       return { loading: false, error: action.payload };
     case PRODUCT_UPDATE_RESET:
       return { product: {} };
+    default:
+      return state;
+  }
+};
+
+// PRODUCT LIST COMMENT
+export const productListCommentReducerAdmin = (state = { comments: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_LIST_COMMENT_REQUEST:
+      return { loading: true, comments: [...state.comments] };
+    case PRODUCT_LIST_COMMENT_SUCCESS:
+      return {
+        loading: false,
+        comments: action.payload
+      };
+    case PRODUCT_LIST_COMMENT_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
