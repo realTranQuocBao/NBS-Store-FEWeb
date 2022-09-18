@@ -60,7 +60,7 @@ const Sidebar = () => {
                 <span className="text">Comments</span>
               </NavLink>
             </li>
-            <li className="menu-item">
+            {/* <li className="menu-item">
               <NavLink activeClassName="active" className="menu-link disabled" to="/admin/sellers">
                 <i className="icon fas fa-store-alt"></i>
                 <span className="text">Sellers</span>
@@ -72,7 +72,7 @@ const Sidebar = () => {
                 <i className="icon fas fa-usd-circle"></i>
                 <span className="text">Transactions</span>
               </NavLink>
-            </li>
+            </li> */}
           </ul>
           <br />
           <br />

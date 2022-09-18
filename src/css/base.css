@@ -41,13 +41,13 @@ html {
 
 .btn {
   display: inline-block;
-  border: none;
+  /* border: none; */
   /* background-color: transparent; */
-  outline: none;
+  /* outline: none; */
   text-decoration: none;
-  color: var(--white-color);
+  /* color: var(--white-color); */
   padding: 10px 12px;
-  font-size: 1.6rem;
+  /* font-size: 1.6rem; */
   border-radius: 5px;
 }
 
@@ -55,6 +55,9 @@ html {
   background-color: var(--primary-color);
 }
 
+.btn-color {
+  color: var(--primary-color);
+}
 .main-effect {
   position: relative;
 }
