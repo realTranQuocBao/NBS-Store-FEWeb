@@ -21,7 +21,7 @@ const BestNumViewsProduct = () => {
 
   const settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 4,
@@ -32,7 +32,7 @@ const BestNumViewsProduct = () => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: false,
+          infinite: true,
           dots: false,
           initialSlide: 0
         }

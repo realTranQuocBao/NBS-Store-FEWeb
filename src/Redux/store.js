@@ -52,7 +52,7 @@ import {
 import {
   categoryCreateReducerAdmin,
   categoryDeleteReducerAdmin,
-  categoryEditReducerAdmin,
+  // categoryEditReducerAdmin,
   categoryListReducer,
   categoryListReducerAdmin,
   categoryUpdateReducerAdmin
@@ -98,7 +98,7 @@ const reducer = combineReducers({
   categoryListAdmin: categoryListReducerAdmin,
   categoryCreateAdmin: categoryCreateReducerAdmin,
   categoryDeleteAdmin: categoryDeleteReducerAdmin,
-  categoryEditAdmin: categoryEditReducerAdmin,
+  // categoryEditAdmin: categoryEditReducerAdmin,
   categoryUpdateAdmin: categoryUpdateReducerAdmin,
   orderListAdmin: orderListReducerAdmin,
   orderDeliver: orderDeliveredReducer,

@@ -14,29 +14,30 @@ const MainCategories = () => {
   }
   return (
     <>
-    <section className="content-main">
-      <div className="content-header">
-        <h2 className="content-title">Categories</h2>
-      </div>
-
-      <div className="card shadow-sm">
-        <div className="card-body">
-            <div className="row">
-              {/* Create category or Update category*/}
-              {
-                isEditCategory
-                  ? <UpdateCategory currentCategory={currentCategory} />
-                  : <CreateCategory />
-              }
-            {/* Categories table */}
-              <CategoriesTable
-                handleEditCategory={handleEditCategory}
-                handleCurrentCategory={handleCurrentCategory}
-              />
-            </div>
+      <section className="content-main">
+        <div className="content-header">
+          <h2 className="content-title">Categories</h2>
         </div>
-      </div>
-    </section>
+
+        <div className="shadow-sm">
+          <div className="card shadow-sm p-3 pb-3 mb-3">
+            {/* Create category or Update category*/}
+            {isEditCategory ? (
+              <UpdateCategory currentCategory={currentCategory} setIsEditCategory={setIsEditCategory} />
+            ) : (
+              <CreateCategory />
+            )}
+          </div>
+          {/* Categories table */}
+          <div className="card p-3">
+            <CategoriesTable
+              setIsEditCategory={setIsEditCategory}
+              handleEditCategory={handleEditCategory}
+              handleCurrentCategory={handleCurrentCategory}
+            />
+          </div>
+        </div>
+      </section>
     </>
   );
 };
