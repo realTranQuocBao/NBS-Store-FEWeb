@@ -4,10 +4,10 @@ import Rating from "./Rating";
 import Pagination from "./pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../Redux/Actions/productActions";
-import Loading from "./../base/LoadingError/Loading";
 import Message from "./../base/LoadingError/Error";
 import Filter from "../../screens/Filter";
 import { listCategory } from "../../Redux/Actions/categoryActions";
+import CardProductLoading from "../base/LoadingError/CardProductLoading";
 
 const ShopSection = (props) => {
   const { keyword, pageNumber, isFilter, setIsFilter } = props;
@@ -23,8 +23,8 @@ const ShopSection = (props) => {
   const categoryList = useSelector((state) => state.categoryList);
   const { category } = categoryList;
 
-  const checkNameCategory = (item) => item._id === categoryFilter;
-  const nameCate = category?.find(checkNameCategory)?.name;
+  // const checkNameCategory = (item) => item.name === categoryFilter;
+  // const nameCate = category?.find(checkNameCategory)?.name;
   const checkIsFilter = useCallback(() => {
     if (categoryFilter !== "" || priceFilter !== "" || dateFilter !== "") {
       setIsFilter(true);
@@ -34,7 +34,7 @@ const ShopSection = (props) => {
   }, [categoryFilter, isFilter, setIsFilter, priceFilter, dateFilter]);
 
   const loadData = useCallback(() => {
-    dispatch(listProducts(keyword, pageNumber, nameCate, priceFilter, dateFilter));
+    dispatch(listProducts(keyword, pageNumber, categoryFilter, priceFilter, dateFilter));
     dispatch(listCategory());
   }, [dispatch, keyword, pageNumber, categoryFilter, priceFilter, dateFilter]);
 
@@ -66,15 +66,21 @@ const ShopSection = (props) => {
                   </div>
                   <div className="col-8 row product-container ">
                     {loading ? (
-                      <div className="mb-5 mt-5">
-                        <Loading />
-                      </div>
+                      products?.map((product) => {
+                        return (
+                          <div className="col-lg-3" aria-hidden="true" key={product._id}>
+                            <div className="shadow p-3 mb-4 bg-body rounded">
+                              <CardProductLoading />
+                            </div>
+                          </div>
+                        );
+                      })
                     ) : error ? (
                       <Message variant="alert-danger">{error}</Message>
                     ) : (
                       products?.map((product) => (
-                        <div className="shop col-lg-3 " key={product._id}>
-                          <div className="border-product">
+                        <div className="col-lg-3" key={product._id}>
+                          <div className="shadow p-3 mb-4 bg-body rounded">
                             <Link to={`/products/${product._id}`}>
                               <div className="shopBack main-effect">
                                 <img className="main-scale" src={product.image} alt={product.name} />

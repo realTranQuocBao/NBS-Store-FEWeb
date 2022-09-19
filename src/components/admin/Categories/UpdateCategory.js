@@ -1,89 +1,87 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import { updateCategoryAdmin } from "../../../Redux/Actions/categoryActions";
-import { CATEGORY_UPDATE_RESET } from "../../../Redux/Constants/categoryConstants";
 import Loading from "../../base/LoadingError/Loading";
 
-const ToastObjects = {
-    pauseOnFocusLoss: false,
-    draggable: false,
-    pauseOnHover: false,
-    autoClose: 2000
-};
-const UpdateCategory = ({ currentCategory }) => {
-    const [name, setName] = useState("");
+const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
+  const [name, setName] = useState("");
+  const [slug, setSlug] = useState("");
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const categoryListAdmin = useSelector((state) => state.categoryListAdmin);
-    const { category } = categoryListAdmin;
+  const categoryListAdmin = useSelector((state) => state.categoryListAdmin);
+  const { category } = categoryListAdmin;
 
-    const categoryUpdateAdmin = useSelector((state) => {
-        return state.categoryUpdateAdmin;
-    });
-    const { loading, success, error } = categoryUpdateAdmin;
+  const categoryUpdateAdmin = useSelector((state) => state.categoryUpdateAdmin);
+  const { loading } = categoryUpdateAdmin;
 
-    const updateCategoryHandler = useCallback(() => {
-        setName(category[currentCategory]?.name);
-    }, [category, currentCategory]);
-    useEffect(() => {
-        updateCategoryHandler();
-    }, [updateCategoryHandler]);
+  const updateCategoryHandler = useCallback(() => {
+    const nameUpdate = category[currentCategory]?.name;
+    const slugUpdate = category[currentCategory]?.slug;
+    setName(nameUpdate);
+    setSlug(slugUpdate);
+  }, [category, currentCategory]);
 
-    useEffect(() => {
-        if (success) {
-            toast.success("Category Updated", ToastObjects);
-        }
-        if (error) {
-            toast.success(error, ToastObjects);
-        }
-        dispatch({ type: CATEGORY_UPDATE_RESET });
-    }, [dispatch, success, error]);
+  useEffect(() => {
+    updateCategoryHandler();
+  }, [updateCategoryHandler]);
 
-    const submitHandler = (e) => {
-        e.preventdefault();
-        dispatch(
-            updateCategoryAdmin({
-                _id: category[currentCategory]?._id,
-                name,
-                slug: "string",
-                status: true
-            })
-        );
-    };
-
-    return (
-        <>
-            <div className="col-md-12 col-lg-4">
-                <form onSubmit={submitHandler}>
-                    {loading && <Loading />}
-                    <div className="mb-4">
-                        <label htmlFor="category_name" className="form-label">
-                            Name
-                        </label>
-                        <input
-                            type="text"
-                            placeholder="Type here"
-                            className="form-control"
-                            id="category_name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </div>
-                    <div className="d-flex justify-content-between">
-                        <Link to="/admin/category" type="submit" className="btn btn-size btn-secondary">
-                            Cancel
-                        </Link>
-                        <button type="submit" className="btn btn-size btn-warning">
-                            Update category
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </>
+  const submitHandler = () => {
+    dispatch(
+      updateCategoryAdmin({
+        _id: category[currentCategory]?._id,
+        name,
+        slug,
+        status: true
+      })
     );
+  };
+
+  return (
+    <>
+      <div className="">
+        <div>
+          {loading && <Loading />}
+          <div className="d-flex justify-content-between">
+            <div className="mb-3 w-50">
+              <label htmlFor="category_name" className="form-label">
+                Name
+              </label>
+              <input
+                type="text"
+                placeholder="Type here"
+                className="form-control"
+                id="category_name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="mb-3 w-50 ms-3">
+              <label htmlFor="category_slug" className="form-label">
+                Slug
+              </label>
+              <input
+                type="text"
+                placeholder="Slug here"
+                className="form-control"
+                id="category_slug"
+                value={slug}
+                onChange={(e) => setSlug(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="d-flex justify-content-between">
+            <button className="btn btn-primary p-2" onClick={() => setIsEditCategory(false)}>
+              Cancel update
+            </button>
+            <button className="btn btn-warning p-2" onClick={() => submitHandler()}>
+              Update category
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default UpdateCategory;

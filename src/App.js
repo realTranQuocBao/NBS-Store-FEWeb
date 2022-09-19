@@ -28,24 +28,25 @@ import OrderDetailScreenAdmin from "./screens/admin/OrderDetailScreen";
 import AddProductAdmin from "./screens/admin/AddProduct";
 import LoginAdmin from "./screens/admin/LoginScreen";
 import UsersScreenAdmin from "./screens/admin/UsersScreen";
+import CommentScreenAdmin from "./screens/admin/CommentsScreen";
 import ProductEditScreenAdmin from "./screens/admin/ProductEditScreen";
 import NotFoundAdmin from "./screens/admin/NotFoundAdmin";
-import {PrivateRouter,AdminPrivateRouter} from "./PrivateRouter";
+import { PrivateRouter, AdminPrivateRouter } from "./PrivateRouter";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductsAdmin } from "./Redux/Actions/productActions";
 import { listOrders } from "./Redux/Actions/orderActions";
 import NotFound from "./screens/NotFound";
 
 const App = () => {
-    const dispatch = useDispatch();
-    const userLogin = useSelector((state) => state.userLogin);
-    const { userInfo } = userLogin;
-    useEffect(() => {
-        if (userInfo && userInfo.isAdmin) {
-            dispatch(listProductsAdmin());
-            dispatch(listOrders());
-        }
-    }, [dispatch, userInfo]);
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  useEffect(() => {
+    if (userInfo && userInfo.isAdmin) {
+      dispatch(listProductsAdmin());
+      dispatch(listOrders());
+    }
+  }, [dispatch, userInfo]);
 
   return (
     <Router>
@@ -53,11 +54,7 @@ const App = () => {
         <Route path="/" component={HomeScreen} exact />
         <Route path="/search/:keyword" component={HomeScreen} exact />
         <Route path="/page/:pagenumber" component={HomeScreen} exact />
-        <Route
-          path="/search/:keyword/page/:pageNumber"
-          component={HomeScreen}
-          exact
-        />
+        <Route path="/search/:keyword/page/:pageNumber" component={HomeScreen} exact />
         <Route path="/products/:id" component={SingleProduct} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
@@ -71,25 +68,19 @@ const App = () => {
         {/* ADMIN */}
         <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
         <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} exact />
-        <Route path="/admin/search/:keyword"
-          component={ProductScreenAdmin} exact />
-        <Route path="/admin/products/page/:pagenumber"
-          component={ProductScreenAdmin} exact />
-        <Route
-          path="/admin/search/:keyword/page/:pageNumber"
-          component={ProductScreenAdmin}
-          exact
-        />
+        <Route path="/admin/search/:keyword" component={ProductScreenAdmin} exact />
+        <Route path="/admin/products/page/:pagenumber" component={ProductScreenAdmin} exact />
+        <Route path="/admin/search/:keyword/page/:pageNumber" component={ProductScreenAdmin} exact />
         <AdminPrivateRouter path="/admin/category" component={CategoriesScreenAdmin} />
         <AdminPrivateRouter path="/admin/orders" component={OrderScreenAdmin} />
         <AdminPrivateRouter path="/admin/order/:id" component={OrderDetailScreenAdmin} />
         <AdminPrivateRouter path="/admin/addproduct" component={AddProductAdmin} />
         <AdminPrivateRouter path="/admin/users" component={UsersScreenAdmin} />
+        <AdminPrivateRouter path="/admin/comments" component={CommentScreenAdmin} />
         <AdminPrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} />
         <Route path="/admin/login" component={LoginAdmin} />
         <AdminPrivateRouter path="/admin/*" component={NotFoundAdmin} />
         <Route path="*" component={NotFound} />
-
       </Switch>
     </Router>
   );

@@ -7,12 +7,7 @@ const Sidebar = () => {
       <aside className="navbar-aside" id="offcanvas_aside">
         <div className="aside-top">
           <Link to="/" className="brand-wrap">
-            <img
-              src="/images/logo.png"
-              style={{ height: "46" }}
-              className="logo"
-              alt="Ecommerce dashboard template"
-            />
+            <img src="/images/logo.png" style={{ height: "46" }} className="logo" alt="Ecommerce dashboard template" />
           </Link>
           <div>
             <button className="btn btn-icon btn-aside-minimize">
@@ -24,87 +19,60 @@ const Sidebar = () => {
         <nav>
           <ul className="menu-aside">
             <li className="menu-item">
-              <NavLink
-                activeClassName="active"
-                className="menu-link"
-                to="/admin"
-                exact={true}
-              >
+              <NavLink activeClassName="active" className="menu-link" to="/admin" exact={true}>
                 <i className="icon fas fa-home"></i>
                 <span className="text">Dashboard</span>
               </NavLink>
             </li>
             <li className="menu-item">
-              <NavLink
-                activeClassName="active"
-                className="menu-link"
-                to="/admin/products"
-              >
+              <NavLink activeClassName="active" className="menu-link" to="/admin/products">
                 <i className="icon fas fa-shopping-bag"></i>
                 <span className="text">Products</span>
               </NavLink>
             </li>
             <li className="menu-item">
-              <NavLink
-                activeClassName="active"
-                className="menu-link"
-                to="/admin/addproduct"
-              >
+              <NavLink activeClassName="active" className="menu-link" to="/admin/addproduct">
                 <i className="icon fas fa-cart-plus"></i>
                 <span className="text">Add product</span>
               </NavLink>
             </li>
             <li className="menu-item">
-              <NavLink
-                activeClassName="active"
-                className="menu-link"
-                to="/admin/category"
-              >
+              <NavLink activeClassName="active" className="menu-link" to="/admin/category">
                 <i className="icon fas fa-list"></i>
                 <span className="text">Categories</span>
               </NavLink>
             </li>
             <li className="menu-item">
-              <NavLink
-                activeClassName="active"
-                className="menu-link"
-                to="/admin/orders"
-              >
+              <NavLink activeClassName="active" className="menu-link" to="/admin/orders">
                 <i className="icon fas fa-bags-shopping"></i>
                 <span className="text">Orders</span>
               </NavLink>
             </li>
             <li className="menu-item">
-              <NavLink
-                activeClassName="active"
-                className="menu-link"
-                to="/admin/users"
-              >
+              <NavLink activeClassName="active" className="menu-link" to="/admin/users">
                 <i className="icon fas fa-user"></i>
                 <span className="text">Users</span>
               </NavLink>
             </li>
             <li className="menu-item">
-              <NavLink
-                activeClassName="active"
-                className="menu-link disabled"
-                to="/admin/sellers"
-              >
+              <NavLink activeClassName="active" className="menu-link" to="/admin/comments">
+                <i className="icon fas fa-comments"></i>
+                <span className="text">Comments</span>
+              </NavLink>
+            </li>
+            {/* <li className="menu-item">
+              <NavLink activeClassName="active" className="menu-link disabled" to="/admin/sellers">
                 <i className="icon fas fa-store-alt"></i>
                 <span className="text">Sellers</span>
               </NavLink>
             </li>
 
             <li className="menu-item">
-              <NavLink
-                activeClassName="active"
-                className="menu-link disabled"
-                to="/admin/transaction"
-              >
+              <NavLink activeClassName="active" className="menu-link disabled" to="/admin/transaction">
                 <i className="icon fas fa-usd-circle"></i>
                 <span className="text">Transactions</span>
               </NavLink>
-            </li>
+            </li> */}
           </ul>
           <br />
           <br />

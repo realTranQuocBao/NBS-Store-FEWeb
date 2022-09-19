@@ -4,13 +4,12 @@ import { toast } from "react-toastify";
 import { createCategoryAdmin } from "../../../Redux/Actions/categoryActions";
 import { CATEGORY_CREATE_RESET } from "../../../Redux/Constants/categoryConstants.js";
 import Loading from "../../base/LoadingError/Loading";
-import Toast from "../../base/LoadingError/Toast";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
   draggable: false,
   pauseOnHover: false,
-  autoClose: 2000,
+  autoClose: 2000
 };
 const CreateCategory = () => {
   const [name, setName] = useState("");
@@ -25,56 +24,46 @@ const CreateCategory = () => {
       toast.success("Category Added", ToastObjects);
       dispatch({ type: CATEGORY_CREATE_RESET });
       setName("");
-    } else {
-      toast.error(error, ToastObjects)
+    }
+    if (error) {
+      toast.error(error, ToastObjects);
+      dispatch({ type: CATEGORY_CREATE_RESET });
     }
   }, [category, dispatch, loading, error]);
 
+  function convertToSlug(Text) {
+    return Text.toLowerCase()
+      .replace(/ /g, "-")
+      .replace(/[^\w-]+/g, "");
+  }
+
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createCategoryAdmin(name));
+    dispatch(createCategoryAdmin({ name, slug: convertToSlug(name) }));
   };
   return (
     <>
-      <Toast />
-      <div className="col-md-12 col-lg-4">
-        <form onSubmit={submitHandler}>
-          {/* {error && <Message variant="alert-danger">{error}</Message>} */}
-          {loading && <Loading />}
-          <div className="mb-4">
-            <label htmlFor="category_name" className="form-label">
-              Name
-            </label>
-            <input
-              type="text"
-              placeholder="Type here"
-              className="form-control"
-              id="category_name"
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
-          </div>
-          {/* <div className="mb-4">
-          <label className="form-label">Images</label>
-          <input className="form-control" type="file" />
-        </div>
+      <form onSubmit={submitHandler}>
+        {/* {error && <Message variant="alert-danger">{error}</Message>} */}
+        {loading && <Loading />}
         <div className="mb-4">
-          <label className="form-label">Description</label>
-          <textarea
+          <label htmlFor="category_name" className="form-label">
+            Name
+          </label>
+          <input
+            required
+            type="text"
             placeholder="Type here"
             className="form-control"
-            rows="4"
-          ></textarea>
-        </div> */}
-
-          <div className="d-grid">
-            <button
-              className="btn btn-size btn-primary">
-              Create category
-            </button>
-          </div>
-        </form>
-      </div>
+            id="category_name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="d-grid w-25">
+          <button className="btn btn-size btn-primary">Create category</button>
+        </div>
+      </form>
     </>
   );
 };

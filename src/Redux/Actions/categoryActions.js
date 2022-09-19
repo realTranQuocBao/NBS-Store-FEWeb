@@ -74,111 +74,100 @@ export const listCategoryAdmin = () => async (dispatch, getState) => {
     }
 };
 // CREATE CATEGORY
-export const createCategoryAdmin =
-    (name) =>
-        async (dispatch, getState) => {
-            try {
-                dispatch({ type: CATEGORY_CREATE_REQUEST });
+export const createCategoryAdmin = (category) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: CATEGORY_CREATE_REQUEST });
 
-                const {
-                    userLogin: { userInfo },
-                } = getState();
+    const {
+      userLogin: { userInfo }
+    } = getState();
 
-                const config = {
-                    headers: {
-                        Authorization: `Bearer ${userInfo.token}`,
-                    },
-                };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
 
-                const { data } = await axios.post(
-                    `/api/v1/category/`,
-                    { name },
-                    config
-                );
+    const { data } = await axios.post(
+      `/api/v1/category/`,
+      { name: category.name, slug: category.slug, status: category.status },
+      config
+    );
 
-                dispatch({ type: CATEGORY_CREATE_SUCCESS, payload: data });
-            } catch (error) {
-                const message =
-                    error.response && error.response.data.message
-                        ? error.response.data.message
-                        : error.message;
-                if (message === "Not authorized, token failed") {
-                    dispatch(logout());
-                }
-                dispatch({
-                    type: CATEGORY_CREATE_FAIL,
-                    payload: message,
-                });
-            }
-        };
+    dispatch({ type: CATEGORY_CREATE_SUCCESS, payload: data });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: CATEGORY_CREATE_FAIL,
+      payload: message
+    });
+  }
+};
 
 // DELETE CATEGORY
 export const deleteCategoryAdmin = (id) => async (dispatch, getState) => {
-    try {
-        dispatch({ type: CATEGORY_DELETE_REQUEST });
+  try {
+    dispatch({ type: CATEGORY_DELETE_REQUEST });
 
-        const {
-            userLogin: { userInfo },
-        } = getState();
+    const {
+      userLogin: { userInfo }
+    } = getState();
 
-        const config = {
-            headers: {
-                Authorization: `Bearer ${userInfo.token}`,
-            },
-        };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
 
-        await axios.delete(`/api/v1/category/${id}`, config);
+    await axios.delete(`/api/v1/category/${id}`, config);
 
-        dispatch({ type: CATEGORY_DELETE_SUCCESS });
-    } catch (error) {
-        const message =
-            error.response && error.response.data.message
-                ? error.response.data.message
-                : error.message;
-        if (message === "Not authorized, token failed") {
-            dispatch(logout());
-        }
-        dispatch({
-            type: CATEGORY_DELETE_FAIL,
-            payload: message,
-        });
+    dispatch({ type: CATEGORY_DELETE_SUCCESS });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
     }
+    dispatch({
+      type: CATEGORY_DELETE_FAIL,
+      payload: message
+    });
+  }
 };
 
 // UPDATE CATEGORY
 export const updateCategoryAdmin = (category) => async (dispatch, getState) => {
-    try {
-        dispatch({ type: CATEGORY_UPDATE_REQUEST });
+  try {
+    dispatch({ type: CATEGORY_UPDATE_REQUEST });
 
-        const {
-            userLogin: { userInfo },
-        } = getState();
+    const {
+      userLogin: { userInfo }
+    } = getState();
 
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${userInfo.token}`,
-            },
-        };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
 
-        const { data } = await axios.put(
-            `/api/v1/category/${category._id}`,
-            category,
-            config
-        );
+    const { data } = await axios.put(
+      `/api/v1/category/${category._id}`,
+      { name: category.name, slug: category.slug, status: category.status },
+      config
+    );
 
-        dispatch({ type: CATEGORY_UPDATE_SUCCESS, payload: data });
-    } catch (error) {
-        const message =
-            error.response && error.response.data.message
-                ? error.response.data.message
-                : error.message;
-        if (message === "Not authorized, token failed") {
-            dispatch(logout());
-        }
-        dispatch({
-            type: CATEGORY_UPDATE_FAIL,
-            payload: message,
-        });
+    dispatch({ type: CATEGORY_UPDATE_SUCCESS, payload: data });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
     }
+    dispatch({
+      type: CATEGORY_UPDATE_FAIL,
+      payload: message
+    });
+  }
 };

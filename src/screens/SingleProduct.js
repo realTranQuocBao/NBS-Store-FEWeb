@@ -1,16 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Header from "../components/Header";
 import Rating from "../components/homeComponents/Rating";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createProductReview, detailsProduct, listProducts } from "../Redux/Actions/productActions";
+import { createProductReview, detailsProduct, listCommentProduct, listProducts } from "../Redux/Actions/productActions";
 import Loading from "./../components/base/LoadingError/Loading";
 import Message from "./../components/base/LoadingError/Error";
 import moment from "moment";
-import { PRODUCT_CREATE_REVIEW_RESET } from "../Redux/Constants/productConstants";
+import {
+  PRODUCT_CREATE_COMMENT_FAIL,
+  PRODUCT_CREATE_COMMENT_REPLY_FAIL,
+  PRODUCT_CREATE_COMMENT_REPLY_RESET,
+  PRODUCT_CREATE_COMMENT_RESET,
+  PRODUCT_CREATE_REVIEW_RESET,
+  PRODUCT_DELETE_COMMENT_FAIL,
+  PRODUCT_DELETE_COMMENT_RESET,
+  PRODUCT_DELETE_COMMENT_SUCCESS,
+  PRODUCT_UPDATE_COMMENT_FAIL,
+  PRODUCT_UPDATE_COMMENT_RESET,
+  PRODUCT_UPDATE_COMMENT_SUCCESS
+} from "../Redux/Constants/productConstants";
 import { addToCartItems } from "../Redux/Actions/cartActions";
 import { ADD_TO_CART_FAIL } from "../Redux/Constants/cartConstants";
+import ProductComment from "../components/singleProduct/ProductComment";
+import { toast } from "react-toastify";
+import Toast from "../components/base/LoadingError/Toast";
+import Slider from "react-slick";
 
+const ToastObjects = {
+  pauseOnFocusLoss: false,
+  draggable: false,
+  pauseOnHover: false,
+  autoClose: 2000
+};
 const SingleProduct = ({ history, match }) => {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(5);
@@ -33,17 +55,73 @@ const SingleProduct = ({ history, match }) => {
   const productReviewCreate = useSelector((state) => state.productReviewCreate);
   const { loading: loadingCreateReview, error: errorCreateReview, success: successCreateReview } = productReviewCreate;
 
+  const notifiCreateProductComment = useSelector((state) => state.productCreateComment);
+  const { success: successCreateComment, error: errorCreateComment } = notifiCreateProductComment;
+
+  const notifiCreateProductCommentReply = useSelector((state) => state.productCreateCommentReply);
+  const { success: successCreateCommentReply, error: errorCreateCommentReply } = notifiCreateProductCommentReply;
+
+  const notifiDeleteProductComment = useSelector((state) => state.productDeleteComment);
+  const { success: successDeleteComment, error: errorDeleteComment } = notifiDeleteProductComment;
+
+  const notifiUpdateProductComment = useSelector((state) => state.productUpdateComment);
+  const { success: successUpdateComment, error: errorUpdateComment } = notifiUpdateProductComment;
+
+  const loadListCommentProduct = useCallback(() => {
+    dispatch(listCommentProduct(productId));
+  }, [dispatch, productId]);
+
   // handle get single products
   useEffect(() => {
     if (successCreateReview) {
-      setRating(0);
       setReviewContent("");
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
-
     dispatch(detailsProduct(productId));
     dispatch(listProducts());
   }, [dispatch, productId, successCreateReview]);
+
+  // handle show noti create comment
+  useEffect(() => {
+    if (successCreateComment || successCreateCommentReply) {
+      toast.success("Create product comment success!", ToastObjects);
+      dispatch({ type: PRODUCT_CREATE_COMMENT_RESET });
+      dispatch({ type: PRODUCT_CREATE_COMMENT_REPLY_RESET });
+    }
+    if (errorCreateComment || errorCreateCommentReply) {
+      toast.error(errorCreateComment, ToastObjects);
+      dispatch({ type: PRODUCT_CREATE_COMMENT_FAIL });
+      dispatch({ type: PRODUCT_CREATE_COMMENT_REPLY_FAIL });
+    }
+  }, [dispatch, successCreateComment, errorCreateComment, successCreateCommentReply, errorCreateCommentReply]);
+
+  // handle show noti delete comment
+  useEffect(() => {
+    if (successDeleteComment) {
+      toast.success("Delete comment success!!!", ToastObjects);
+      loadListCommentProduct();
+      dispatch({ type: PRODUCT_DELETE_COMMENT_SUCCESS });
+      dispatch({ type: PRODUCT_DELETE_COMMENT_RESET });
+    }
+    if (errorDeleteComment) {
+      toast.error(errorDeleteComment, ToastObjects);
+      dispatch({ type: PRODUCT_DELETE_COMMENT_FAIL });
+    }
+  }, [dispatch, successDeleteComment, errorDeleteComment, loadListCommentProduct]);
+
+  // handle show noti update comment
+  useEffect(() => {
+    if (successUpdateComment) {
+      toast.success("Update comment success!!!", ToastObjects);
+      loadListCommentProduct();
+      dispatch({ type: PRODUCT_UPDATE_COMMENT_SUCCESS });
+      dispatch({ type: PRODUCT_UPDATE_COMMENT_RESET });
+    }
+    if (errorUpdateComment) {
+      toast.error(errorUpdateComment, ToastObjects);
+      dispatch({ type: PRODUCT_UPDATE_COMMENT_FAIL });
+    }
+  }, [dispatch, successUpdateComment, errorUpdateComment, loadListCommentProduct]);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -72,8 +150,47 @@ const SingleProduct = ({ history, match }) => {
     e.currentTarget.onerror = null; // prevents looping
     e.currentTarget.src = "../images/avatar/default.png";
   };
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 4,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: false,
+          dots: false,
+          initialSlide: 0
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 0
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 0
+        }
+      }
+    ]
+  };
+
   return (
     <>
+      <Toast />
       <Header />
       <div className="container single-product">
         {loading ? (
@@ -208,39 +325,48 @@ const SingleProduct = ({ history, match }) => {
                 )}
               </div>
             </div>
-            <h3>Related products category</h3>
-            <div className="col-8 row related-product-container">
-              {loading ? (
-                <div className="mb-5 mt-5">
-                  <Loading />
-                </div>
-              ) : error ? (
-                <Message variant="alert-danger">{error}</Message>
-              ) : (
-                relatedProducts?.map((product) => (
-                  <div className="shop col-lg-3 " key={product._id}>
-                    <div className="border-product">
-                      <Link to={`/products/${product._id}`}>
-                        <div className="shopBack main-effect">
-                          <img className="main-scale" src={product.image} alt={product.name} />
-                        </div>
-                      </Link>
-
-                      <div className="shoptext">
-                        <p>
-                          <Link to={`/products/${product._id}`}>
-                            {`${product.name.length} >= 30` ? ` ${product.name.slice(0, 30)}...` : ` ${product.name}}`}
-                          </Link>
-                        </p>
-
-                        <Rating value={product.rating} text={`${product.numReviews} reviews`} />
-                        <h3>${product.price}</h3>
-                      </div>
-                    </div>
+            {/* Related products */}
+            <div>
+              {relatedProducts?.length > 0 && <h3 className="mb-3">Related products category</h3>}
+              <div className="col-8 row related-product-container">
+                {loading ? (
+                  <div className="mb-5 mt-5">
+                    <Loading />
                   </div>
-                ))
-              )}
+                ) : error ? (
+                  <Message variant="alert-danger">{error}</Message>
+                ) : (
+                  <Slider {...settings}>
+                    {relatedProducts?.map((product) => (
+                      <div className="shop col-lg-3 " key={product._id}>
+                        <div className="border-product me-3">
+                          <Link to={`/products/${product._id}`}>
+                            <div className="shopBack main-effect">
+                              <img className="main-scale" src={product.image} alt={product.name} />
+                            </div>
+                          </Link>
+
+                          <div className="shoptext">
+                            <p>
+                              <Link to={`/products/${product._id}`}>
+                                {`${product.name.length} >= 30`
+                                  ? ` ${product.name.slice(0, 30)}...`
+                                  : ` ${product.name}}`}
+                              </Link>
+                            </p>
+
+                            <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                            <h3>${product.price}</h3>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </Slider>
+                )}
+              </div>
             </div>
+            {/* Product comment */}
+            <ProductComment userInfo={userInfo} match={match} />
           </>
         )}
       </div>
