@@ -793,7 +793,23 @@ textarea:focus {
 .each-slide > img {
   width: 100%;
 }
-
+.slide-container {
+  padding: 0 3rem;
+  display: flex;
+}
+.slide-container__left {
+  width: 70%;
+  padding-right: 0.5rem;
+}
+.slide-container__right {
+  width: 30%;
+}
+.slide-container__right > a:first-child div {
+  margin-bottom: 5px;
+}
+.slide-container__right > a:last-child div{
+  margin-top: 0.5rem;
+}
 /* Policy */
 .policy__list {
   margin-top: 24px;

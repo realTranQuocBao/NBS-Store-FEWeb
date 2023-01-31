@@ -292,6 +292,18 @@
     bottom: 60px;
     right: 0;
   }
+
+  /* slide */
+  .slide-container {
+    padding: unset;
+  }
+  .slide-container__right {
+    display: none;
+  }
+  .slide-container__left {
+    width: 100%;
+    padding-right: unset;
+  }
 }
 
 /* Mobile */
