@@ -50,6 +50,14 @@
   .Login2 {
     width: 100%;
   }
+
+  /* Verify custom */
+.verify-custom .box-left {
+  display: none;
+}
+.verify-custom .box-right {
+  width: 100% !important;
+}
 }
 @media (max-width: 768px) {
   .product-container {
@@ -358,3 +366,4 @@
     right: 5px;
   }
 }
+

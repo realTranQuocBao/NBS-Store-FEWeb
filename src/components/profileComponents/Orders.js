@@ -6,7 +6,6 @@ import Loading from "../base/LoadingError/Loading";
 
 const Orders = (props) => {
   const { loading, error, orders } = props;
-  console.log("orders: ", orders);
   return (
     <div className=" d-flex justify-content-center align-items-center flex-column">
       <p className="d-flex flex-end fw-bold border-bottom border-secondary rounded">TOTAL ORDER: {orders?.length}</p>

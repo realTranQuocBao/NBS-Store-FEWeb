@@ -4,7 +4,6 @@ import Main from "../../components/admin/Home/Main";
 import Sidebar from "../../components/admin/Sidebar";
 
 const HomeScreenAdmin = () => {
-  console.log("Home admin>>>");
   return (
     <>
       <Sidebar />

@@ -36,6 +36,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProductsAdmin } from "./Redux/Actions/productActions";
 import { listOrders } from "./Redux/Actions/orderActions";
 import NotFound from "./screens/NotFound";
+import { VerifyRegister } from "./screens/VerifyRegister";
+import { ConfirmRegister } from "./screens/ConfirmRegister";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -58,6 +60,8 @@ const App = () => {
         <Route path="/products/:id" component={SingleProduct} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/verify-email" component={VerifyRegister} />
+        <Route path="/confirm-register" component={ConfirmRegister} />
         <PrivateRouter path="/profile" component={ProfileScreen} />
         <Route path="/cart/:id?" component={CartScreen} />
         <PrivateRouter path="/shipping" component={ShippingScreen} />

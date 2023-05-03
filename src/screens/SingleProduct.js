@@ -259,11 +259,11 @@ const SingleProduct = ({ history, match }) => {
                     <div key={review._id} className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded">
                       <img
                         className="img-xs rounded-circle p-1"
-                        src={review.user.avatarUrl}
+                        src={review?.user?.avatarUrl}
                         onError={onAvatarLoadError}
                         alt="User avatar"
                       />
-                      <strong>{review.user.name}</strong>
+                      <strong>{review.user?.name}</strong>
                       <Rating value={review.rating} />
                       <span>{moment(review.createdAt).calendar()}</span>
                       <div className="alert alert-info mt-3">{review.reviewContent}</div>
