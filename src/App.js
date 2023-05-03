@@ -38,6 +38,7 @@ import { listOrders } from "./Redux/Actions/orderActions";
 import NotFound from "./screens/NotFound";
 import { VerifyRegister } from "./screens/VerifyRegister";
 import { ConfirmRegister } from "./screens/ConfirmRegister";
+import CompareProduct from "./screens/CompareProduct";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -64,6 +65,8 @@ const App = () => {
         <Route path="/confirm-register" component={ConfirmRegister} />
         <PrivateRouter path="/profile" component={ProfileScreen} />
         <Route path="/cart/:id?" component={CartScreen} />
+        <Route path="/compare-product" component={CompareProduct} />
+        <PrivateRouter path="/profile" component={ProfileScreen} />
         <PrivateRouter path="/shipping" component={ShippingScreen} />
         <PrivateRouter path="/payment" component={PaymentScreen} />
         <PrivateRouter path="/placeorder" component={PlaceOrderScreen} />

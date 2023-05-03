@@ -367,3 +367,10 @@
   }
 }
 
+/* compare */
+@media (max-width: 991.98px) {
+  .modal-dialog {
+    max-width: 90%;
+    margin: 1.75rem auto;
+  }
+}

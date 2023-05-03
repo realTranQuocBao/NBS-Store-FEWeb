@@ -111,9 +111,11 @@ export const userRegisterAction = (name, email, password, history) => async (dis
     dispatch({ type: USER_REGISTER_SUCCESS });
     // dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
     // localStorage.setItem("userInfo", JSON.stringify(data));
-    // setTimeout(()=>{
-    history.push(`/verify-email?email=${email}`);
-    // },1000)
+    toast.error("Account verification successful.", ToastObjects);
+
+    setTimeout(() => {
+      history.push(`/verify-email?email=${email}`);
+    }, 2000);
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
     dispatch({
@@ -146,6 +148,27 @@ export const userConfirmRegisterAction = (tokenVerification, history) => async (
     toast.error(message, ToastObjects);
 
     dispatch({ type: USER_CONFIRM_REGISTER_FAIL, payload: message });
+  }
+};
+// CANCEL CONFIRM REGISTER
+export const userCancelRegisterAction = (tokenVerification, history) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        "Content-type": "application/json"
+      }
+    };
+    await request.patch(`/api/v1/user/cancel-verify-email?emailVerificationToken=${tokenVerification}`, config);
+    toast.success("Cancel register account success!", ToastObjects);
+    setTimeout(() => {
+      history.push("/login");
+    }, 2000);
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    toast.error(message, ToastObjects);
+    setTimeout(() => {
+      history.push("/login");
+    }, 2000);
   }
 };
 // SHOW USER DETAILS SCREEN
