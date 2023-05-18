@@ -4,6 +4,8 @@ import LatestOrder from "./LatestOrder";
 import SaleStatistics from "./SalesStatistics";
 import ProductsStatistics from "./ProductsStatistics";
 import { useSelector } from "react-redux";
+import OrderStatistics from "./OrderStatistics";
+import QtyOrderStatistics from "./QtyOrderStatistics";
 
 const Main = () => {
   const orderListAdmin = useSelector((state) => state.orderListAdmin);
@@ -23,6 +25,10 @@ const Main = () => {
           {/* STATICS */}
           <SaleStatistics />
           <ProductsStatistics />
+        </div>
+        <div className="row">
+          <OrderStatistics />
+          <QtyOrderStatistics />
         </div>
 
         {/* LATEST ORDER */}

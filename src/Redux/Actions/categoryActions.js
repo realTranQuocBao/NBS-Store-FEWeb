@@ -14,64 +14,59 @@ import {
     CATEGORY_UPDATE_SUCCESS
 } from "../Constants/categoryConstants.js";
 import { logout } from "./userActions.js";
+import { request } from "../../utils/request.js";
 
 /**
  * CLIENT
  */
 // LIST ALL CATEGORY
 export const listCategory = () => async (dispatch) => {
-    try {
-        dispatch({ type: CATEGORY_LIST_REQUEST });
+  try {
+    dispatch({ type: CATEGORY_LIST_REQUEST });
 
-        const { data } = await axios.get(`/api/v1/category`);
+    const { data } = await request.get(`/api/v1/category`);
 
-        dispatch({ type: CATEGORY_LIST_SUCCESS, payload: data });
-    } catch (error) {
-        const message =
-            error.response && error.response.data.message
-                ? error.response.data.message
-                : error.message;
+    dispatch({ type: CATEGORY_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
 
-        dispatch({
-            type: CATEGORY_LIST_FAIL,
-            payload: message,
-        });
-    }
+    dispatch({
+      type: CATEGORY_LIST_FAIL,
+      payload: message
+    });
+  }
 };
 /**
  * ADMIN
  */
 // LIST ALL CATEGORY
 export const listCategoryAdmin = () => async (dispatch, getState) => {
-    try {
-        dispatch({ type: CATEGORY_LIST_REQUEST });
+  try {
+    dispatch({ type: CATEGORY_LIST_REQUEST });
 
-        const {
-            userLogin: { userInfo },
-        } = getState();
+    const {
+      userLogin: { userInfo }
+    } = getState();
 
-        const config = {
-            headers: {
-                Authorization: `Bearer ${userInfo.token}`,
-            },
-        };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
 
-        const { data } = await axios.get(`/api/v1/category`, config);
+    const { data } = await request.get(`/api/v1/category`, config);
 
-        dispatch({ type: CATEGORY_LIST_SUCCESS, payload: data });
-    } catch (error) {
-        const message =
-            error.response && error.response.data.message
-                ? error.response.data.message
-                : error.message;
-        if (message === "Not authorized, token failed") {
-            dispatch(logout());
-        }
-        dispatch({
-            type: CATEGORY_LIST_FAIL,
-            payload: message,
-        });
+    dispatch({ type: CATEGORY_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
     }
+    dispatch({
+      type: CATEGORY_LIST_FAIL,
+      payload: message
+    });
+  }
 };
 // CREATE CATEGORY
 export const createCategoryAdmin = (category) => async (dispatch, getState) => {
@@ -88,7 +83,7 @@ export const createCategoryAdmin = (category) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.post(
+    const { data } = await request.post(
       `/api/v1/category/`,
       { name: category.name, slug: category.slug, status: category.status },
       config
@@ -122,7 +117,7 @@ export const deleteCategoryAdmin = (id) => async (dispatch, getState) => {
       }
     };
 
-    await axios.delete(`/api/v1/category/${id}`, config);
+    await request.delete(`/api/v1/category/${id}`, config);
 
     dispatch({ type: CATEGORY_DELETE_SUCCESS });
   } catch (error) {
@@ -153,7 +148,7 @@ export const updateCategoryAdmin = (category) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.put(
+    const { data } = await request.put(
       `/api/v1/category/${category._id}`,
       { name: category.name, slug: category.slug, status: category.status },
       config

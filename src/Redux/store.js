@@ -11,12 +11,13 @@ import {
 } from "./Reducers/cartReducers";
 //admin
 import {
-    userDetailsReducer,
-    userListReducer,
-    userLoginReducer,
-    userRegisterReducer,
-    userUpdateAvatarReducer,
-    userUpdateProfileReducer
+  userConfirmRegisterReducer,
+  userDetailsReducer,
+  userListReducer,
+  userLoginReducer,
+  userRegisterReducer,
+  userUpdateAvatarReducer,
+  userUpdateProfileReducer
 } from "./Reducers/userReducers";
 import {
   productListReducer,
@@ -75,6 +76,7 @@ const reducer = combineReducers({
   cartUpdate: cartUpdateReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
+  userComfirmRegister: userConfirmRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
   userUpdateAvatar: userUpdateAvatarReducer,

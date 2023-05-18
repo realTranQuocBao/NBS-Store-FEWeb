@@ -21,13 +21,15 @@ const LatestOrder = (props) => {
                 <tr key={order._id}>
                   <td>
                     <b>
-                      {`${order.user.name.lenght} >= 15` ? `${order.user.name.slice(0, 10)}...` : `${order.user.name}`}
+                      {`${order?.user?.name.lenght} >= 15`
+                        ? `${order?.user?.name.slice(0, 10)}...`
+                        : `${order?.user?.name}`}
                     </b>
                   </td>
-                  <td>{order.user.email}</td>
-                  <td>${order.totalPrice}</td>
+                  <td>{order?.user?.email}</td>
+                  <td>${order?.totalPrice}</td>
                   <td>
-                    {order.isPaid ? (
+                    {order?.isPaid ? (
                       <span className="badge3 rounded-pill alert-success fw-bold">
                         Paid At {moment(order.paidAt).format("MMM Do YY")}
                       </span>

@@ -26,6 +26,7 @@ import ProductComment from "../components/singleProduct/ProductComment";
 import { toast } from "react-toastify";
 import Toast from "../components/base/LoadingError/Toast";
 import Slider from "react-slick";
+import ProductCompare from "../components/compare/ModalCompare";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -37,6 +38,9 @@ const SingleProduct = ({ history, match }) => {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(5);
   const [reviewContent, setReviewContent] = useState("");
+
+  const [showBoxCompare, setShowBoxCompare] = useState(false);
+  const [arrProductCompare, setArrProductCompare] = useState([]);
 
   const productId = match.params.id;
   const dispatch = useDispatch();
@@ -188,9 +192,22 @@ const SingleProduct = ({ history, match }) => {
     ]
   };
 
+  const handleShowCompare = () => {
+    setShowBoxCompare(!showBoxCompare);
+    setArrProductCompare([productId]);
+  };
+
   return (
     <>
       <Toast />
+      {showBoxCompare ? (
+        <ProductCompare
+          showBoxCompare={showBoxCompare}
+          setShowBoxCompare={setShowBoxCompare}
+          arrProductCompare={arrProductCompare}
+          setArrProductCompare={setArrProductCompare}
+        />
+      ) : null}
       <Header />
       <div className="container single-product">
         {loading ? (
@@ -211,6 +228,9 @@ const SingleProduct = ({ history, match }) => {
                 <div className="product-dtl">
                   <div className="product-info">
                     <div className="product-name">{product.name}</div>
+                    <p className="text-compare" onClick={handleShowCompare}>
+                      <i className="fa fa-plus-circle" aria-hidden="true"></i> So sánh
+                    </p>
                   </div>
                   <p>{product.description}</p>
 
@@ -259,11 +279,11 @@ const SingleProduct = ({ history, match }) => {
                     <div key={review._id} className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded">
                       <img
                         className="img-xs rounded-circle p-1"
-                        src={review.user.avatarUrl}
+                        src={review?.user?.avatarUrl}
                         onError={onAvatarLoadError}
                         alt="User avatar"
                       />
-                      <strong>{review.user.name}</strong>
+                      <strong>{review.user?.name}</strong>
                       <Rating value={review.rating} />
                       <span>{moment(review.createdAt).calendar()}</span>
                       <div className="alert alert-info mt-3">{review.reviewContent}</div>

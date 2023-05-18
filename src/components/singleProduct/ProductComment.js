@@ -177,11 +177,11 @@ const ProductComment = (props) => {
                 <div className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded">
                   <img
                     className="img-xs rounded-circle p-1 border border-primary"
-                    src={item.user.avatarUrl}
+                    src={item?.user?.avatarUrl}
                     onError={onAvatarLoadError}
                     alt="User avatar"
                   />
-                  <strong className="ms-2">{item.user.name}</strong>
+                  <strong className="ms-2">{item.user?.name}</strong>
                   <p className="fs-6 fst-italic">Question: {moment(item.createdAt).calendar()}</p>
                   <div className="alert alert-info p-2">{item.content}</div>
 
@@ -243,7 +243,7 @@ const ProductComment = (props) => {
                             <i className="fas fa-ellipsis-h text-primary"></i>
                           </Link>
                           <div className="dropdown-menu">
-                            {(userInfo?.isAdmin === true || userInfo?._id === item.user._id) && (
+                            {(userInfo?.isAdmin === true || userInfo?._id === item.user?._id) && (
                               <>
                                 <Link
                                   to="#"

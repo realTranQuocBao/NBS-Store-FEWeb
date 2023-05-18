@@ -50,6 +50,14 @@
   .Login2 {
     width: 100%;
   }
+
+  /* Verify custom */
+.verify-custom .box-left {
+  display: none;
+}
+.verify-custom .box-right {
+  width: 100% !important;
+}
 }
 @media (max-width: 768px) {
   .product-container {
@@ -292,6 +300,18 @@
     bottom: 60px;
     right: 0;
   }
+
+  /* slide */
+  .slide-container {
+    padding: unset;
+  }
+  .slide-container__right {
+    display: none;
+  }
+  .slide-container__left {
+    width: 100%;
+    padding-right: unset;
+  }
 }
 
 /* Mobile */
@@ -344,5 +364,13 @@
   .active-top {
     bottom: 45px;
     right: 5px;
+  }
+}
+
+/* compare */
+@media (max-width: 991.98px) {
+  .modal-dialog {
+    max-width: 90%;
+    margin: 1.75rem auto;
   }
 }

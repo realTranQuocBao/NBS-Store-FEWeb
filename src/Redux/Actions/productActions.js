@@ -50,6 +50,7 @@ import {
 } from "../Constants/productConstants";
 import { logout } from "./userActions";
 import { PRODUCT_CREATE_REVIEW_REQUEST } from "./../Constants/productConstants";
+import { request } from "../../utils/request";
 
 /**
  * CLIENT
@@ -60,7 +61,7 @@ export const listProducts =
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
-      const { data } = await axios.get(
+      const { data } = await request.get(
         `/api/v1/product?priceOrder=${priceOrder}&dateOrder=${dateOrder}&category=${category}&keyword=${keyword}&pageNumber=${pageNumber}&pageSize=20`
       );
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
@@ -75,7 +76,7 @@ export const listProducts =
 export const listProductsBestSeller = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_BEST_SELLER_REQUEST });
-    const { data } = await axios.get(`/api/v1/product?bestSeller=true&pageSize=12`);
+    const { data } = await request.get(`/api/v1/product?bestSeller=true&pageSize=12`);
     dispatch({ type: PRODUCT_BEST_SELLER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -88,7 +89,7 @@ export const listProductsBestSeller = () => async (dispatch) => {
 export const listProductsBestNumView = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_BEST_NUM_VIEW_REQUEST });
-    const { data } = await axios.get(`/api/v1/product?pageSize=15`);
+    const { data } = await request.get(`/api/v1/product?pageSize=15`);
     dispatch({ type: PRODUCT_BEST_NUM_VIEW_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -101,7 +102,7 @@ export const listProductsBestNumView = () => async (dispatch) => {
 export const detailsProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    const { data } = await axios.get(`/api/v1/product/${id}`);
+    const { data } = await request.get(`/api/v1/product/${id}`);
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -114,7 +115,7 @@ export const detailsProduct = (id) => async (dispatch) => {
 export const listCommentProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_COMMENT_REQUEST });
-    const { data } = await axios.get(`/api/v1/product/${id}/comments`);
+    const { data } = await request.get(`/api/v1/product/${id}/comments`);
     dispatch({ type: PRODUCT_COMMENT_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -138,7 +139,7 @@ export const createProductComment = (data) => async (dispatch, getState) => {
       }
     };
 
-    await axios.post(`/api/v1/comment`, data, config);
+    await request.post(`/api/v1/comment`, data, config);
     dispatch({ type: PRODUCT_CREATE_COMMENT_SUCCESS });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -166,7 +167,7 @@ export const deleteProductComment = (id) => async (dispatch, getState) => {
       }
     };
 
-    await axios.delete(`/api/v1/comment/${id}`, config);
+    await request.delete(`/api/v1/comment/${id}`, config);
 
     dispatch({ type: PRODUCT_DELETE_COMMENT_SUCCESS });
   } catch (error) {
@@ -195,7 +196,7 @@ export const createProductCommentReply = (data) => async (dispatch, getState) =>
       }
     };
 
-    await axios.post(`/api/v1/comment`, data, config);
+    await request.post(`/api/v1/comment`, data, config);
     dispatch({ type: PRODUCT_CREATE_COMMENT_REPLY_SUCCESS });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -224,7 +225,7 @@ export const updateCommentProduct = (comment) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.patch(
+    const { data } = await request.patch(
       `/api/v1/comment/${comment.commentId}/content`,
       { content: comment.content },
       config
@@ -257,7 +258,7 @@ export const createProductReview = (productId, review) => async (dispatch, getSt
       }
     };
 
-    await axios.post(`/api/v1/product/${productId}/review`, review, config);
+    await request.post(`/api/v1/product/${productId}/review`, review, config);
     dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -292,8 +293,8 @@ export const listProductsAdmin =
         }
       };
 
-      const { data } = await axios.get(
-        `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=All`,
+      const { data } = await request.get(
+        `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=All&status=all`,
         config
       );
 
@@ -325,7 +326,7 @@ export const listProductsAdminAll = () => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.get(`/api/v1/product?status=all&pageSize=100`, config);
+    const { data } = await request.get(`/api/v1/product?status=all&pageSize=100`, config);
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -355,7 +356,7 @@ export const deleteProductAdmin = (id) => async (dispatch, getState) => {
       }
     };
 
-    await axios.delete(`/api/v1/product/${id}`, config);
+    await request.delete(`/api/v1/product/${id}`, config);
 
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
   } catch (error) {
@@ -386,7 +387,7 @@ export const createProductAdmin =
         }
       };
 
-      const { data } = await axios.post(
+      const { data } = await request.post(
         `/api/v1/product/`,
         { name, category, price, description, image, countInStock },
         config
@@ -409,7 +410,7 @@ export const createProductAdmin =
 export const editProductAdmin = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_EDIT_REQUEST });
-    const { data } = await axios.get(`/api/v1/product/${id}`);
+    const { data } = await request.get(`/api/v1/product/${id}`);
     dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -439,7 +440,7 @@ export const updateProductAdmin = (product) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.put(`/api/v1/product/${product._id}`, product, config);
+    const { data } = await request.put(`/api/v1/product/${product._id}`, product, config);
 
     dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
     dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
@@ -470,7 +471,7 @@ export const listCommentProductsAdminAll = () => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.get(`/api/v1/comment?status=all&dateOrder=newest`, config);
+    const { data } = await request.get(`/api/v1/comment?status=all&dateOrder=newest`, config);
 
     dispatch({ type: PRODUCT_LIST_COMMENT_SUCCESS, payload: data });
   } catch (error) {
