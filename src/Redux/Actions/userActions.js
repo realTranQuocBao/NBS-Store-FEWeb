@@ -297,3 +297,5 @@ export const listUser = () => async (dispatch, getState) => {
     });
   }
 };
+
+// DISABLE USER BY ADMIN

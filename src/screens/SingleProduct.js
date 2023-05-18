@@ -196,9 +196,7 @@ const SingleProduct = ({ history, match }) => {
     setShowBoxCompare(!showBoxCompare);
     setArrProductCompare([productId]);
   };
-  useEffect(() => {
-    console.log("arrProductCompare>>>", arrProductCompare);
-  }, [arrProductCompare]);
+
   return (
     <>
       <Toast />

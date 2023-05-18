@@ -9,6 +9,7 @@ import axios from "axios";
 import { ORDER_PAY_RESET } from "../Redux/Constants/orderConstants";
 import Loading from "../components/base/LoadingError/Loading";
 import Message from "../components/base/LoadingError/Error";
+import { request } from "../utils/request";
 
 const OrderScreen = ({ match }) => {
   window.scrollTo(0, 0);
@@ -26,14 +27,12 @@ const OrderScreen = ({ match }) => {
       return (Math.round(num * 100) / 100).toFixed(2);
     };
 
-    order.itemsPrice = addDecimals(
-      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-    );
+    order.itemsPrice = addDecimals(order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0));
   }
 
   useEffect(() => {
     const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get("/api/v1/config/paypal");
+      const { data: clientId } = await request.get("/api/v1/config/paypal");
       const script = document.createElement("script");
       script.type = "text/javascript";
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;

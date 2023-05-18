@@ -4,9 +4,11 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
+    "@mongodb-js/charts-embed-dom": "^3.1.0",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "antd": "^5.4.7",
     "axios": "^0.24.0",
     "bootstrap": "^5.2.1",
     "formik": "^2.2.9",
