@@ -54,8 +54,8 @@ const CartScreen = ({ history }) => {
   };
 
   // update product from cart handler
-  const updateFromCartHandler = (productId, qty) => {
-    dispatch(updateCart(productId, qty));
+  const updateFromCartHandler = (productId, qty, size) => {
+    dispatch(updateCart(productId, qty, size));
     if (updateCartSuccess) {
       toast.success("Update cart item success", ToastObjects);
     } else if (updateCartError) {
@@ -107,16 +107,27 @@ const CartScreen = ({ history }) => {
                     <h4>{item.product.name}</h4>
                   </Link>
                 </div>
-                <div className="cart-qty col-md-2 col-sm-5 mt-md-5 mt-3 mt-md-0 d-flex flex-column justify-content-center">
+                <div className="cart-qty col-md-1 col-sm-5 mt-md-5 mt-3 mt-md-0 d-flex flex-column justify-content-center">
                   <h6>QUANTITY</h6>
                   <select
                     value={item.qty}
-                    onChange={(e) => updateFromCartHandler(item.product._id, Number(e.target.value))}
+                    onChange={(e) => updateFromCartHandler(item.product._id, Number(e.target.value), item.size)}
                   >
                     {[...Array(item.product.countInStock).keys()].map((x, index) => (
                       <option key={index} value={x + 1}>
                         {x + 1}
                       </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="cart-qty col-md-1 col-sm-5 mt-md-5 mt-3 mt-md-0 d-flex flex-column justify-content-center">
+                  <h6>SIZE</h6>
+                  <select
+                    value={item?.size}
+                    onChange={(e) => updateFromCartHandler(item.product._id, item.qty, Number(e.target.value))}
+                  >
+                    {item.product.size?.map((x, index) => (
+                      <option key={index}>{x}</option>
                     ))}
                   </select>
                 </div>

@@ -373,7 +373,7 @@ export const deleteProductAdmin = (id) => async (dispatch, getState) => {
 
 // CREATE PRODUCT
 export const createProductAdmin =
-  (name, category, price, description, image, countInStock) => async (dispatch, getState) => {
+  (name, category, size, price, description, image, countInStock) => async (dispatch, getState) => {
     try {
       dispatch({ type: PRODUCT_CREATE_REQUEST });
 
@@ -389,7 +389,7 @@ export const createProductAdmin =
 
       const { data } = await request.post(
         `/api/v1/product/`,
-        { name, category, price, description, image, countInStock },
+        { name, category, size, price, description, image, countInStock },
         config
       );
 

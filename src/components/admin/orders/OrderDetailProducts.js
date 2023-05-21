@@ -19,7 +19,8 @@ const OrderDetailProducts = (props) => {
           <tr>
             <th style={{ width: "40%" }}>Product</th>
             <th style={{ width: "20%" }}>Unit Price</th>
-            <th style={{ width: "20%" }}>Quantity</th>
+            <th style={{ width: "10%" }}>Quantity</th>
+            <th style={{ width: "10%" }}>Size</th>
             <th style={{ width: "20%" }} className="text-end">
               Total
             </th>
@@ -43,6 +44,7 @@ const OrderDetailProducts = (props) => {
               </td>
               <td>${item.price} </td>
               <td>{item.qty} </td>
+              <td>{item.size} </td>
               <td className="text-end"> ${item.qty * item.price}</td>
             </tr>
           ))}

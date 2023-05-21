@@ -30,6 +30,7 @@ const PlaceOrderScreen = ({ history }) => {
     arrayCartCurrent.push({
       name: item.product.name,
       qty: item.qty,
+      size: item.size,
       image: item.product.image,
       price: item.product.price,
       product: item.product._id
@@ -155,13 +156,17 @@ const PlaceOrderScreen = ({ history }) => {
                       <img src={item.product.image} alt={item.name} />
                     </div>
                     <div className="col-md-5 col-6 d-flex align-items-center">
-                      <Link to={`/products/${item.product}`}>
+                      <Link to={`/products/${item.product._id}`}>
                         <h6>{item.product.name}</h6>
                       </Link>
                     </div>
-                    <div className="mt-3 mt-md-0 col-md-2 col-6  d-flex align-items-center flex-column justify-content-center ">
+                    <div className="mt-3 mt-md-0 col-md-1 col-6  d-flex align-items-center flex-column justify-content-center ">
                       <h4>QUANTITY</h4>
                       <h6>{item.qty}</h6>
+                    </div>
+                    <div className="mt-3 mt-md-0 col-md-1 col-6  d-flex align-items-center flex-column justify-content-center ">
+                      <h4>SIZE</h4>
+                      <h6>{item.size}</h6>
                     </div>
                     <div className="mt-3 mt-md-0 col-md-2 col-6 align-items-end  d-flex flex-column justify-content-center ">
                       <h4>SUBTOTAL</h4>

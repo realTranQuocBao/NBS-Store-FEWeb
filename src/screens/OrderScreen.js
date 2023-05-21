@@ -163,11 +163,15 @@ const OrderScreen = ({ match }) => {
                             <h6>{item.name}</h6>
                           </Link>
                         </div>
-                        <div className="mt-3 mt-md-0 col-md-2 col-6  d-flex align-items-center flex-column justify-content-center ">
+                        <div className="mt-3 mt-md-0 col-md-1 col-6  d-flex align-items-center flex-column justify-content-center ">
                           <h4>QUANTITY</h4>
                           <h6>{item.qty}</h6>
                         </div>
-                        <div className="mt-3 mt-md-0 col-md-2 col-6 align-items-end  d-flex flex-column justify-content-center ">
+                        <div className="mt-3 mt-md-0 col-md-1 col-6  d-flex align-items-center flex-column justify-content-center ">
+                          <h4>SIZE</h4>
+                          <h6>{item.size}</h6>
+                        </div>
+                        <div className="mt-3 mt-md-0 col-md-1 col-6 align-items-end  d-flex flex-column justify-content-center ">
                           <h4>SUBTOTAL</h4>
                           <h6>${item.qty * item.price}</h6>
                         </div>

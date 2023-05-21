@@ -90,7 +90,7 @@ export const getCartListItem = () => async (dispatch, getState) => {
 };
 
 // ADD TO CART
-export const addToCartItems = (productId, qty) => async (dispatch, getState) => {
+export const addToCartItems = (productId, qty, size) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADD_TO_CART_REQUEST });
 
@@ -104,7 +104,7 @@ export const addToCartItems = (productId, qty) => async (dispatch, getState) => 
       }
     };
 
-    const { data } = await request.patch(`/api/v1/cart/add`, { productId, qty }, config);
+    const { data } = await request.patch(`/api/v1/cart/add`, { productId, qty, size }, config);
 
     dispatch({ type: ADD_TO_CART_SUCCESS, payload: data });
   } catch (error) {
@@ -148,7 +148,7 @@ export const removeFromCartItem = (productIds) => async (dispatch, getState) => 
   }
 };
 // UPDATE CART
-export const updateCart = (productId, qty) => async (dispatch, getState) => {
+export const updateCart = (productId, qty, size) => async (dispatch, getState) => {
   try {
     dispatch({ type: CART_UPDATE_REQUEST });
 
@@ -162,7 +162,7 @@ export const updateCart = (productId, qty) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await request.patch(`/api/v1/cart/update`, { productId, qty }, config);
+    const { data } = await request.patch(`/api/v1/cart/update`, { productId, qty, size }, config);
 
     dispatch({ type: CART_UPDATE_SUCCESS, payload: data });
   } catch (error) {

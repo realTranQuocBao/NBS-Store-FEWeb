@@ -127,12 +127,15 @@ const SingleProduct = ({ history, match }) => {
     }
   }, [dispatch, successUpdateComment, errorUpdateComment, loadListCommentProduct]);
 
+  // Handle size product
+  const [size, setSize] = useState(product?.size[0]);
+
   const handleAddToCart = (e) => {
     e.preventDefault();
     if (userInfo) {
-      if (qty > 0) {
-        dispatch(addToCartItems(productId, qty));
-        history.push(`/cart/${productId}?qty=${qty}`);
+      if (qty > 0 && size > 0) {
+        dispatch(addToCartItems(productId, qty, size));
+        history.push(`/cart/${productId}?qty=${qty}?size=${size}`);
       } else {
         dispatch({ type: ADD_TO_CART_FAIL });
       }
@@ -141,7 +144,7 @@ const SingleProduct = ({ history, match }) => {
     }
   };
 
-  const submitHandler = (e) => {
+  const submitHandlerReview = (e) => {
     e.preventDefault();
     dispatch(
       createProductReview(productId, {
@@ -229,7 +232,7 @@ const SingleProduct = ({ history, match }) => {
                   <div className="product-info">
                     <div className="product-name">{product.name}</div>
                     <p className="text-compare" onClick={handleShowCompare}>
-                      <i className="fa fa-plus-circle" aria-hidden="true"></i> So sánh
+                      <i className="fa fa-plus-circle" aria-hidden="true"></i> Compare
                     </p>
                   </div>
                   <p>{product.description}</p>
@@ -238,6 +241,16 @@ const SingleProduct = ({ history, match }) => {
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Price</h6>
                       <span>${product.price}</span>
+                    </div>
+                    <div className="flex-box d-flex justify-content-between align-items-center">
+                      <h6>Size</h6>
+                      <select onChange={(e) => setSize(e.target.value)} value={size}>
+                        {product?.size?.map((item) => (
+                          <option key={item} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Status</h6>
@@ -298,7 +311,7 @@ const SingleProduct = ({ history, match }) => {
                 </div>
 
                 {userInfo ? (
-                  <form onSubmit={submitHandler}>
+                  <form onSubmit={submitHandlerReview}>
                     <div className="my-4">
                       <strong>Rating</strong>
                       <select

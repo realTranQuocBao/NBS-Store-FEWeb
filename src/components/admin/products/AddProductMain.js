@@ -8,16 +8,18 @@ import Toast from "./../../base/LoadingError/Toast";
 import Message from "./../../base/LoadingError/Error";
 import Loading from "./../../base/LoadingError/Loading";
 import { listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
+import { Select } from "antd";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
   draggable: false,
   pauseOnHover: false,
-  autoClose: 2000,
+  autoClose: 2000
 };
 const AddProductMain = () => {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
+  const [size, setSize] = useState([]);
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const [countInStock, setCountInStock] = useState(0);
@@ -29,8 +31,15 @@ const AddProductMain = () => {
   const { loading, error, product } = productCreateAdmin;
 
   const categoryListAdmin = useSelector((state) => state.categoryListAdmin);
-  const {
-    category: categoryAddProduct } = categoryListAdmin;
+  const { category: categoryAddProduct } = categoryListAdmin;
+
+  const sizesOption = [];
+  for (let i = 10; i < 45; i++) {
+    sizesOption.push({
+      value: i + 1,
+      label: i + 1
+    });
+  }
 
   useEffect(() => {
     dispatch(listCategoryAdmin());
@@ -42,17 +51,20 @@ const AddProductMain = () => {
       setCountInStock(0);
       setImage("");
       setPrice(0);
+      setSize([]);
     }
   }, [product, dispatch]);
 
+  // Handle submit form
   const submitHandler = (e) => {
     e.preventDefault();
     if (price >= 0 && countInStock >= 0) {
-      dispatch(createProductAdmin(name, category, price, description, image, countInStock));
+      dispatch(createProductAdmin(name, category, size, price, description, image, countInStock));
     } else {
       dispatch({ type: PRODUCT_CREATE_FAIL });
-      toast.error("Add product fail!!!", ToastObjects)
+      toast.error("Add product fail!!!", ToastObjects);
     }
+    // console.log(name, category, size, price, description, image, countInStock);
   };
 
   return (
@@ -98,24 +110,36 @@ const AddProductMain = () => {
                     <label htmlFor="category_title" className="form-label">
                       Category
                     </label>
-                    <select
-                      id="category_title"
-                      className="form-select"
-                      onChange={(e) => setCategory(e.target.value)}
-                    >
+                    <select id="category_title" className="form-select" onChange={(e) => setCategory(e.target.value)}>
                       <option value="">Choose category</option>
-                      {
-                        categoryAddProduct && categoryAddProduct.map((category, index) => (
-                          <option
-                            key={index}
-                            value={category._id}
-                          >
+                      {categoryAddProduct &&
+                        categoryAddProduct.map((category, index) => (
+                          <option key={index} value={category._id}>
                             {category.name}
                           </option>
-                        ))
-                      }
+                        ))}
                     </select>
                   </div>
+                  <div className="mb-4">
+                    <label htmlFor="product_size" className="form-label">
+                      Size
+                    </label>
+                    <Select
+                      mode="tags"
+                      id="product_size"
+                      placeholder="Type size here"
+                      style={{
+                        width: "100%"
+                      }}
+                      required
+                      onChange={(value) => {
+                        setSize(value);
+                      }}
+                      tokenSeparators={[","]}
+                      options={sizesOption}
+                    />
+                  </div>
+
                   <div className="mb-4">
                     <label htmlFor="product_price" className="form-label">
                       Price
