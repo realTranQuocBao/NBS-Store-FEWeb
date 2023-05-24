@@ -27,6 +27,7 @@ import { toast } from "react-toastify";
 import Toast from "../components/base/LoadingError/Toast";
 import Slider from "react-slick";
 import ProductCompare from "../components/compare/ModalCompare";
+import { Button } from "antd";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -128,7 +129,13 @@ const SingleProduct = ({ history, match }) => {
   }, [dispatch, successUpdateComment, errorUpdateComment, loadListCommentProduct]);
 
   // Handle size product
-  const [size, setSize] = useState(product?.size[0]);
+  const [size, setSize] = useState();
+  const [activeButton, setActiveButton] = useState(null);
+
+  const handleButtonSizeClick = (size) => {
+    setActiveButton(size);
+    setSize(size);
+  };
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -138,6 +145,7 @@ const SingleProduct = ({ history, match }) => {
         history.push(`/cart/${productId}?qty=${qty}?size=${size}`);
       } else {
         dispatch({ type: ADD_TO_CART_FAIL });
+        toast.error("Please choose size product", ToastObjects);
       }
     } else {
       history.push("/login");
@@ -244,13 +252,27 @@ const SingleProduct = ({ history, match }) => {
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Size</h6>
-                      <select onChange={(e) => setSize(e.target.value)} value={size}>
+                      {/* <select onChange={(e) => setSize(e.target.value)} value={size} defaultValue={product?.size[0]}>
                         {product?.size?.map((item) => (
                           <option key={item} value={item}>
                             {item}
                           </option>
                         ))}
-                      </select>
+                      </select> */}
+                      <div className="d-flex flex-wrap">
+                        {product?.size?.map((item) => {
+                          return (
+                            <Button
+                              key={item}
+                              className="antd-custom-btn me-1 mb-1"
+                              type={activeButton === item ? "primary" : "default"}
+                              onClick={() => handleButtonSizeClick(item)}
+                            >
+                              {item}
+                            </Button>
+                          );
+                        })}
+                      </div>
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Status</h6>
@@ -264,7 +286,7 @@ const SingleProduct = ({ history, match }) => {
                       <>
                         <div className="flex-box d-flex justify-content-between align-items-center">
                           <h6>Quantity</h6>
-                          <select value={qty} onChange={(e) => setQty(e.target.value)}>
+                          <select value={qty} onChange={(e) => setQty(Number(e.target.value))}>
                             {[...Array(product.countInStock).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>
                                 {x + 1}

@@ -1,18 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import { useDispatch } from "react-redux";
-import { deleteOrderAdmin } from "../../../Redux/Actions/orderActions";
+// import { useDispatch } from "react-redux";
+// import { deleteOrderAdmin } from "../../../Redux/Actions/orderActions";
 
 const Orders = (props) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { orders } = props;
 
-  const handleDeleteOrder = (id) => {
-    if (window.confirm(("Are you sure delete order???"))) {
-      dispatch(deleteOrderAdmin(id));
-    }
-  }
+  // const handleDeleteOrder = (id) => {
+  //   if (window.confirm(("Are you sure delete order???"))) {
+  //     dispatch(deleteOrderAdmin(id));
+  //   }
+  // }
 
   return (
     <table className="table">
@@ -59,9 +59,9 @@ const Orders = (props) => {
                 <Link to={`/admin/order/${order._id}`} className="text-success">
                   <i className="fas fa-eye"></i>
                 </Link>
-                <Link to="#" className="text-danger ms-3" onClick={() => handleDeleteOrder(order._id)}>
+                {/* <Link to="#" className="text-danger ms-3" onClick={() => handleDeleteOrder(order._id)}>
                   <i className="fas fa-trash"></i>
-                </Link>
+                </Link> */}
               </td>
             </tr>
           ))}

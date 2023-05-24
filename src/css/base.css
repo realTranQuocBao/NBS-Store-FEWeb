@@ -367,3 +367,14 @@ html {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #014c8f;
 }
+
+/* ANT DESIGN CUSTOM */
+:where(.css-dev-only-do-not-override-ed5zg0).ant-btn-primary {
+  color: #fff;
+  background-color: var(--primary-color);
+  box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
+}
+:where(.css-dev-only-do-not-override-ed5zg0).ant-btn-default:not(:disabled):active {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
