@@ -27,7 +27,8 @@ import { toast } from "react-toastify";
 import Toast from "../components/base/LoadingError/Toast";
 import Slider from "react-slick";
 import ProductCompare from "../components/compare/ModalCompare";
-import { Button } from "antd";
+import { Button, Modal, Tooltip } from "antd";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -208,6 +209,25 @@ const SingleProduct = ({ history, match }) => {
     setArrProductCompare([productId]);
   };
 
+  // Handle guide size
+  const [open, setOpen] = useState(false);
+  const handleShowGuideSize = () => {
+    setOpen(true);
+  };
+
+  const ShowGuideSize = () => {
+    return (
+      <Modal
+        title="GUIDE SIZE PRODUCT"
+        open={open}
+        onOk={() => setOpen(false)}
+        onCancel={() => setOpen(false)}
+        cancelButtonProps={{ style: { display: "none" } }}
+      >
+        <img src="https://sneakerholicvietnam.vn/wp-content/uploads/2021/11/size-nhieu-brand-4.png" alt="" />
+      </Modal>
+    );
+  };
   return (
     <>
       <Toast />
@@ -251,7 +271,12 @@ const SingleProduct = ({ history, match }) => {
                       <span>${product.price}</span>
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
-                      <h6>Size</h6>
+                      <h6 className="d-flex">
+                        Size{""}
+                        <Tooltip title="Guide size">
+                          <QuestionCircleOutlined className="text-danger" onClick={handleShowGuideSize} />
+                        </Tooltip>
+                      </h6>
                       {/* <select onChange={(e) => setSize(e.target.value)} value={size} defaultValue={product?.size[0]}>
                         {product?.size?.map((item) => (
                           <option key={item} value={item}>
@@ -425,6 +450,7 @@ const SingleProduct = ({ history, match }) => {
           </>
         )}
       </div>
+      <ShowGuideSize />
     </>
   );
 };

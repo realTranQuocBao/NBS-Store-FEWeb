@@ -74,7 +74,7 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
         {/* Table Data */}
         <tbody>
           {loading ? (
-            <tr className="mb-5 mt-5">
+            <tr className="mb-5 mt-5 mx-auto">
               <Loading />
             </tr>
           ) : error ? (
