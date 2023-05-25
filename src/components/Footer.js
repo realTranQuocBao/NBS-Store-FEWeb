@@ -27,7 +27,7 @@ const Footer = () => {
                   <ul className="footer__infomation--contact-list">
                     <li className="footer__infomation--contact-name">NBS Store</li>
                     <li className="footer__infomation--contact-address">Address: Go Vap, Ho Chi Minh City</li>
-                    <li className="footer__infomation--contact-email">Email: contact.nbs.store@gmail.com</li>
+                    <li className="footer__infomation--contact-email">Email: info.nbsstore@gmail.com</li>
                     <li className="footer__infomation--contact-phone">Phone: +0909 0009</li>
                     <div className="gird">
                       <div className="row no-gutters">

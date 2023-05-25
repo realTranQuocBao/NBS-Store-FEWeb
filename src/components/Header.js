@@ -50,7 +50,7 @@ const Header = () => {
             <div className="row">
               <div className="col-md-6 d-flex align-items-center display-none">
                 <p>+0909 0009</p>
-                <p>contact.nbs.store@gmail.com</p>
+                <p>info.nbsstore@gmail.com</p>
               </div>
               <div className=" col-12 col-lg-6 justify-content-center justify-content-lg-end d-flex align-items-center">
                 <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/nbs.store.cn19b">

@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Rating from "../homeComponents/Rating";
 import CardProductLoading from "../base/LoadingError/CardProductLoading";
+import { Tooltip } from "antd";
 
 const BestNumViewsProduct = () => {
   const dispatch = useDispatch();
@@ -85,7 +86,11 @@ const BestNumViewsProduct = () => {
                       <div className="shoptext">
                         <p>
                           <Link to={`/products/${product._id}`}>
-                            {`${product.name.length} >= 20` ? `${product.name.slice(0, 20)}...` : ` ${product.name}}`}
+                            {`${product.name.length} >= 20` ? (
+                              <Tooltip title={product.name}>{product.name.slice(0, 20)}...</Tooltip>
+                            ) : (
+                              ` ${product.name}}`
+                            )}
                           </Link>
                         </p>
                         <Rating value={product.rating} text={`${product.numReviews} reviews`} />
