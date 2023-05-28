@@ -22,7 +22,8 @@ const Orders = (props) => {
                 className="btn btn-bg-main mx-2 px-3 py-2"
                 to="/"
                 style={{
-                  fontSize: "12px"
+                  fontSize: "12px",
+                  color: "#fff"
                 }}
               >
                 START SHOPPING

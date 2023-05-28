@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { Tooltip } from "antd";
 // import { useDispatch } from "react-redux";
 // import { deleteOrderAdmin } from "../../../Redux/Actions/orderActions";
 
@@ -34,7 +35,13 @@ const Orders = (props) => {
           orders.map((order) => (
             <tr key={order._id}>
               <td>
-                <b>{`${order.user.name.lenght} >=15` ? `${order.user.name.slice(0, 15)}...` : `${order.user.name}`}</b>
+                <b>
+                  {String(order.user.name).length > 10 ? (
+                    <Tooltip title={order.user.name}>{String(order.user.name).slice(0, 10)}...</Tooltip>
+                  ) : (
+                    `${String(order.user.name)}`
+                  )}
+                </b>
               </td>
               <td>{order.user.email}</td>
               <td>${order.totalPrice}</td>
